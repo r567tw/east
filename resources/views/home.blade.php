@@ -23,7 +23,7 @@
     </style>
 </head>
 <body>
-    <h1>Hello , Developers</h1>
+    <h1 style="text-align:center">Hi , Developers</h1>
     <div id="countdown">
       <div><span id="days">0</span>天</div>
       <div><span id="hours">0</span>時</div>
