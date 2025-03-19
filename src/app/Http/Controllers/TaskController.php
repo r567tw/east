@@ -40,7 +40,7 @@ class TaskController extends Controller
         $task->description = $data['description'];
         $task->save();
 
-        return redirect()->route('tasks.index');
+        return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
     }
 
     /**

@@ -11,7 +11,11 @@
 
 <body class="container">
     <h1>Tasks</h1>
-    <a href="{{ route('tasks.create') }}" class="btn btn-primary">Create Task</a>
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
     <ul class="list-unstyled">
         @foreach ($tasks as $task)
             <li>
@@ -22,6 +26,7 @@
             </li>
         @endforeach
     </ul>
+    <a href="{{ route('tasks.create') }}" class="btn btn-primary">Create Task</a>
 </body>
 
 </html>
