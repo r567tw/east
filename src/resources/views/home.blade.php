@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,13 +23,19 @@
         }
     </style>
 </head>
+
 <body>
     <h1 style="text-align:center">Hi , Developers</h1>
+    <h2 style="text-align: center">{{ Carbon\Carbon::now()->format('Y-m-d H:i') }}</h2>
     <div id="countdown">
-      <div><span id="days">0</span>天</div>
-      <div><span id="hours">0</span>時</div>
-      <div><span id="minutes">0</span>分</div>
-      <div><span id="seconds">0</span>秒</div>
+        <div><span id="days">0</span>天</div>
+        <div><span id="hours">0</span>時</div>
+        <div><span id="minutes">0</span>分</div>
+        <div><span id="seconds">0</span>秒</div>
+    </div>
+    <div style="text-align:center">
+        <h1> Week {{ Carbon\Carbon::now()->weekOfYear }}/{{ Carbon\Carbon::now()->weekInYear }} Weeks</h1>
+        <p>Remain {{ Carbon\Carbon::now()->weekInYear - Carbon\Carbon::now()->weekOfYear }} weeks</p>
     </div>
     <script>
         // 設定年底的日期
@@ -53,7 +60,7 @@
 
         // 每秒更新倒數
         setInterval(updateCountdown, 1000);
-
     </script>
 </body>
+
 </html>
