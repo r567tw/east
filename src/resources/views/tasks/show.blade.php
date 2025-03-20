@@ -1,22 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Tasks</title>
-</head>
-
-<body class="container">
-    <h1>Tasks</h1>
-    <ul class="list-unstyled">
-        <li>
-            <label>
-                <input type="checkbox" name="completed" id="" class="form-group mr-2">
-                {{ $task->title }}
-            </label>
-        </li>
-</body>
-
-</html>
+@section('title', 'Task')
+@section('content')
+    <h1>{{ $task->title }}</h1>
+    <p>{{ $task->description }}</p>
+    <p>{{ $task->long_description }}</p>
+    <p>{{ $task->created_at->diffForHumans() }}</p>
+    <a href="{{ route('tasks.index') }}" class="btn btn-secondary">Back</a>
+    <a href="{{ route('tasks.edit', $task) }}" class="btn btn-primary">Edit Task</a>
+    <form action="{{ route('tasks.toggle', $task) }}" method="POST" class="d-inline">
+        @csrf
+        @method('PATCH')
+        @if ($task->completed)
+            <button type="submit" class="btn btn-info">Not yet</button>
+        @else
+            <button type="submit" class="btn btn-info">Mark Completed</button>
+        @endif
+    </form>
+    <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="d-inline">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">Delete Task</button>
+    </form>
+@endsection

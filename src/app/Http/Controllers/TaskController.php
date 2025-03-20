@@ -12,7 +12,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::latest()->get();
+        $tasks = Task::latest()->paginate(20);
         return view('tasks.index', ['tasks' => $tasks]);
     }
 
@@ -21,7 +21,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+        return view('tasks.form');
     }
 
     /**
@@ -30,7 +30,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title' => 'required|max:20',
+            'title' => 'required|max:50',
             'description' => 'required',
             'long_description' => 'max:150',
         ]);
@@ -38,9 +38,10 @@ class TaskController extends Controller
         $task = new Task();
         $task->title = $data['title'];
         $task->description = $data['description'];
+        $task->long_description = $data['long_description'];
         $task->save();
 
-        return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
+        return redirect()->route('tasks.show', $task)->with('success', 'Task created successfully.');
     }
 
     /**
@@ -54,24 +55,43 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Task $task)
     {
-        //
+        return view('tasks.form', ['task' => $task]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Task $task)
     {
-        //
+        $data = $request->validate([
+            'title' => 'required|max:50',
+            'description' => 'required',
+            'long_description' => 'max:150',
+        ]);
+
+        $task->title = $data['title'];
+        $task->description = $data['description'];
+        $task->long_description = $data['long_description'];
+        $task->save();
+
+        return redirect()->route('tasks.show', $task)->with('success', 'Task updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
+    }
+
+    public function toggle(Task $task)
+    {
+        $task->completed = !$task->completed;
+        $task->save();
+        return redirect()->back();
     }
 }

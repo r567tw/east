@@ -10,9 +10,27 @@
 </head>
 
 <body class="container">
+    <h1 class="mt-3">@yield('title')</h1>
+    @if (session()->has('success'))
+        <div id="success-alert" class="alert alert-success mt-3 mb-10" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
     @yield('content')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-+0Zn3ZyZ2Zl6w4zQV5fF2Z8Fe7Zu6z5z" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const successAlert = document.getElementById('success-alert');
+                if (successAlert) {
+                    successAlert.style.transition = 'opacity 1s ease-out';
+                    successAlert.style.opacity = '0';
+                    setTimeout(() => {
+                        successAlert.style.display = 'none';
+                    }, 1000);
+                }
+            }, 3000);
+        });
+    </script>
 </body>
 
 </html>
