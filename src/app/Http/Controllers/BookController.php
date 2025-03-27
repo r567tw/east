@@ -27,9 +27,11 @@ class BookController extends Controller
             'highest_rated_last_6months' => $books->highestRatedLast6Months(),
             default => $books->withAvgRating()->withReviewsCount()->latest()
         };
-        $books = $books->get();
 
-        return view('books.index', ['books' => $books]);
+        $cache_key = 'books:' . $filter . ":" . $title;
+        $data = cache()->remember($cache_key, 3600, fn() => $books->get());
+
+        return view('books.index', ['books' => $data]);
     }
 
     /**
@@ -64,7 +66,8 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        $book->loadCount('reviews')->loadAvg('reviews', 'rating');
+        $cache_key = 'book:' . $book->id;
+        $book = cache()->remember($cache_key, 3600, fn() => $book->loadCount('reviews')->loadAvg('reviews', 'rating'));
         return view('books.show')->with('book', $book);
     }
 
