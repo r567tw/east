@@ -67,7 +67,9 @@ class BookController extends Controller
     public function show(Book $book)
     {
         $cache_key = 'book:' . $book->id;
-        $book = cache()->remember($cache_key, 3600, fn() => $book->loadCount('reviews')->loadAvg('reviews', 'rating'));
+        $book = cache()->remember($cache_key, 3600, fn() => $book->load(['reviews' => function ($query) {
+            return $query->latest();
+        }])->loadCount('reviews')->loadAvg('reviews', 'rating'));
         return view('books.show')->with('book', $book);
     }
 
