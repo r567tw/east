@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::factory(10)->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',
@@ -25,14 +25,17 @@ class DatabaseSeeder extends Seeder
 
         // Task::factory(3)->create();
 
-        Book::factory(10)->create()->each(function (Book $book) {
-            $number = random_int(1, 5);
+        // Book::factory(10)->create()->each(function (Book $book) {
+        //     $number = random_int(1, 5);
 
-            Review::factory()->count($number)->good()->for($book)->create();
+        //     Review::factory()->count($number)->good()->for($book)->create();
 
-            $number = random_int(1, 5);
+        //     $number = random_int(1, 5);
 
-            Review::factory()->count($number)->bad()->for($book)->create();
-        });
+        //     Review::factory()->count($number)->bad()->for($book)->create();
+        // });
+
+        $this->call(EventSeeder::class);
+        $this->call(AttendeeSeeder::class);
     }
 }
