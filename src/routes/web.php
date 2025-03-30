@@ -11,4 +11,4 @@ Route::resource('tasks', TaskController::class);
 Route::patch('tasks/{task}/toggle', [TaskController::class, 'toggle'])->name('tasks.toggle');
 
 Route::resource('books', BookController::class);
-Route::resource('books.reviews', ReviewController::class)->scoped(['review' => 'book'])->only(['create', 'store'])->middleware('throttle:reviews');
+Route::resource('books.reviews', ReviewController::class)->only(['create', 'store'])->middleware('throttle:reviews');

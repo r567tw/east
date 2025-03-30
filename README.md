@@ -4,6 +4,7 @@
 
 - [] Redis or Queue ...etc
 - [] Vultr
+- [] Broadcast: https://laravel.com/docs/11.x/broadcasting
 
 > 唯二不推薦「Regular Cloud Compute (畫面這個)」和「Intel High Performance」
 
