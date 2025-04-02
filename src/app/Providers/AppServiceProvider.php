@@ -31,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perHour(3)->by($request->user()?->id ?: $request->ip());
         });
 
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
+
         // Gate::define('update-event', function (User $user, Event $event) {
         //     return $user->id === $event->user_id;
         // });
