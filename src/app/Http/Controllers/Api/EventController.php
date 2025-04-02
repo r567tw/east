@@ -54,7 +54,7 @@ class EventController extends Controller
         // if (Gate::denies('update-event', $event)) {
         //     return response()->json(['message' => 'You are not authorized to update this event.'], 403);
         // }
-
+        // Gate::authorize('update', $event);
         // Check if the authenticated user is the owner of the event
         if ($request->user()->cannot('update', $event)) {
             return response()->json(['message' => 'You are not authorized to update this event.'], 403);
