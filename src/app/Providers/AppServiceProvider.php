@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\User;
+use App\Policies\EventPolicy;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\RateLimiter;
@@ -30,9 +31,11 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perHour(3)->by($request->user()?->id ?: $request->ip());
         });
 
-        Gate::define('update-event', function (User $user, Event $event) {
-            return $user->id === $event->user_id;
-        });
+        // Gate::define('update-event', function (User $user, Event $event) {
+        //     return $user->id === $event->user_id;
+        // });
+
+        Gate::policy(Event::class, EventPolicy::class);
 
         Gate::define('delete-attendee', function (User $user, Event $event, Attendee $attendee) {
             return $user->id === $event->user_id || $user->id === $attendee->user_id;

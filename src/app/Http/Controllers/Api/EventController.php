@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Gate;
 
 class EventController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -50,7 +51,12 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         // Check if the authenticated user is the owner of the event
-        if (Gate::denies('update-event', $event)) {
+        // if (Gate::denies('update-event', $event)) {
+        //     return response()->json(['message' => 'You are not authorized to update this event.'], 403);
+        // }
+
+        // Check if the authenticated user is the owner of the event
+        if ($request->user()->cannot('update', $event)) {
             return response()->json(['message' => 'You are not authorized to update this event.'], 403);
         }
 
@@ -73,6 +79,10 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
+        if (request()->user()->cannot('delete', $event)) {
+            return response()->json(['message' => 'You are not authorized to delete this event.'], 403);
+        }
+
         $event->delete();
 
         return response('', 204);
