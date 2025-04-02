@@ -13,5 +13,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('up', [HomeController::class, 'index']);
 Route::post('login', [AuthController::class, 'login']);
-Route::apiResource('events', EventController::class);
-Route::apiResource('events.attendees', AttendeeController::class);
+Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
+Route::apiResource('events', EventController::class)->only(['index', 'show']);
+Route::apiResource('events', EventController::class)->only(['store', 'update', 'destroy'])->middleware('auth:sanctum');
+Route::apiResource('events.attendees', AttendeeController::class)->only(['index', 'show']);
+Route::apiResource('events.attendees', AttendeeController::class)->only(['store', 'update', 'destroy'])->middleware('auth:sanctum');

@@ -7,6 +7,7 @@ use App\Http\Resources\AttendeeResource;
 use App\Models\Attendee;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AttendeeController extends Controller
 {
@@ -25,7 +26,7 @@ class AttendeeController extends Controller
     public function store(Request $request, Event $event)
     {
         $attendee = $event->attendees()->create([
-            'user_id' => 1
+            'user_id' => $request->user()->id,
         ]);
 
         return new AttendeeResource($attendee);
@@ -52,6 +53,9 @@ class AttendeeController extends Controller
      */
     public function destroy(Event $event, Attendee $attendee)
     {
+        if (Gate::denies('delete-attendee', [$event, $attendee])) {
+            return response()->json(['message' => 'You are not authorized to delete this attendee.'], 403);
+        }
         $attendee->delete();
 
         return response()->noContent();

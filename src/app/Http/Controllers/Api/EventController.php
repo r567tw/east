@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\EventResource;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class EventController extends Controller
 {
@@ -29,7 +30,7 @@ class EventController extends Controller
                 'start_time' => 'required|date',
                 'end_time' => 'required|date|after:start_time',
             ]),
-            'user_id' => 1
+            'user_id' => $request->user()->id,
         ]);
 
         return $event;
@@ -48,6 +49,12 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
+        // Check if the authenticated user is the owner of the event
+        if (Gate::denies('update-event', $event)) {
+            return response()->json(['message' => 'You are not authorized to update this event.'], 403);
+        }
+
+
         $event->update([
             ...$request->validate([
                 'name' => 'sometimes|string|max:255',

@@ -21,8 +21,18 @@ class AuthController extends Controller
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
+        // Check user have token
+        // if ($user->tokens()->count() > 0) {
+        //     return response()->json(['token' => $user->currentAccessToken], 200);
+        // }
+
         return response()->json(['token' => $user->createToken('api_token')->plainTextToken]);
     }
 
-    public function logout(Request $request) {}
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'Logged out successfully']);
+    }
 }
