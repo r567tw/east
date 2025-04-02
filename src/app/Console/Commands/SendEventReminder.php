@@ -26,6 +26,7 @@ class SendEventReminder extends Command
      */
     public function handle()
     {
+        $this->info('SendEventReminder command started!' . now() . '-' . now()->addDay());
         $events = \App\Models\Event::with('attendees.user')
             ->whereBetween('start_time', [now(), now()->addDay()])
             ->get();
@@ -36,9 +37,13 @@ class SendEventReminder extends Command
         $this->info("Found {$eventCount} ${eventLabel}.");
 
         $events->each(
-            fn($event) => $event->attendees->each(
-                fn($attendee) => $this->info("Notifying the user {$attendee->user->id}")
-            )
+            function ($event) {
+                $event->attendees->each(
+                    function ($attendee) use ($event) {
+                        $attendee->user->notify(new \App\Notifications\EventReminderNotification($event));
+                    }
+                );
+            }
         );
 
         $this->info('SendEventReminder command executed successfully!');
