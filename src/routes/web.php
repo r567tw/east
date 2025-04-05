@@ -12,3 +12,5 @@ Route::patch('tasks/{task}/toggle', [TaskController::class, 'toggle'])->name('ta
 
 Route::resource('books', BookController::class);
 Route::resource('books.reviews', ReviewController::class)->only(['create', 'store'])->middleware('throttle:reviews');
+
+Route::get('poll', [HomeController::class, 'poll'])->name('poll');

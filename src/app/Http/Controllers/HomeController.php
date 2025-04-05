@@ -17,4 +17,9 @@ class HomeController extends Controller
             "message" => "Hello World"
         ]);
     }
+
+    public function poll()
+    {
+        return view("poll");
+    }
 }
