@@ -21,6 +21,14 @@
             font-size: 2em;
             color: #ff6347;
         }
+
+        #bottom {
+            position: absolute;
+            bottom: 10px;
+            right: 25px;
+            font-size: 1.2em;
+            color: #555;
+        }
     </style>
 </head>
 
@@ -36,6 +44,7 @@
     <div style="text-align:center">
         <h1> Week {{ Carbon\Carbon::now()->weekOfYear }}/{{ Carbon\Carbon::now()->weekInYear }} Weeks</h1>
         <p>Remain {{ Carbon\Carbon::now()->weekInYear - Carbon\Carbon::now()->weekOfYear }} weeks</p>
+        <p id="bottom">Laravel Version: {{ Illuminate\Foundation\Application::VERSION }}</p>
     </div>
     <script>
         // 設定年底的日期
