@@ -1,0 +1,107 @@
+### 1.0.0 test 1
+
+GET http://localhost:8000/api/convert-to-roman?number=9
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        client.assert(
+            response.contentType.mimeType === "application/json",
+            "Expected 'application/json' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = JSON.stringify(response.body);
+        const expect = JSON.stringify({
+            "roman": "IX"
+        });
+        client.assert(
+            body === expect,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}
+
+### 1.1.0 test 1
+
+GET http://localhost:8000/api/convert-to-roman?number=44
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        client.assert(
+            response.contentType.mimeType === "application/json",
+            "Expected 'application/json' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = JSON.stringify(response.body);
+        const expect = JSON.stringify({
+            "roman": "XLIV"
+        });
+        client.assert(
+            body === expect,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}
+
+### 1.2.0 test 1
+
+GET http://localhost:8000/api/convert-to-roman?number=58
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        client.assert(
+            response.contentType.mimeType === "application/json",
+            "Expected 'application/json' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = JSON.stringify(response.body);
+        const expect = JSON.stringify({
+            "roman": "LVIII"
+        });
+        client.assert(
+            body === expect,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}
+
+### 1.3.0 test 1
+
+GET http://localhost:8000/api/convert-to-roman?number=3749
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        client.assert(
+            response.contentType.mimeType === "application/json",
+            "Expected 'application/json' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = JSON.stringify(response.body);
+        const expect = JSON.stringify({
+            "roman": "MMMDCCXLIX"
+        });
+        client.assert(
+            body === expect,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}

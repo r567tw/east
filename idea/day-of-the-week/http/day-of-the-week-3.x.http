@@ -1,0 +1,40 @@
+###  3.0.0 test with en locale
+
+GET http://localhost:8000/api/v3/day-of-the-week?dates[]=2025-04-22&dates[]=invalid&dates[]=2025-12-25&locale=zh_TW
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        client.assert(
+            response.contentType.mimeType === "application/json",
+            "Expected 'application/json' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = JSON.stringify(response.body);
+        const expect = JSON.stringify({
+            "locale": "zh_TW",
+            "results": [
+                {
+                    "date": "2025-04-22",
+                    "dayOfWeek": "星期二"
+                },
+                {
+                    "date": "invalid",
+                    "error": "Invalid date format"
+                },
+                {
+                    "date": "2025-12-25",
+                    "dayOfWeek": "星期四"
+                }
+            ]
+        });
+        client.assert(
+            body === expect,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}

@@ -8,5 +8,10 @@
 
 > 唯二不推薦「Regular Cloud Compute (畫面這個)」和「Intel High Performance」
 
-- 租一個 一個月 6 美元(約 194.63 元台幣), 做這個專案永遠的家。
+- 租一個 一個月 6~12 美元(約 195~400 元台幣), 做這個專案永遠的家。
 - https://1hr.website/vultr-vps-tutorial/#%E6%96%B0%E6%89%8B%E6%83%B3%E6%89%BE%E4%BE%BF%E5%AE%9C_VPS_%E6%9C%89%E5%93%AA%E4%BA%9B%E6%8E%A8%E8%96%A6%E9%81%B8%E6%93%87%EF%BC%9F
+
+- 短網址系統 開發
+- 學習 n8n
+- 學習 mcp
+- 考 AWS 證照：https://www.dcard.tw/f/exam/p/240801516

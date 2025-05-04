@@ -1,0 +1,148 @@
+### 1.0.0 testcase 測試成功案例
+POST http://localhost:8000/api/shuffle
+Content-Type: application/json
+
+{
+    "nums": [
+        2,
+        5,
+        1,
+        3,
+        4,
+        7
+    ],
+    "n": 3
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        client.assert(
+            response.contentType.mimeType === "application/json",
+            "Expected 'application/json' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = JSON.stringify(response.body);
+        const expect = JSON.stringify({
+            "result": [2, 3, 5, 4, 1, 7]
+        });
+        client.assert(
+            body === expect,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}
+
+### 1.0.0 testcase 測試：nums 長度錯誤
+POST http://localhost/api/shuffle
+Content-Type: application/json
+
+{
+    "nums": [
+        1,
+        2,
+        3
+    ],
+    "n": 2
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        client.assert(
+            response.contentType.mimeType === "application/json",
+            "Expected 'application/json' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = JSON.stringify(response.body);
+        const expect = JSON.stringify({
+            "error": "The length of 'nums' must be exactly 2 * n."
+        });
+        client.assert(
+            body === expect,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}
+
+### 1.0.0 testcase 測試：nums 包含非整數元素
+POST http://localhost/api/shuffle
+Content-Type: application/json
+
+{
+    "nums": [
+        1,
+        "two",
+        3,
+        4
+    ],
+    "n": 2
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        client.assert(
+            response.contentType.mimeType === "application/json",
+            "Expected 'application/json' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = JSON.stringify(response.body);
+        const expect = JSON.stringify({
+            "error": "'nums' must be an array of integers."
+        });
+        client.assert(
+            body === expect,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}
+
+### 1.0.0 testcase 測試：n 為負數
+POST http://localhost/api/shuffle
+Content-Type: application/json
+
+{
+    "nums": [
+        1,
+        2,
+        3,
+        4
+    ],
+    "n": -1
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 400, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        client.assert(
+            response.contentType.mimeType === "application/json",
+            "Expected 'application/json' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = JSON.stringify(response.body);
+        const expect = JSON.stringify({
+            "error": "'n' must be a positive integer."
+        });
+        client.assert(
+            body === expect,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}

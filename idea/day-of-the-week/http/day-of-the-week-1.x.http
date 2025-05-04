@@ -1,0 +1,53 @@
+### 1.0.0 test 1
+
+GET http://localhost:8000/api/day-of-the-week?date=2025-04-22
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        client.assert(
+            response.contentType.mimeType === "application/json",
+            "Expected 'application/json' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = JSON.stringify(response.body);
+        const expect = JSON.stringify({
+            "date": "2025-04-22",
+            "dayOfWeek": "Tuesday"
+        });
+        client.assert(
+            body === expect,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}
+
+### 1.0.0 test 1
+
+GET http://localhost:8000/api/day-of-the-week?date=aaaa-bb-cc
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 422, "Response status is not 422");
+    });
+
+    client.test("Response content-type is json", function () {
+        const type = response.contentType.mimeType;
+        client.assert(type === "application/json", "Expected 'application/json' but received '" + type + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = JSON.stringify(response.body);
+        const expect = JSON.stringify({
+            "error": "Invalid or missing 'date' parameter. Expected format: YYYY-MM-DD"
+        });
+        client.assert(
+            body === expect,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}

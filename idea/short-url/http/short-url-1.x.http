@@ -1,0 +1,107 @@
+### 1.0.0 1. 建立短網址
+POST http://localhost:8000/api/short-urls
+Content-Type: application/json
+
+{
+    "original_url": "https://www.example.com/some/very/long/url"
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 201, "Response status is not 201");
+    });
+
+    client.test("Response content-type is json", function () {
+        client.assert(
+            response.contentType.mimeType === "application/json",
+            "Expected 'application/json' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = response.body;
+        const expect_url = 'https://www.example.com/some/very/long/url';
+        client.assert(
+            body.original_url === expect_url,
+            "received wrong body'" + body + "'"
+        );
+    });
+
+    // 將回應中的 id 儲存到變數，供後續請求使用
+    client.global.set("short_id", response.body.id);
+%}
+
+### 1.0.0 2. 取得短網址資訊
+GET http://localhost:8000/api/short-urls/{{short_id}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        client.assert(
+            response.contentType.mimeType === "application/json",
+            "Expected 'application/json' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = response.body;
+        const expect_url = 'https://www.example.com/some/very/long/url';
+        client.assert(
+            body.original_url === expect_url,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}
+
+### 1.0.0 3. 更新短網址的原始網址
+PUT http://localhost:8000/api/short-urls/{{short_id}}
+Content-Type: application/json
+
+{
+    "original_url": "https://www.updated-url.com"
+}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        client.assert(
+            response.contentType.mimeType === "application/json",
+            "Expected 'application/json' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = response.body;
+        const expect_url = 'https://www.updated-url.com';
+        client.assert(
+            body.original_url === expect_url,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}
+
+#### 1.0.0 4. 刪除短網址
+DELETE http://localhost:8000/api/short-urls/{{short_id}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 204, "Response status is not 204");
+    });
+
+    client.test("Response content-type is text/plain", function () {
+        client.assert(
+            response.contentType.mimeType === "text/plain",
+            "Expected 'text/plain' but received '" + response.contentType.mimeType + "'");
+    });
+
+    client.test("Response body is correct", function () {
+        const body = response.body;
+        client.assert(
+            body === null,
+            "received wrong body'" + body + "'"
+        );
+    });
+%}
