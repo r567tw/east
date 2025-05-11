@@ -15,3 +15,51 @@
 - 學習 n8n
 - 學習 mcp
 - 考 AWS 證照：https://www.dcard.tw/f/exam/p/240801516
+
+## 部署到 Vultr
+
+https://sivabalanb.medium.com/deploy-react-app-to-vps-digitalocean-vultr-using-git-actions-5766be8d2961
+
+> garygrossgarten/github-action-scp@release
+
+## Filament php
+
+https://filamentphp.com/docs/3.x/panels/getting-started
+
+## 安裝
+
+https://www.digitalocean.com/community/tutorials/how-to-install-lamp-stack-on-ubuntu
+
+> 你建議 一個測試站 laravel , 可能會用到 cache redis 和 一些 supervisor queue meilsearch 等進階功能 但只是給開發人員的玩具 開發人員測試用的 side project 網站, 你認為在 vultr 上要開怎麼樣的機器 希望越低越好
+
+> 綜合考量，建議選擇 Regular Performance $10/月方案 作為起點，若在實際使用中發現效能不足，可升級至 High Performance 或 High Frequency $12/月方案。
+
+```
+       $number = intval($number);
+        if ($number < 1 || $number > 50) {
+            return response()->json(['error' => '僅支援 1 到 50 的數字'], 400);
+        }
+
+        $map = [
+            50 => 'L',
+            40 => 'XL',
+            10 => 'X',
+            9 => 'IX',
+            5 => 'V',
+            4 => 'IV',
+            1 => 'I',
+        ];
+
+        $result = '';
+        foreach ($map as $value => $symbol) {
+            while ($number >= $value) {
+                $result .= $symbol;
+                $number -= $value;
+            }
+        }
+
+        return response()->json([
+            'roman' => $result
+        ]);
+    }
+```
