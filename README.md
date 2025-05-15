@@ -34,62 +34,6 @@ https://www.digitalocean.com/community/tutorials/how-to-install-lamp-stack-on-ub
 
 > 綜合考量，建議選擇 Regular Performance $10/月方案 作為起點，若在實際使用中發現效能不足，可升級至 High Performance 或 High Frequency $12/月方案。
 
-```php
-<?php
-
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-
-class ToRomanController extends Controller
-{
-    public function convertToRoman(Request $request)
-    {
-        $number = $request->input('number');
-
-        // Validate the input
-        if (!is_numeric($number) || $number < 1 || $number > 3999) {
-            return response()->json(['error' => 'Invalid number. Please enter a number between 1 and 3999.'], 400);
-        }
-
-        $romanNumeral = $this->toRoman((int)$number);
-
-        return response()->json(['roman' => $romanNumeral]);
-    }
-
-    public function toRoman($number)
-    {
-        $map = [
-            1000 => 'M',
-            900 => 'CM',
-            500 => 'D',
-            400 => 'CD',
-            100 => 'C',
-            90 => 'XC',
-            50 => 'L',
-            40 => 'XL',
-            10 => 'X',
-            9 => 'IX',
-            5 => 'V',
-            4 => 'IV',
-            1 => 'I'
-        ];
-
-        $result = '';
-
-        foreach ($map as $value => $symbol) {
-            while ($number >= $value) {
-                $result .= $symbol;
-                $number -= $value;
-            }
-        }
-
-        return $result;
-    }
-}
-
-```
-
 ### Deploy to Vultr Github action
 
 ```yaml
@@ -138,3 +82,10 @@ jobs:
                 composer install ...
           EOF
 ```
+
+- 研究 google 不到的技術問題
+- todo: line 通知
+- GCP 學習
+- https://www.webhi.com/how-to/how-to-install-laravel-on-ubuntu-debian-apache-nginx/
+  > 可能也考慮在 vultr 做 docker compose 即可
+- livewire , filamentphp , vite , nginx

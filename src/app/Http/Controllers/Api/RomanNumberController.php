@@ -11,30 +11,42 @@ class RomanNumberController extends Controller
     {
         $number = $request->input('number');
 
-        if (!is_numeric($number) || $number < 1 || $number > 10) {
+        if (!is_numeric($number) || $number < 1 || $number > 3999) {
             return response()->json(['error' => "Missing or invalid 'number' parameter."], 422);
         }
 
-        $romanNumerals = $this->intToRoman($number);
+        $roman = $this->toRoman((int)$number);
 
-        return response()->json(['roman' => $romanNumerals]);
+        return response()->json(['roman' => $roman]);
     }
 
-    private function intToRoman($num)
+    public function toRoman($number)
     {
-        $n = [
-            1 => 'I',
-            2 => 'II',
-            3 => 'III',
-            4 => 'IV',
-            5 => 'V',
-            6 => 'VI',
-            7 => 'VII',
-            8 => 'VIII',
+        $map = [
+            1000 => 'M',
+            900 => 'CM',
+            500 => 'D',
+            400 => 'CD',
+            100 => 'C',
+            90 => 'XC',
+            50 => 'L',
+            40 => 'XL',
+            10 => 'X',
             9 => 'IX',
-            10 => 'X'
+            5 => 'V',
+            4 => 'IV',
+            1 => 'I'
         ];
 
-        return $n[$num];
+        $result = '';
+
+        foreach ($map as $value => $symbol) {
+            while ($number >= $value) {
+                $result .= $symbol;
+                $number -= $value;
+            }
+        }
+
+        return $result;
     }
 }
