@@ -89,3 +89,7 @@ jobs:
 - https://www.webhi.com/how-to/how-to-install-laravel-on-ubuntu-debian-apache-nginx/
   > 可能也考慮在 vultr 做 docker compose 即可
 - livewire , filamentphp , vite , nginx
+
+## 加入 SSL
+
+- https://blog.zhenghui.idv.tw/2023/02/25/Ubuntu-%E4%BD%BF%E7%94%A8Certbot-%E6%9B%BFNginx%E8%87%AA%E5%8B%95%E6%8E%9B%E4%B8%8ASSL%E6%86%91%E8%AD%89/
