@@ -5,36 +5,21 @@
 - [] Redis or Queue ...etc
 - [] Vultr
 - [] Broadcast: https://laravel.com/docs/11.x/broadcasting
-
-> 唯二不推薦「Regular Cloud Compute (畫面這個)」和「Intel High Performance」
-
-- 租一個 一個月 6~12 美元(約 195~400 元台幣), 做這個專案永遠的家。
-- https://1hr.website/vultr-vps-tutorial/#%E6%96%B0%E6%89%8B%E6%83%B3%E6%89%BE%E4%BE%BF%E5%AE%9C_VPS_%E6%9C%89%E5%93%AA%E4%BA%9B%E6%8E%A8%E8%96%A6%E9%81%B8%E6%93%87%EF%BC%9F
-
-- 短網址系統 開發
-- 學習 n8n
-- 學習 mcp
-- 考 AWS 證照：https://www.dcard.tw/f/exam/p/240801516
+- [] 短網址
 
 ## 部署到 Vultr
 
 https://sivabalanb.medium.com/deploy-react-app-to-vps-digitalocean-vultr-using-git-actions-5766be8d2961
 
-> garygrossgarten/github-action-scp@release
-
-## Filament php
-
-https://filamentphp.com/docs/3.x/panels/getting-started
-
-## 安裝
-
-https://www.digitalocean.com/community/tutorials/how-to-install-lamp-stack-on-ubuntu
-
 > 你建議 一個測試站 laravel , 可能會用到 cache redis 和 一些 supervisor queue meilsearch 等進階功能 但只是給開發人員的玩具 開發人員測試用的 side project 網站, 你認為在 vultr 上要開怎麼樣的機器 希望越低越好
 
 > 綜合考量，建議選擇 Regular Performance $10/月方案 作為起點，若在實際使用中發現效能不足，可升級至 High Performance 或 High Frequency $12/月方案。
 
-### Deploy to Vultr Github action
+> 唯二不推薦「Regular Cloud Compute (畫面這個)」和「Intel High Performance」
+
+- **租一個 一個月 6~12 美元(約 195~400 元台幣), 做這個專案永遠的家。**
+
+## Deploy to Vultr Github action
 
 ```yaml
 # .github/workflows/deploy.yml
@@ -82,14 +67,3 @@ jobs:
                 composer install ...
           EOF
 ```
-
-- 研究 google 不到的技術問題
-- todo: line 通知
-- GCP 學習
-- https://www.webhi.com/how-to/how-to-install-laravel-on-ubuntu-debian-apache-nginx/
-  > 可能也考慮在 vultr 做 docker compose 即可
-- livewire , filamentphp , vite , nginx
-
-## 加入 SSL
-
-- https://blog.zhenghui.idv.tw/2023/02/25/Ubuntu-%E4%BD%BF%E7%94%A8Certbot-%E6%9B%BFNginx%E8%87%AA%E5%8B%95%E6%8E%9B%E4%B8%8ASSL%E6%86%91%E8%AD%89/
