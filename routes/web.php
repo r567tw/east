@@ -17,4 +17,5 @@ Route::resource('books.reviews', ReviewController::class)->only(['create', 'stor
 Route::get('poll', [HomeController::class, 'poll'])->name('poll');
 Route::get('test', [HomeController::class, 'testing'])->name('testing');
 
-Route::post('/line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook');
+Route::get('/line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook.get');
+Route::post('/line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook.post');
