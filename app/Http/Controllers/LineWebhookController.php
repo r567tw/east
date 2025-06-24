@@ -11,12 +11,12 @@ class LineWebhookController extends Controller
     public function handle(Request $request)
     {
         // 驗證簽名（選擇性，但建議做）
-        $channelSecret = env('LINE_CHANNEL_SECRET'); // .env 中設定
+        $channelSecret = config('line_channel_secret'); // .env 中設定
         $signature = $request->header('X-Line-Signature');
 
         $body = $request->getContent();
         $hash = base64_encode(hash_hmac('sha256', $body, $channelSecret, true));
-        if (!hash_equals($signature, $hash)) {
+        if ($signature !== $hash) {
             return response('Invalid signature', 400);
         }
 
@@ -37,7 +37,7 @@ class LineWebhookController extends Controller
 
     private function replyText($replyToken, $text)
     {
-        $accessToken = env('LINE_CHANNEL_ACCESS_TOKEN');
+        $accessToken = config('line_access_token'); // .env 中設定
 
         Http::withToken($accessToken)
             ->post('https://api.line.me/v2/bot/message/reply', [
