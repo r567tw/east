@@ -2,10 +2,10 @@
 
 ## 想玩的
 
-- [] Redis or Queue ...etc
-- [] Vultr
-- [] Broadcast: https://laravel.com/docs/11.x/broadcasting
-- [] 短網址
+-   [] Redis or Queue ...etc
+-   [V] Vultr
+-   [] Broadcast: https://laravel.com/docs/11.x/broadcasting
+-   [] 短網址
 
 ## 部署到 Vultr
 
@@ -17,7 +17,7 @@ https://sivabalanb.medium.com/deploy-react-app-to-vps-digitalocean-vultr-using-g
 
 > 唯二不推薦「Regular Cloud Compute (畫面這個)」和「Intel High Performance」
 
-- **租一個 一個月 6~12 美元(約 195~400 元台幣), 做這個專案永遠的家。**
+-   **租一個 一個月 6~12 美元(約 195~400 元台幣), 做這個專案永遠的家。**
 
 ## Deploy to Vultr Github action
 
@@ -27,43 +27,43 @@ https://sivabalanb.medium.com/deploy-react-app-to-vps-digitalocean-vultr-using-g
 name: Deploy to EC2
 
 on:
-  push:
-    branches:
-      - develop
+    push:
+        branches:
+            - develop
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+    deploy:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
 
-      - name: Install JS dependencies and build
-        run: |
-          npm ci
-          npm run build
+            - name: Install JS dependencies and build
+              run: |
+                  npm ci
+                  npm run build
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.EC2_PRIVATE_KEY }}
+            - name: Set up SSH
+              uses: webfactory/ssh-agent@v0.9.0
+              with:
+                  ssh-private-key: ${{ secrets.EC2_PRIVATE_KEY }}
 
-      - name: Set up known hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+            - name: Set up known hosts
+              run: |
+                  mkdir -p ~/.ssh
+                  ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Deploy to EC2
-        run: |
+            - name: Deploy to EC2
+              run: |
 
-          ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-                ,,,,
-                composer install ...
-          EOF
+                  ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+                        ,,,,
+                        composer install ...
+                  EOF
 ```
