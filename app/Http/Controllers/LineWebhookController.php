@@ -39,7 +39,7 @@ class LineWebhookController extends Controller
     {
         $accessToken = config('line.line_access_token'); // .env 中設定
 
-        Http::withToken($accessToken)
+        $response = Http::withToken($accessToken)
             ->post('https://api.line.me/v2/bot/message/reply', [
                 'replyToken' => $replyToken,
                 'messages' => [
@@ -47,6 +47,6 @@ class LineWebhookController extends Controller
                 ],
             ]);
 
-        // Log::info('LINE reply response:', [$response->json()]);
+        Log::info('LINE reply response:', [$response->json()]);
     }
 }
