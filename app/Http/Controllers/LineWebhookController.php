@@ -16,7 +16,7 @@ class LineWebhookController extends Controller
 
         $body = $request->getContent();
         $hash = base64_encode(hash_hmac('sha256', $body, $channelSecret, true));
-        if ($signature !== $hash) {
+        if (!hash_equals($signature, $hash)) {
             return response('Invalid signature', 400);
         }
 
