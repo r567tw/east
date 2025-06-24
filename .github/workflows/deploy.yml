@@ -1,0 +1,24 @@
+name: Deploy Laravel to Vultr
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to Vultr
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code (not used but required)
+        uses: actions/checkout@v4
+
+      - name: SSH and run deploy.sh
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: "" # 因為已設定 authorized_keys 的 command 限制，這邊不需指定 script
