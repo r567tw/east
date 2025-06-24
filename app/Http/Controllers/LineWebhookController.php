@@ -38,6 +38,8 @@ class LineWebhookController extends Controller
     private function replyText($replyToken, $text)
     {
         $accessToken = config('line.line_access_token'); // .env 中設定
+        Log::info('LINE reply:', ['replyToken' => $replyToken, 'text' => $text]);
+        Log::info('LINE access token:', ['accessToken' => $accessToken]);
 
         $response = Http::withToken($accessToken)
             ->post('https://api.line.me/v2/bot/message/reply', [
