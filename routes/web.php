@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LineWebhookController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\TaskController;
 
@@ -15,3 +16,5 @@ Route::resource('books.reviews', ReviewController::class)->only(['create', 'stor
 
 Route::get('poll', [HomeController::class, 'poll'])->name('poll');
 Route::get('test', [HomeController::class, 'testing'])->name('testing');
+
+Route::post('/line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook');
