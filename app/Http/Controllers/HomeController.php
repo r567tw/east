@@ -22,4 +22,11 @@ class HomeController extends Controller
     {
         return view("poll");
     }
+
+    public function testing()
+    {
+        return response()->json([
+            "message" => "Testing endpoint"
+        ]);
+    }
 }
