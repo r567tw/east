@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\LineWebhookService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class LineWebhookController extends Controller
 {
+    public function __construct(public LineWebhookService $lineWebhookService) {}
+
     public function handle(Request $request)
     {
         // 驗證簽名（選擇性，但建議做）
@@ -28,7 +31,9 @@ class LineWebhookController extends Controller
                 $replyToken = $event['replyToken'];
                 $userMessage = $event['message']['text'];
 
-                $this->replyText($replyToken, "你說的是：「{$userMessage}」");
+                $message = $this->lineWebhookService->process($userMessage);
+
+                $this->replyText($replyToken, $message);
             }
         }
 
