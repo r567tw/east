@@ -18,3 +18,5 @@ Route::get('poll', [HomeController::class, 'poll'])->name('poll');
 Route::get('test', [HomeController::class, 'testing'])->name('testing');
 
 Route::post('/line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook');
+
+Route::get('/gold-price', [HomeController::class, 'goldPrice'])->name('gold.price');

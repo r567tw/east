@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\HomeController;
+
 class LineWebhookService
 {
     public function process($message)
@@ -21,7 +23,11 @@ class LineWebhookService
         $command = trim($command); // 去除前後空白
 
         if ($command === '黃金') {
-            return "黃金價格查詢功能未來將實作。";
+            // 這裡可以呼叫 HomeController 的 goldPrice 方法來獲取黃金價格
+            $goldHelper = new \App\Helpers\gold();
+            [$goldSellPrice, $goldBuyPrice] = $goldHelper::getGoldPrice();
+
+            return "黃金價格查詢結果：\n買進：{$goldBuyPrice} 元/克\n回售：{$goldSellPrice} 元/克";
         }
 
         if ($command === '天氣') {
