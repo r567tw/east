@@ -22,3 +22,4 @@ Route::apiResource('events.attendees', AttendeeController::class)->only(['index'
 Route::apiResource('events.attendees', AttendeeController::class)->only(['store', 'update', 'destroy'])->middleware(['auth:sanctum', 'throttle:api']);
 
 Route::get('convert-to-roman', [RomanNumberController::class, 'convertToRoman'])->name('convertToRoman');
+Route::get('/gold-price', [HomeController::class, 'goldPrice'])->name('gold.price');

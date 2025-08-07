@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Cache;
 
 class LineWebhookService
 {
@@ -24,8 +25,8 @@ class LineWebhookService
 
         if ($command === '黃金') {
             // 這裡可以呼叫 HomeController 的 goldPrice 方法來獲取黃金價格
-            $goldHelper = new \App\Helpers\gold();
-            [$goldSellPrice, $goldBuyPrice] = $goldHelper::getGoldPrice();
+            $goldBuyPrice = Cache::get('gold_buy_price', 0);
+            $goldSellPrice = Cache::get('gold_sell_price', 0);
 
             return "黃金價格查詢結果：\n買進：{$goldBuyPrice} 元/克\n回售：{$goldSellPrice} 元/克";
         }
