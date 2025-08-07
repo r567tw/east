@@ -33,8 +33,8 @@ class HomeController extends Controller
 
     public function goldPrice()
     {
-        $goldBuyPrice = Cache::get('gold_buy_price', 0);
-        $goldSellPrice = Cache::get('gold_sell_price', 0);
+        $goldBuyPrice = intval(Cache::get('gold_buy_price', 0));
+        $goldSellPrice = intval(Cache::get('gold_sell_price', 0));
 
         return  response()->json([
             'gold_buy_price' => $goldBuyPrice,
