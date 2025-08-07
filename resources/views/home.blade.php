@@ -37,9 +37,9 @@
     <h2 style="text-align: center">{{ Carbon\Carbon::now()->format('Y-m-d H:i') }}</h2>
     <div id="countdown">
         <div><span id="days">0</span>天</div>
-        <div><span id="hours">0</span>時</div>
+        {{-- <div><span id="hours">0</span>時</div>
         <div><span id="minutes">0</span>分</div>
-        <div><span id="seconds">0</span>秒</div>
+        <div><span id="seconds">0</span>秒</div> --}}
     </div>
     <div style="text-align:center">
         <h1> Week {{ Carbon\Carbon::now()->weekOfYear }}/{{ Carbon\Carbon::now()->weekInYear }} Weeks</h1>
@@ -47,7 +47,7 @@
         <p id="bottom">Laravel Version: {{ Illuminate\Foundation\Application::VERSION }}</p>
     </div>
     <script>
-        // 設定年底的日期
+        // 設定年底的日期 設定為當年的12月31日23:59:59
         const endOfYear = new Date(new Date().getFullYear(), 11, 31, 23, 59, 59).getTime();
 
         function updateCountdown() {
@@ -56,19 +56,20 @@
 
             // 計算天數、時、分、秒
             const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+            //const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            //const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            //const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
             // 更新 HTML
             document.getElementById("days").textContent = days;
-            document.getElementById("hours").textContent = hours;
-            document.getElementById("minutes").textContent = minutes;
-            document.getElementById("seconds").textContent = seconds;
+            //document.getElementById("hours").textContent = hours;
+            //document.getElementById("minutes").textContent = minutes;
+            //document.getElementById("seconds").textContent = seconds;
         }
 
         // 每秒更新倒數
-        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        //setInterval(updateCountdown, 1000);
     </script>
 </body>
 
