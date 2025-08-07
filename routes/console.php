@@ -9,3 +9,4 @@ use Illuminate\Support\Facades\Schedule;
 // })->purpose('Display an inspiring quote')->everyMinute()->sendOutputTo(storage_path('logs/inspire.log'));
 
 // Schedule::command('app:send-event-reminder')->daily();
+Schedule::command('app:get-gold-price')->hourly();

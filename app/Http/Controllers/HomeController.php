@@ -33,8 +33,8 @@ class HomeController extends Controller
 
     public function goldPrice()
     {
-        $goldHelper = new \App\Helpers\gold();
-        [$goldSellPrice, $goldBuyPrice] = $goldHelper::getGoldPrice();
+        $goldBuyPrice = Cache::get('gold_buy_price', 0);
+        $goldSellPrice = Cache::get('gold_sell_price', 0);
 
         return  response()->json([
             'gold_buy_price' => $goldBuyPrice,
