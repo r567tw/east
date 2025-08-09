@@ -30,6 +30,7 @@ class GetGoldPrice extends Command
         $response = file_get_contents($url);
 
         libxml_use_internal_errors(true); // ignore HTML parsing errors
+
         $dom = new \DOMDocument();
         $dom->loadHTML($response);
         $xpath = new \DOMXPath($dom);

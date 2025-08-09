@@ -123,4 +123,5 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'cwb_api_key' => env('CWB_API_KEY', 'aaa-bbb-ccc'),
 ];

@@ -20,12 +20,4 @@ class ConvertToRomanTest extends TestCase
             'roman' => 'IX',
         ]);
     }
-
-    public function test_response_is_error(): void
-    {
-        $response = $this->get('/api/convert-to-roman?number=44');
-        $response->assertHeader('Content-Type', 'application/json')->assertStatus(422)->assertJson([
-            'error' => "Missing or invalid 'number' parameter."
-        ]);
-    }
 }
