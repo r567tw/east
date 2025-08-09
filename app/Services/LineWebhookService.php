@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class LineWebhookService
 {
-    public function process($message)
+    public function process($message, $user = null)
     {
         $message = trim($message); // 去除前後空白
         $message = mb_strtolower($message);
@@ -18,13 +18,13 @@ class LineWebhookService
         if (mb_substr($message, 0, 1) === '/') {
             $message = mb_substr($message, 1); // 去除 '/' 符號
             $message = trim($message); // 去除前後空白
-            return $this->processCommand($message);
+            return $this->processCommand($message, $user);
         }
 
         return "你說的是：「{$message}」";
     }
 
-    public function processCommand($command)
+    public function processCommand($command, $user = null)
     {
         if ($command === '黃金') {
             $goldBuyPrice = Cache::get('gold_buy_price', 0);
@@ -34,7 +34,14 @@ class LineWebhookService
         }
 
         if ($command === '天氣') {
-            return (new \App\Helpers\WeatherHelper())->getWeather("高雄市");
+            if ($user == null) {
+                return "請先綁定 LINE 帳號。";
+            }
+
+            if (empty($user->location)) {
+                return "請先設定你的位置。";
+            }
+            return (new \App\Helpers\WeatherHelper())->getWeather($user->location);
         }
 
         return "未知指令：{$command}，請使用 /help 查看可用指令。";

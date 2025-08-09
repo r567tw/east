@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\LineWebhookService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -29,9 +30,11 @@ class LineWebhookController extends Controller
             // 簡單處理 text message
             if ($event['type'] === 'message' && $event['message']['type'] === 'text') {
                 $replyToken = $event['replyToken'];
+                $userId = $event['source']['userId'];
                 $userMessage = $event['message']['text'];
 
-                $message = $this->lineWebhookService->process($userMessage);
+                $user = User::where('line_user_id', $userId)->first() ?? null;
+                $message = $this->lineWebhookService->process($userMessage, $user);
 
                 $this->replyText($replyToken, $message);
             }

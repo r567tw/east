@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AttendeeController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EventController;
+use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\RomanNumberController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,5 @@ Route::apiResource('events.attendees', AttendeeController::class)->only(['store'
 
 Route::get('convert-to-roman', [RomanNumberController::class, 'convertToRoman'])->name('convertToRoman');
 Route::get('/gold-price', [HomeController::class, 'goldPrice'])->name('gold.price');
+Route::post('/get-our-location', [LocationController::class, 'getOurLocation'])->name('get.our.location');
+Route::post('users/{user}/set-our-location', [LocationController::class, 'setOurLocation'])->name('set.our.location')->middleware(['auth:sanctum', 'throttle:api']);
