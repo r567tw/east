@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('up', [HomeController::class, 'index']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('register', [AuthController::class, 'register'])->middleware('throttle:5,1');
 
 Route::apiResource('events', EventController::class)->only(['index', 'show']);
 Route::apiResource('events', EventController::class)->only(['store', 'update', 'destroy'])->middleware(['auth:sanctum', 'throttle:api']);

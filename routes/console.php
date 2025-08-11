@@ -10,3 +10,4 @@ use Illuminate\Support\Facades\Schedule;
 
 // Schedule::command('app:send-event-reminder')->daily();
 Schedule::command('app:get-gold-price')->hourly();
+Schedule::command('app:clean-invite-code')->daily();
