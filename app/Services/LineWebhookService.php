@@ -10,7 +10,11 @@ class LineWebhookService
 {
     public function bind($inviteCode, $lineUserId)
     {
-        $userId = DB::table('invite_codes')->where('code', $inviteCode)->first()->user_id;
+        $inviteCode = DB::table('invite_codes')->where('code', $inviteCode)->first();
+        if (!$inviteCode) {
+            return "無效的邀請碼。";
+        }
+        $userId = $inviteCode->user_id;
         User::where('id', $userId)->update(['line_user_id' => $lineUserId]);
         return "成功綁定 LINE 帳號！";
     }
