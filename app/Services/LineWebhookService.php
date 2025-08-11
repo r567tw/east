@@ -2,11 +2,19 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
 
 class LineWebhookService
 {
+    public function bind($inviteCode, $lineUserId)
+    {
+        $userId = DB::table('invite_codes')->where('code', $inviteCode)->first()->user_id;
+        User::where('id', $userId)->update(['line_user_id' => $lineUserId]);
+        return "成功綁定 LINE 帳號！";
+    }
+
     public function process($message, $user = null)
     {
         $message = trim($message); // 去除前後空白
@@ -42,6 +50,10 @@ class LineWebhookService
                 return "請先設定你的位置。";
             }
             return (new \App\Helpers\WeatherHelper())->getWeather($user->location);
+        }
+
+        if ($command === 'help') {
+            return "可用指令：\n/黃金 - 查詢黃金價格\n/天氣 - 查詢天氣\n";
         }
 
         return "未知指令：{$command}，請使用 /help 查看可用指令。";
