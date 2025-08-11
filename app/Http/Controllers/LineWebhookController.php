@@ -33,7 +33,7 @@ class LineWebhookController extends Controller
                 $userId = $event['source']['userId'];
                 $userMessage = $event['message']['text'];
 
-                if (strpos('/綁定:', $userMessage)) {
+                if (strpos($userMessage, "/綁定:") !== false) {
                     $inviteCode = trim(str_replace('/綁定:', '', $userMessage));
                     if (empty($inviteCode)) {
                         $message = "請提供邀請碼。";
