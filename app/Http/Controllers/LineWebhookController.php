@@ -36,7 +36,7 @@ class LineWebhookController extends Controller
                 if (strpos('/綁定:', $userMessage)) {
                     $inviteCode = trim(str_replace('/綁定:', '', $userMessage));
                     if (empty($inviteCode)) {
-                        return "請提供邀請碼。";
+                        $message = "請提供邀請碼。";
                     }
                     $message = $this->lineWebhookService->bind($inviteCode, $userId);
                 } else {
