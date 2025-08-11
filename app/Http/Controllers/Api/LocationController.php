@@ -32,7 +32,7 @@ class LocationController extends Controller
         ]);
     }
 
-    public function setOurLocation(Request $request, User $user)
+    public function setOurLocation(Request $request)
     {
         // Validate the request data
         $request->validate([
@@ -43,6 +43,11 @@ class LocationController extends Controller
         // Nominatim 反向地理編碼 API
         $lat = $request->input('lat');
         $lng = $request->input('lng');
+
+        $user = request()->user();
+        $user->lat = $lat;
+        $user->lng = $lng;
+        $user->save();
 
         $location = $this->getLocationFromCoordinates($lat, $lng);
         if ($location === null) {

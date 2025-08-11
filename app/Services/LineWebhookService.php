@@ -10,7 +10,11 @@ class LineWebhookService
 {
     public function bind($inviteCode, $lineUserId)
     {
-        $inviteCode = DB::table('invite_codes')->where('code', $inviteCode)->first();
+        $inviteCode = DB::table('invite_codes')
+            ->where('code', $inviteCode)
+            ->where('expires_at', '>', now())
+            ->first();
+
         if (!$inviteCode) {
             return "無效的邀請碼。";
         }
