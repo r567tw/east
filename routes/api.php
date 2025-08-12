@@ -24,7 +24,7 @@ Route::apiResource('events', EventController::class)->only(['store', 'update', '
 Route::apiResource('events.attendees', AttendeeController::class)->only(['index', 'show']);
 Route::apiResource('events.attendees', AttendeeController::class)->only(['store', 'update', 'destroy'])->middleware(['auth:sanctum', 'throttle:api']);
 
-Route::get('gold-price', [HomeController::class, 'goldPrice'])->name('gold.price');
+Route::get('gold-price', [HomeController::class, 'goldPrice'])->name('gold.price')->middleware('throttle:5,1');
 Route::get('convert-to-roman', [RomanNumberController::class, 'convertToRoman'])->name('convertToRoman');
 Route::post('get-our-location', [LocationController::class, 'getOurLocation'])->name('get.our.location');
 Route::post('set-our-location', [LocationController::class, 'setOurLocation'])->name('set.our.location')->middleware(['auth:sanctum', 'throttle:api']);
