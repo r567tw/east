@@ -60,6 +60,17 @@ class LineWebhookService
             return (new \App\Helpers\WeatherHelper())->getWeather($user->location);
         }
 
+        if ($command === '空氣') {
+            if ($user == null) {
+                return "請先綁定 LINE 帳號。";
+            }
+
+            if (empty($user->location)) {
+                return "請先設定你的位置。";
+            }
+            return (new \App\Helpers\AirQualityHelper())->getAirQuality($user->lat, $user->lng);
+        }
+
         if ($command === 'help') {
             return "可用指令：\n/黃金 - 查詢黃金價格\n/天氣 - 查詢天氣\n";
         }

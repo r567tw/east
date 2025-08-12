@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Services\LineWebhookService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 
 class LineWebhookController extends Controller
 {

@@ -19,7 +19,7 @@ class WeatherHelper
             $rainyProbability = $this->getWeatherElement('PoP', $data);
             $comfortIndex = $this->getWeatherElement('CI', $data);
 
-            return "天氣查詢結果：\n{$weatherInfo} 舒適度:{$comfortIndex}\n降雨機率：{$rainyProbability}%";
+            return "天氣查詢結果：\n{$weatherInfo} \n舒適度:{$comfortIndex}\n降雨機率：{$rainyProbability}%";
         } else {
             return "天氣查詢失敗，請稍後再試。";
         }
