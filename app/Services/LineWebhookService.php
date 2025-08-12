@@ -79,7 +79,7 @@ class LineWebhookService
             if (empty($user->location)) {
                 return "請先設定你的位置。";
             }
-            return "目前\n 你的經緯度: {$user->lat},{$user->lng}\n城市：{$user->location}";
+            return "你的經緯度: {$user->lat},{$user->lng}\n城市：{$user->location}";
         }
 
         if ($command === 'help') {
