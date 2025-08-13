@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\EventRegistered;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AttendeeResource;
 use App\Models\Attendee;
@@ -41,6 +42,7 @@ class AttendeeController extends Controller
             'email' => $request->email,
             'name' => $request->name,
         ]);
+        event(new EventRegistered($attendee));
 
         return new AttendeeResource($attendee);
     }
