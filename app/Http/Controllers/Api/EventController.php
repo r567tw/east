@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventResource;
 use App\Models\Event;
+use Illuminate\Container\Attributes\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -34,6 +35,8 @@ class EventController extends Controller
             'user_id' => $request->user()->id,
         ]);
 
+        cache()->forget('events_list');
+
         return $event;
     }
 
@@ -50,12 +53,6 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        // Check if the authenticated user is the owner of the event
-        // if (Gate::denies('update-event', $event)) {
-        //     return response()->json(['message' => 'You are not authorized to update this event.'], 403);
-        // }
-        // Gate::authorize('update', $event);
-        // Check if the authenticated user is the owner of the event
         if ($request->user()->cannot('update', $event)) {
             return response()->json(['message' => 'You are not authorized to update this event.'], 403);
         }
@@ -69,6 +66,8 @@ class EventController extends Controller
                 'end_time' => 'required|date|after:start_time',
             ]),
         ]);
+
+        cache()->forget('events_list');
 
         return $event;
     }
@@ -84,6 +83,7 @@ class EventController extends Controller
         }
 
         $event->delete();
+        cache()->forget('events_list');
 
         return response('', 204);
 
