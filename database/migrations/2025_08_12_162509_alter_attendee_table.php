@@ -13,10 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('attendees', function (Blueprint $table) {
-            //
-            // $table->drop('user_id');
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
+            $table->drop('user_id');
             $table->string('name')->after('id')->nullable();
             $table->string('email')->after('name')->nullable();
         });
