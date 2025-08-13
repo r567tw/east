@@ -12,23 +12,9 @@ class HomeController extends Controller
         return view("home");
     }
 
-    public function index()
-    {
-        return response()->json([
-            "message" => "Hello World"
-        ]);
-    }
-
     public function poll()
     {
         return view("poll");
-    }
-
-    public function testing()
-    {
-        return response()->json([
-            "message" => "Testing endpoint"
-        ]);
     }
 
     public function goldPrice()

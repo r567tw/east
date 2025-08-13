@@ -16,6 +16,9 @@ class AttendeeController extends Controller
      */
     public function index(Event $event)
     {
+        if (Gate::denies('list-attendees', $event)) {
+            return response()->json(['message' => 'You are not authorized to view attendees for this event.'], 403);
+        }
         return AttendeeResource::collection($event->attendees()->latest()->paginate());
     }
 
@@ -25,8 +28,18 @@ class AttendeeController extends Controller
      */
     public function store(Request $request, Event $event)
     {
+        $request->validate([
+            'email' => 'required|email',
+            'name' => 'required|string|max:255',
+        ]);
+
+        if ($event->attendees()->where('email', $request->email)->exists()) {
+            return response()->json(['message' => 'You are already registered for this event.'], 409);
+        }
+
         $attendee = $event->attendees()->create([
-            'user_id' => $request->user()->id,
+            'email' => $request->email,
+            'name' => $request->name,
         ]);
 
         return new AttendeeResource($attendee);
@@ -37,15 +50,32 @@ class AttendeeController extends Controller
      */
     public function show(Event $event, Attendee $attendee)
     {
+        if (Gate::denies('show-attendee', [$event, $attendee])) {
+            return response()->json(['message' => 'You are not authorized to view this attendee.'], 403);
+        }
         return new AttendeeResource($attendee);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Event $event, Attendee $attendee)
     {
         //
+        $request->validate([
+            'email' => 'required|email',
+            'name' => 'required|string|max:255',
+        ]);
+
+        if ($attendee->email !== $request->email) {
+            return response()->json(['message' => 'Email Not exists.'], 409);
+        }
+
+        $attendee->update([
+            'name' => $request->name,
+        ]);
+
+        return response()->json(['message' => 'Attendee Name updated successfully.'], 200);
     }
 
     /**
@@ -56,6 +86,7 @@ class AttendeeController extends Controller
         if (Gate::denies('delete-attendee', [$event, $attendee])) {
             return response()->json(['message' => 'You are not authorized to delete this attendee.'], 403);
         }
+
         $attendee->delete();
 
         return response()->noContent();

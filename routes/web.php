@@ -16,7 +16,6 @@ Route::resource('books', BookController::class);
 Route::resource('books.reviews', ReviewController::class)->only(['create', 'store'])->middleware('throttle:reviews');
 
 Route::get('poll', [HomeController::class, 'poll'])->name('poll');
-Route::get('test', [HomeController::class, 'testing'])->name('testing');
 
 Route::post('/line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook');
 Route::get('s/{code}', [ShortRedirectController::class, 'redirect'])->name('short.redirect');

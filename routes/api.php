@@ -14,15 +14,15 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 
-Route::get('up', [HomeController::class, 'index']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('register', [AuthController::class, 'register'])->middleware('throttle:5,1');
 
 Route::apiResource('events', EventController::class)->only(['index', 'show']);
 Route::apiResource('events', EventController::class)->only(['store', 'update', 'destroy'])->middleware(['auth:sanctum', 'throttle:api']);
-Route::apiResource('events.attendees', AttendeeController::class)->only(['index', 'show']);
-Route::apiResource('events.attendees', AttendeeController::class)->only(['store', 'update', 'destroy'])->middleware(['auth:sanctum', 'throttle:api']);
+Route::apiResource('events.attendees', AttendeeController::class)->only(['index', 'show'])->middleware(['auth:sanctum', 'throttle:api']);
+Route::apiResource('events.attendees', AttendeeController::class)->only(['store', 'update'])->middleware(['throttle:api']);
+Route::apiResource('events.attendees', AttendeeController::class)->only(['destroy'])->middleware(['auth:sanctum', 'throttle:api']);
 
 Route::get('gold-price', [HomeController::class, 'goldPrice'])->name('gold.price')->middleware('throttle:5,1');
 Route::get('convert-to-roman', [RomanNumberController::class, 'convertToRoman'])->name('convertToRoman');

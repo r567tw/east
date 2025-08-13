@@ -41,8 +41,16 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::policy(Event::class, EventPolicy::class);
 
+        Gate::define('list-attendees', function (User $user, Event $event) {
+            return $user->id === $event->user_id;
+        });
+
+        Gate::define('show-attendee', function (User $user, Event $event, Attendee $attendee) {
+            return $user->id === $event->user_id && $attendee->event_id === $event->id;
+        });
+
         Gate::define('delete-attendee', function (User $user, Event $event, Attendee $attendee) {
-            return $user->id === $event->user_id || $user->id === $attendee->user_id;
+            return $user->id === $event->user_id && $attendee->event_id === $event->id;
         });
     }
 }
