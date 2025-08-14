@@ -17,14 +17,50 @@ class HomeController extends Controller
         return view("poll");
     }
 
-    public function goldPrice()
+    public function present()
     {
-        $goldBuyPrice = intval(Cache::get('gold_buy_price', 0));
-        $goldSellPrice = intval(Cache::get('gold_sell_price', 0));
+        $features = [
+            [
+                'icon' => 'fa-solid fa-list-check',
+                'title' => 'Task List',
+                'description' => '每次基礎能力應該做的展示',
+                'link' => url('/tasks'),
+                'action' => 'Demo',
+            ],
+            [
+                'icon' => 'fa-solid fa-calendar-days',
+                'title' => 'Event API',
+                'description' => '提供活動列表、報名(會寄信)',
+                'link' => url('/swagger'),
+                'action' => '查看 API Spec',
+            ],
+            [
+                'icon' => 'fa-solid fa-vote-yea',
+                'title' => '投票網站',
+                'description' => '做簡單的投票網站(Livewire)',
+                'link' => url('/poll'),
+                'action' => 'Demo',
+            ],
+            [
+                'icon' => 'fa-brands fa-line',
+                'title' => 'Line 個人助手(不開放)',
+                'description' => '串接 Line Webhook 查詢天氣、黃金、空氣品質等資訊'
+            ],
+        ];
 
-        return  response()->json([
-            'gold_buy_price' => $goldBuyPrice,
-            'gold_sell_price' => $goldSellPrice,
-        ]);
+        $technologies = [
+            ['title' => 'Laravel', 'image' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg'],
+            ['title' => 'Postgresql', 'image' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg'],
+            ['title' => 'Redis', 'image' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg'],
+            ['title' => 'Livewire', 'image' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/livewire/livewire-original.svg'],
+            ['title' => 'Github Action', 'image' => 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg']
+
+        ];
+        return view("present", compact('features', 'technologies'));
+    }
+
+    public function swagger()
+    {
+        return view("swagger");
     }
 }

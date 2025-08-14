@@ -1,0 +1,276 @@
+openapi: 3.0.0
+info:
+  title: 活動API
+  version: 1.0.0
+  description: ""
+servers:
+  - url: "https://project.r567tw.cc"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /api/events:
+    get:
+      tags:
+        - 活動
+      summary: 活動清單
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: Events List
+    post:
+      tags:
+        - 活動
+      summary: 新增活動
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                start_time:
+                  type: string
+                  format: style
+                end_time:
+                  type: string
+            example:
+              name: 讀書會
+              description: 這是一場有關於軟體工程討論的讀書會
+              start_time: "2025-08-26 01:33:34"
+              end_time: "2025-08-30 01:33:34"
+      responses:
+        "201":
+          description: 新增活動
+
+  /api/events/{eventId}:
+    parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: 活動 ID
+    get:
+      tags:
+        - 活動
+      summary: 單一活動
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: 單一活動
+    patch:
+      tags:
+        - 活動
+      summary: 修改活動
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                start_time:
+                  type: string
+                  format: style
+                end_time:
+                  type: string
+            example:
+              name: 讀書會(更新)
+              description: 這是一場有關於軟體工程討論的讀書會
+              start_time: "2025-08-26 01:33:34"
+              end_time: "2025-09-30 01:33:34"
+      responses:
+        "200":
+          description: 修改活動
+    delete:
+      tags:
+        - 活動
+      summary: 刪除活動
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "204":
+          description: 刪除活動
+
+  /api/events/{eventId}/attendees:
+    parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: 活動 ID
+    get:
+      tags:
+        - 會眾
+      summary: 參加活動會眾名單
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: 參加活動會眾名單
+    post:
+      tags:
+        - 會眾
+      summary: 參加活動
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+            example:
+              name: jimmy
+              email: r567twjob@gmail.com
+      responses:
+        "201":
+          description: 參加活動
+        "409":
+          description: Email 已重複
+
+  /api/events/{eventId}/attendees/{attendeeId}:
+    parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: 活動 ID
+      - name: attendeeId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: 會眾 ID
+    get:
+      tags:
+        - 會眾
+      summary: 單一活動會眾資料
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: 單一活動會眾資料
+    patch:
+      tags:
+        - 會眾
+      summary: 修改會眾資料
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+            example:
+              name: Jimmy
+              email: r567twiamfang@gmail.com
+      responses:
+        "200":
+          description: 修改會眾資料
+        "409":
+          description: 修改會眾資料衝突
+    delete:
+      tags:
+        - 會眾
+      summary: 取消參加
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "204":
+          description: 取消參加
