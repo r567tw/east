@@ -1,4 +1,5 @@
 @extends('layouts.event')
+@section('title', $event->name)
 
 @section('styles')
     <style>
