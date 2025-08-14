@@ -20,4 +20,4 @@ Route::get('poll', [HomeController::class, 'poll'])->name('poll');
 
 Route::post('/line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook');
 Route::get('s/{code}', [ShortRedirectController::class, 'redirect'])->name('short.redirect');
-Route::get('events/{event}', [EventController::class, 'show'])->name('events.show');
+Route::get('events/{event}', [EventController::class, 'show'])->name('page.event.show');
