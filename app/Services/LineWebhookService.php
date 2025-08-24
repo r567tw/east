@@ -84,7 +84,8 @@ class LineWebhookService
         }
 
         if ($command === 'CPBL') {
-            return (new \App\Helpers\CPBLHelper())->get();
+            $result = (new \App\Helpers\CPBLHelper())->get();
+            return rtrim($result, "\n");
         }
 
         if ($command === 'help') {
