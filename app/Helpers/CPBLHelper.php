@@ -31,7 +31,7 @@ class CPBLHelper
             $homeScore = $event['intHomeScore'] ?? 0;
             $awayScore = $event['intAwayScore'] ?? 0;
 
-            $result .= "{$homeTeam} vs {$awayTeam} {$homeScore}:{$awayScore}\n";
+            $result .= "{$awayTeam}vs{$homeTeam} {$awayScore}:{$homeScore}\n";
         }
 
 
