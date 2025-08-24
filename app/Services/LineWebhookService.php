@@ -83,7 +83,7 @@ class LineWebhookService
         }
 
         if ($command === 'CPBL') {
-            return "中職當日分數查詢待實作。";
+            return (new \App\Helpers\CPBLHelper())->get();
         }
 
         if ($command === 'help') {
