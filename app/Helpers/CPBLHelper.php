@@ -16,7 +16,7 @@ class CPBLHelper
 
         $events = $response->json()['events'] ?? [];
         $teams = [
-            'Uni-President Lions' => '統一7-ELEVEn獅',
+            'Uni-President Lions' => '統一獅',
             'CTBC Brothers'  => '中信兄弟',
             'Fubon Guardians' => '富邦悍將',
             'Rakuten Monkeys'   => '樂天桃猿',
