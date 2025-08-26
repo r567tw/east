@@ -14,7 +14,9 @@ class AstroHelper
 
         libxml_use_internal_errors(true);
         $dom = new \DOMDocument();
-        $dom->loadHTML($response->body());
+        // Convert response to UTF-8 encoding
+        $html = mb_convert_encoding($response->body(), 'HTML-ENTITIES', 'UTF-8');
+        $dom->loadHTML($html);
         $xpath = new \DOMXPath($dom);
         $nodes = $xpath->query('//div[contains(@class, "TODAY_CONTENT")]');
         if ($nodes->length > 0) {
@@ -23,7 +25,6 @@ class AstroHelper
         // 去除中間空白（不包含 \r\n）
         $result = preg_replace('/[ \t]+/', '', $result);
         libxml_clear_errors();
-
 
         return $result;
     }
