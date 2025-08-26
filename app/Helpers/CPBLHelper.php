@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class CPBLHelper
 {
-    public static function get()
+    public function get()
     {
         // 假設這裡有一個 API 可以獲取空氣品質數據
         $day = date('Y-m-d');
@@ -34,6 +34,9 @@ class CPBLHelper
             $result .= "{$awayTeam}vs{$homeTeam} {$awayScore}:{$homeScore}\n";
         }
 
+        if (empty($result)) {
+            $result = "今天沒有比賽喔！";
+        }
 
         return $result;
     }

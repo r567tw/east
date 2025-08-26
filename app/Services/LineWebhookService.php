@@ -88,6 +88,10 @@ class LineWebhookService
             return rtrim($result, "\n");
         }
 
+        if ($command === '運勢') {
+            return (new \App\Helpers\AstroHelper())->get();
+        }
+
         if ($command === 'help') {
             return "可用指令：\n/黃金 - 查詢黃金價格(每小時一次)\n/天氣 - 查詢天氣\n/空氣 - 查詢空汙\n/位置 - 查詢你綁定帳號後的經緯度和城市\n綁定 LINE 帳號請使用 /綁定:<邀請碼>\n例如：/綁定:123456";
         }
