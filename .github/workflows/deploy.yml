@@ -22,3 +22,18 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           script: "" # 因為已設定 authorized_keys 的 command 限制，這邊不需指定 script
+  notify:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: always()
+    steps:
+      - name: Notify Slack
+        run: |
+          if [ "${{ needs.deploy.result }}" = "success" ]; then
+            STATUS="✅ 部署完成：${{ github.repository }} - ${{ github.ref_name }}"
+          else
+            STATUS="❌ 部署失敗：${{ github.repository }} - ${{ github.ref_name }}"
+          fi
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{\"text\":\"$STATUS\n👉 Workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"}" \
+            ${{ secrets.SLACK_WEBHOOK }}
