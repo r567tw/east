@@ -35,5 +35,5 @@ jobs:
             STATUS="❌ 部署失敗"
           fi
           curl -X POST -H 'Content-type: application/json' \
-            --data "{\"text\":\"$STATUS\n👉 Workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"}" \
+            --data "{\"text\":\"$STATUS: ${{ github.repository }}\nWorkflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"}" \
             ${{ secrets.SLACK_WEBHOOK }}
