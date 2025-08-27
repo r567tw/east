@@ -30,9 +30,9 @@ jobs:
       - name: Notify Slack
         run: |
           if [ "${{ needs.deploy.result }}" = "success" ]; then
-            STATUS="✅ 部署完成：${{ github.repository }} - ${{ github.ref_name }}"
+            STATUS="✅ 部署完成"
           else
-            STATUS="❌ 部署失敗：${{ github.repository }} - ${{ github.ref_name }}"
+            STATUS="❌ 部署失敗"
           fi
           curl -X POST -H 'Content-type: application/json' \
             --data "{\"text\":\"$STATUS\n👉 Workflow: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"}" \
