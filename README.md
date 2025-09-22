@@ -5,4 +5,4 @@
 -   [V] Redis or Queue ...etc
 -   [V] Vultr
 -   [] Broadcast: https://laravel.com/docs/11.x/broadcasting
--   [] 短網址
+-   [V] 短網址
