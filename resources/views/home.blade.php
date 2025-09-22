@@ -29,6 +29,22 @@
             font-size: 1.2em;
             color: #555;
         }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+        }
     </style>
 </head>
 
@@ -44,7 +60,8 @@
     <div style="text-align:center">
         <h1> Week {{ Carbon\Carbon::now()->weekOfYear }}/{{ Carbon\Carbon::now()->weekInYear }} Weeks</h1>
         <p>Remain {{ Carbon\Carbon::now()->weekInYear - Carbon\Carbon::now()->weekOfYear }} weeks</p>
-        <p id="bottom">Laravel Version: {{ Illuminate\Foundation\Application::VERSION }}</p>
+        <a class="btn btn-primary" href="{{ route("present") }}">Present</a>
+        {{-- <p id="bottom">Laravel Version: {{ Illuminate\Foundation\Application::VERSION }}</p> --}}
     </div>
     <script>
         // 設定年底的日期 設定為當年的12月31日23:59:59
