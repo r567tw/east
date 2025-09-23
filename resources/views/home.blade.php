@@ -4,64 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <style>
-        #countdown {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        #countdown div {
-            font-size: 1.5em;
-        }
-
-        #countdown span {
-            font-weight: bold;
-            font-size: 2em;
-            color: #ff6347;
-        }
-
-        #bottom {
-            position: absolute;
-            bottom: 10px;
-            right: 25px;
-            font-size: 1.2em;
-            color: #555;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-        }
-    </style>
+    <title>EAST</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 
 <body>
-    <h1 style="text-align:center">Hi , Developers</h1>
-    <h2 style="text-align: center">{{ Carbon\Carbon::now()->format('Y-m-d H:i') }}</h2>
-    <div id="countdown">
-        <div>距離今年結束<span id="days">0</span>天</div>
-        {{-- <div><span id="hours">0</span>時</div>
-        <div><span id="minutes">0</span>分</div>
-        <div><span id="seconds">0</span>秒</div> --}}
+    <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Hi, Developers</h1>
+          <p>距離今年結束<span id="days" style="font-weight: bold;font-size: 4em;color: #ff6347;">0</span>天</p>
+          <p>
+            <a class="btn btn-primary btn-lg" href="{{ route("present") }}" role="button">Present »</a>
+            <a class="btn btn-info btn-lg" href="{{ route("production.swagger") }}" role="button" target="_blank">Production API »</a>
+          </p>
+        </div>
     </div>
-    <div style="text-align:center">
-        <h1> Week {{ Carbon\Carbon::now()->weekOfYear }}/{{ Carbon\Carbon::now()->weekInYear }} Weeks</h1>
-        <p>Remain {{ Carbon\Carbon::now()->weekInYear - Carbon\Carbon::now()->weekOfYear }} weeks</p>
-        <a class="btn btn-primary" href="{{ route("present") }}">Present</a>
-        {{-- <p id="bottom">Laravel Version: {{ Illuminate\Foundation\Application::VERSION }}</p> --}}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ Carbon\Carbon::now()->format('Y-m-d H:i') }}</h2>
+                <p> Week: {{ Carbon\Carbon::now()->weekOfYear }}/{{ Carbon\Carbon::now()->weekInYear }} ,剩下 {{ Carbon\Carbon::now()->weekInYear - Carbon\Carbon::now()->weekOfYear }} 週</p>
+            </div>
+        </div>
     </div>
     <script>
         // 設定年底的日期 設定為當年的12月31日23:59:59

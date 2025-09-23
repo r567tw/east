@@ -63,4 +63,9 @@ class HomeController extends Controller
     {
         return view("swagger");
     }
+
+    public function production()
+    {
+        return view("production");
+    }
 }

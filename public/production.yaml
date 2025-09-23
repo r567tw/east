@@ -1,0 +1,83 @@
+openapi: 3.0.0
+info:
+  title: EAST API
+  version: 1.0.0
+  description: ""
+servers:
+  - url: "https://project.r567tw.cc"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /api/gold-price:
+    get:
+      tags:
+        - 黃金價格
+      summary: 取得黃金價格
+      description: 取得黃金價格，資料來自台灣銀行(**每小時更新一次，並非即時更新**，另有做請求上的限制，請勿頻繁請求)
+      responses:
+        "200":
+          description: 取得黃金價格
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currency:
+                    type: string
+                    const: TWD
+                  gold_buy_price:
+                    type: number
+                    example: 3600
+                  gold_sell_price:
+                    type: number
+                    example: 3640
+        "429":
+          description: 請求過於頻繁，請稍後再試
+
+  /api/get-our-location:
+    post:
+      tags:
+        - 位置
+      summary: 利用經緯度可以取得該經緯度所在的城市級資訊
+      description: 利用`nominatim.openstreetmap.org`的 API 反查取得目前位置資訊
+      parameters:
+        - in: query
+          name: lat
+          schema:
+            type: string
+          required: true
+          description: 經度
+        - in: query
+          name: lng
+          schema:
+            type: string
+          required: true
+          description: 緯度
+      responses:
+        "200":
+          description: 取得目前位置資訊
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    type: string
+                    example: 臺北市
+        "404":
+          description: 無法取得位置資訊
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  const: Unable to fetch location data
+        "429":
+          description: 請求過於頻繁，請稍後再試

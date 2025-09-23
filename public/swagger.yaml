@@ -169,6 +169,8 @@ paths:
       tags:
         - 會眾
       summary: 參加活動
+      security:
+        - BearerAuth: []
       parameters:
         - name: Accept
           in: header

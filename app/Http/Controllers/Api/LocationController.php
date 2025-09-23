@@ -19,12 +19,12 @@ class LocationController extends Controller
         ]);
 
         // Nominatim 反向地理編碼 API
-        $lat = $request->input('lat');
-        $lng = $request->input('lng');
+        $lat = $request->input('lat'); // latitude
+        $lng = $request->input('lng'); // longitude 
 
         $location = $this->getLocationFromCoordinates($lat, $lng);
         if ($location === null) {
-            return response()->json(['error' => 'Unable to fetch location data'], 500);
+            return response()->json(['error' => 'Unable to fetch location data'], 404);
         }
 
         return response()->json([

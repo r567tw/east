@@ -25,3 +25,4 @@ Route::get('events/{event}', [EventController::class, 'show'])->name('page.event
 
 Route::get('present', [HomeController::class, 'present'])->name('present');
 Route::get('swagger', [HomeController::class, 'swagger'])->name('swagger');
+Route::get('production/swagger', [HomeController::class, 'production'])->name('production.swagger');
