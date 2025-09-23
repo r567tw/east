@@ -24,5 +24,5 @@ Route::get('s/{code}', [ShortRedirectController::class, 'redirect'])->name('shor
 Route::get('events/{event}', [EventController::class, 'show'])->name('page.event.show');
 
 Route::get('present', [HomeController::class, 'present'])->name('present');
-Route::get('swagger', [HomeController::class, 'swagger'])->name('swagger');
+Route::get('demo/swagger', [HomeController::class, 'swagger'])->name('demo.swagger');
 Route::get('production/swagger', [HomeController::class, 'production'])->name('production.swagger');
