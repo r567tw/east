@@ -16,12 +16,12 @@ class CPBLHelper
 
         $events = $response->json()['events'] ?? [];
         $teams = [
-            'Uni-President Lions' => '統一獅',
-            'CTBC Brothers'  => '中信兄弟',
-            'Fubon Guardians' => '富邦悍將',
-            'Rakuten Monkeys'   => '樂天桃猿',
-            'TSG Hawks'      => '台鋼雄鷹',
-            'Wei Chuan Dragons' => '味全龍',
+            'Uni-President Lions'   => '統一獅',
+            'CTBC Brothers'         => '中信兄弟',
+            'Fubon Guardians'       => '富邦悍將',
+            'Rakuten Monkeys'       => '樂天桃猿',
+            'TSG Hawks'             => '台鋼雄鷹',
+            'Wei Chuan Dragons'     => '味全龍',
         ];
 
         $result = '';
@@ -31,7 +31,11 @@ class CPBLHelper
             $homeScore = $event['intHomeScore'] ?? 0;
             $awayScore = $event['intAwayScore'] ?? 0;
 
-            $result .= "{$awayTeam}vs{$homeTeam} {$awayScore}:{$homeScore}\n";
+            if ($event["strPostponed"] === "yes") {
+                $result .= "{$awayTeam}vs{$homeTeam} 延賽了\n";
+            } else {
+                $result .= "{$awayTeam}vs{$homeTeam} {$awayScore}:{$homeScore}\n";
+            }
         }
 
         if (empty($result)) {
