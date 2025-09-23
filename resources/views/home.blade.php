@@ -52,7 +52,7 @@
     <h1 style="text-align:center">Hi , Developers</h1>
     <h2 style="text-align: center">{{ Carbon\Carbon::now()->format('Y-m-d H:i') }}</h2>
     <div id="countdown">
-        <div><span id="days">0</span>天</div>
+        <div>距離今年結束<span id="days">0</span>天</div>
         {{-- <div><span id="hours">0</span>時</div>
         <div><span id="minutes">0</span>分</div>
         <div><span id="seconds">0</span>秒</div> --}}

@@ -6,4 +6,3 @@
 -   [V] Vultr
 -   [] Broadcast: https://laravel.com/docs/11.x/broadcasting
 -   [V] 短網址
--   test
