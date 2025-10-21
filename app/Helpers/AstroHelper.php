@@ -15,6 +15,7 @@ class AstroHelper
         libxml_use_internal_errors(true);
         $dom = new \DOMDocument();
         // Convert response to UTF-8 encoding
+        /** @phpstan-ignore-next-line */
         $html = mb_convert_encoding($response->body(), 'HTML-ENTITIES', 'UTF-8');
         $dom->loadHTML($html);
         $xpath = new \DOMXPath($dom);
