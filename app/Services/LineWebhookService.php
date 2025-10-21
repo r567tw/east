@@ -88,8 +88,30 @@ class LineWebhookService
             return rtrim($result, "\n");
         }
 
-        if ($command === '運勢') {
-            return (new \App\Helpers\AstroHelper())->get();
+        if (strpos($command, '運勢') === 0) {
+            // 例如 '運勢,射手座' 表示查詢射手座
+            $astroName = str_replace('運勢:', '', $command);
+            $astroName = str_replace('運勢', '', $astroName);
+            $astroName = trim($astroName);
+
+            if (empty($astroName)) {
+                $astroName = "射手座"; // 預設為射手座
+            }
+
+            $astroMap = config('astro.chinese');
+            $astroIndex = $astroMap[$astroName] ?? null;
+
+            if ($astroIndex === null) {
+                return "未知的星座名稱：{$astroName}。目前尚未支援";
+            }
+
+            if (Cache::has("astro_{$astroIndex}")) {
+                return Cache::get("astro_{$astroIndex}");
+            } else {
+                $astroHelper = new \App\Helpers\AstroHelper();
+                $result = $astroHelper->get($astroIndex);
+                return $result;
+            }
         }
 
         if ($command === 'help') {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AstroController;
 use App\Http\Controllers\Api\AttendeeController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EventController;
@@ -27,6 +28,7 @@ Route::apiResource('events.attendees', AttendeeController::class)->only(['destro
 
 Route::get('gold-price', [GoldPriceController::class, 'index'])->name('gold.price')->middleware('throttle:5,1');
 Route::get('convert-to-roman', [RomanNumberController::class, 'convertToRoman'])->name('convertToRoman');
+Route::get('astro/{name}', [AstroController::class, 'show'])->name('astro.show')->middleware('throttle:5,1');
 
 // For Line Bot
 Route::post('get-our-location', [LocationController::class, 'getOurLocation'])->name('get.our.location')->middleware(['throttle:5,1']);

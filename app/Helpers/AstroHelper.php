@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\Http;
 
 class AstroHelper
 {
-    public function get()
+    public function get(int $astroIndex = 8)
     {
-        $url = "https://astro.click108.com.tw/daily_8.php?iAstro=8";
+        $url = "https://astro.click108.com.tw/daily_{$astroIndex}.php?iAstro={$astroIndex}";
 
         $response = Http::retry(3, 5000)->get($url);
 
