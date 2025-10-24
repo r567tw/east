@@ -82,7 +82,7 @@ class LineWebhookService
             return "你的經緯度: {$user->lat},{$user->lng}\n城市：{$user->location}";
         }
 
-        if ($command === 'CPBL') {
+        if ($command === 'cpbl') {
             $result = (new \App\Helpers\CPBLHelper())->get();
             return rtrim($result, "\n");
         }
