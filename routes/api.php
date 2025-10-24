@@ -17,29 +17,24 @@ use Illuminate\Support\Facades\Route;
 // })->middleware('auth:sanctum');
 
 // Authentication Routes
-Route::post('login', [AuthController::class, 'login']);
-Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('register', [AuthController::class, 'register'])->middleware('throttle:5,1');
+Route::post('login', [JWTAuthController::class, 'login']);
+Route::post('refresh', [JWTAuthController::class, 'refresh'])->middleware('jwt');
+Route::post('me', [JWTAuthController::class, 'me'])->middleware('jwt');
+Route::post('logout', [JWTAuthController::class, 'logout'])->middleware('jwt');
 
-// JWT Token Routes
-Route::group(['prefix' => 'jwt'], function () {
-    Route::post('login', [JWTAuthController::class, 'login']);
-    Route::post('refresh', [JWTAuthController::class, 'refresh'])->middleware('jwt');
-    Route::post('me', [JWTAuthController::class, 'me'])->middleware('jwt');
-    Route::post('logout', [JWTAuthController::class, 'logout'])->middleware('jwt');
-});
 
 Route::apiResource('events', EventController::class)->only(['index', 'show']);
-Route::apiResource('events', EventController::class)->only(['store', 'update', 'destroy'])->middleware(['auth:sanctum', 'throttle:api']);
-Route::apiResource('events.attendees', AttendeeController::class)->only(['index', 'show'])->middleware(['auth:sanctum', 'throttle:api']);
-Route::apiResource('events.attendees', AttendeeController::class)->only(['store', 'update'])->middleware(['auth:sanctum', 'throttle:api']);
-Route::apiResource('events.attendees', AttendeeController::class)->only(['destroy'])->middleware(['auth:sanctum', 'throttle:api']);
+Route::apiResource('events', EventController::class)->only(['store', 'update', 'destroy'])->middleware(['jwt', 'throttle:api']);
+Route::apiResource('events.attendees', AttendeeController::class)->only(['index', 'show'])->middleware(['jwt', 'throttle:api']);
+Route::apiResource('events.attendees', AttendeeController::class)->only(['store', 'update'])->middleware(['jwt', 'throttle:api']);
+Route::apiResource('events.attendees', AttendeeController::class)->only(['destroy'])->middleware(['jwt', 'throttle:api']);
 
 Route::get('gold-price', [GoldPriceController::class, 'index'])->name('gold.price')->middleware('throttle:5,1');
 Route::get('convert-to-roman', [RomanNumberController::class, 'convertToRoman'])->name('convertToRoman');
 Route::get('astro/{name}', [AstroController::class, 'show'])->name('astro.show')->middleware('throttle:5,1');
 
-// For Line Bot
+// For Line Bot Custom Integration
 Route::post('get-our-location', [LocationController::class, 'getOurLocation'])->name('get.our.location')->middleware(['throttle:5,1']);
-Route::post('set-our-location', [LocationController::class, 'setOurLocation'])->name('set.our.location')->middleware(['auth:sanctum', 'throttle:api']);
-Route::apiResource('short-url', ShortUrlController::class)->only(['index', 'store'])->middleware(['auth:sanctum', 'throttle:5,1']);
+Route::post('set-our-location', [LocationController::class, 'setOurLocation'])->name('set.our.location')->middleware(['jwt', 'throttle:api']);
+Route::apiResource('short-url', ShortUrlController::class)->only(['index', 'store'])->middleware(['jwt', 'throttle:5,1']);
