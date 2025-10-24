@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AttendeeController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\GoldPriceController;
+use App\Http\Controllers\Api\JWTAuthController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\RomanNumberController;
 use App\Http\Controllers\Api\ShortUrlController;
@@ -15,10 +16,18 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-
+// Authentication Routes
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('register', [AuthController::class, 'register'])->middleware('throttle:5,1');
+
+// JWT Token Routes
+Route::group(['prefix' => 'jwt'], function () {
+    Route::post('login', [JWTAuthController::class, 'login']);
+    Route::post('refresh', [JWTAuthController::class, 'refresh'])->middleware('jwt');
+    Route::post('me', [JWTAuthController::class, 'me'])->middleware('jwt');
+    Route::post('logout', [JWTAuthController::class, 'logout'])->middleware('jwt');
+});
 
 Route::apiResource('events', EventController::class)->only(['index', 'show']);
 Route::apiResource('events', EventController::class)->only(['store', 'update', 'destroy'])->middleware(['auth:sanctum', 'throttle:api']);

@@ -20,6 +20,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append([
             \App\Http\Middleware\CompressResponse::class,
         ]);
+
+        $middleware->alias(['jwt' => \App\Http\Middleware\JWTMiddleware::class]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
