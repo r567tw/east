@@ -34,7 +34,6 @@ class LineWebhookService
         if (mb_substr($message, 0, 1) === '/') {
             $message = mb_substr($message, 1); // 去除 '/' 符號
             $message = trim($message); // 去除前後空白
-            $message = strtoupper($message); // 將指令轉為大寫
             return $this->processCommand($message, $user);
         }
 
