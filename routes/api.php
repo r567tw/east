@@ -9,12 +9,7 @@ use App\Http\Controllers\Api\JWTAuthController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\RomanNumberController;
 use App\Http\Controllers\Api\ShortUrlController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
 
 // Authentication Routes
 Route::post('register', [AuthController::class, 'register'])->middleware('throttle:5,1');
@@ -23,18 +18,19 @@ Route::post('refresh', [JWTAuthController::class, 'refresh'])->middleware('jwt')
 Route::post('me', [JWTAuthController::class, 'me'])->middleware('jwt');
 Route::post('logout', [JWTAuthController::class, 'logout'])->middleware('jwt');
 
-
+// Event and Attendee Routes
 Route::apiResource('events', EventController::class)->only(['index', 'show']);
 Route::apiResource('events', EventController::class)->only(['store', 'update', 'destroy'])->middleware(['jwt', 'throttle:api']);
 Route::apiResource('events.attendees', AttendeeController::class)->only(['index', 'show'])->middleware(['jwt', 'throttle:api']);
 Route::apiResource('events.attendees', AttendeeController::class)->only(['store', 'update'])->middleware(['jwt', 'throttle:api']);
 Route::apiResource('events.attendees', AttendeeController::class)->only(['destroy'])->middleware(['jwt', 'throttle:api']);
 
+// Production Useful Routes
 Route::get('gold-price', [GoldPriceController::class, 'index'])->name('gold.price')->middleware('throttle:5,1');
 Route::get('convert-to-roman', [RomanNumberController::class, 'convertToRoman'])->name('convertToRoman');
 Route::get('astro/{name}', [AstroController::class, 'show'])->name('astro.show')->middleware('throttle:5,1');
+Route::apiResource('short-url', ShortUrlController::class)->only(['index', 'store'])->middleware(['jwt', 'throttle:5,1']);
 
 // For Line Bot Custom Integration
 Route::post('get-our-location', [LocationController::class, 'getOurLocation'])->name('get.our.location')->middleware(['throttle:5,1']);
 Route::post('set-our-location', [LocationController::class, 'setOurLocation'])->name('set.our.location')->middleware(['jwt', 'throttle:api']);
-Route::apiResource('short-url', ShortUrlController::class)->only(['index', 'store'])->middleware(['jwt', 'throttle:5,1']);

@@ -24,9 +24,9 @@ class HomeController extends Controller
         return view("present", compact('features', 'technologies'));
     }
 
-    public function swagger()
+    public function demo()
     {
-        return view("swagger");
+        return view("demo");
     }
 
     public function production()

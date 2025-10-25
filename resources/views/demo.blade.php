@@ -12,7 +12,7 @@
   <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
   <script>
     const ui = SwaggerUIBundle({
-      url: '/swagger.yaml', // 你放的 OpenAPI YAML 路徑
+      url: '/swagger-demo.yaml', // 你放的 OpenAPI YAML 路徑
       dom_id: '#swagger-ui',
       deepLinking: true,
       presets: [

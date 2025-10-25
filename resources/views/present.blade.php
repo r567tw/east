@@ -20,6 +20,7 @@
   <div class="container">
     <h1 class="display-4">專案展示</h1>
     <p class="lead">這是一個提供面試的能力參考</p>
+    <a href="{{ route('home') }}" class="btn btn-outline-light btn-lg mt-3">回首頁</a>
     <a href="#features" class="btn btn-light btn-lg mt-3">Go</a>
   </div>
 </header>

@@ -12,7 +12,7 @@
   <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
   <script>
     const ui = SwaggerUIBundle({
-      url: '/production.yaml',
+      url: '/swagger-production.yaml',
       dom_id: '#swagger-ui',
       deepLinking: true,
       presets: [

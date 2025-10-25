@@ -3,21 +3,21 @@
         "icon": "fa-solid fa-list-check",
         "title": "Task List",
         "description": "每次基礎能力應該做的展示",
-        "link": "route('tasks.index')",
+        "link": "/tasks",
         "action": "Demo"
     },
     {
         "icon": "fa-solid fa-calendar-days",
         "title": "Event API",
         "description": "提供活動列表、報名(會寄信)",
-        "link": "route('demo.swagger')",
+        "link": "/demo/swagger",
         "action": "查看 API Spec"
     },
     {
         "icon": "fa-solid fa-vote-yea",
         "title": "投票網站",
         "description": "做簡單的投票網站(Livewire)",
-        "link": "route('poll')",
+        "link": "/poll",
         "action": "Demo"
     },
     {
