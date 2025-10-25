@@ -23,6 +23,8 @@ class JWTMiddleware
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
+
+
         return $next($request);
     }
 }
