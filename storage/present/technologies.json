@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Laravel",
+        "image": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg"
+    },
+    {
+        "title": "Postgresql",
+        "image": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
+    },
+    {
+        "title": "Redis",
+        "image": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg"
+    },
+    {
+        "title": "Livewire",
+        "image": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/livewire/livewire-original.svg"
+    },
+    {
+        "title": "Github Action",
+        "image": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg"
+    }
+]

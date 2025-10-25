@@ -1,0 +1,10 @@
+[
+    {
+        "date": "2025-06-01",
+        "changes": ["專案啟動", "加入 Line Webhook, 黃金價格, 面試 Demo用"]
+    },
+    {
+        "date": "2025-10-25",
+        "changes": ["將Sanctum認證改為JWT", "建立一個壓縮Response的Middleware"]
+    }
+]
