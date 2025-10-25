@@ -8,7 +8,8 @@ class AstroHelper
 {
     public function get(int $astroIndex = 8)
     {
-        $url = "https://astro.click108.com.tw/daily_{$astroIndex}.php?iAstro={$astroIndex}";
+        $actualDate = date('Y-m-d');
+        $url = "https://astro.click108.com.tw/daily_{$astroIndex}.php?iAstro={$astroIndex}&iAcDay={$actualDate}";
 
         $response = Http::retry(3, 5000)->get($url);
 
