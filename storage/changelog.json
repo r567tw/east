@@ -6,5 +6,9 @@
     {
         "date": "2025-10-25",
         "changes": ["將Sanctum認證改為JWT", "建立一個壓縮Response的Middleware"]
+    },
+    {
+        "date": "2025-10-26",
+        "changes": ["新增星座運勢API Spec"]
     }
 ]

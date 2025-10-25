@@ -81,3 +81,71 @@ paths:
                   const: Unable to fetch location data
         "429":
           description: 請求過於頻繁，請稍後再試
+
+  /api/astro/{name}:
+    get:
+      tags:
+        - 星座運勢
+      summary: 取得星座運勢
+      description: 根據星座名稱取得該星座的運勢資料。支援的星座名稱包括：牡羊座、金牛座、雙子座、巨蟹座、獅子座、處女座、天秤座、天蠍座、射手座、摩羯座、水瓶座、雙魚座
+      parameters:
+        - in: path
+          name: name
+          schema:
+            type: string
+            enum:
+              - 牡羊座
+              - 金牛座
+              - 雙子座
+              - 巨蟹座
+              - 獅子座
+              - 處女座
+              - 天秤座
+              - 天蠍座
+              - 射手座
+              - 摩羯座
+              - 水瓶座
+              - 雙魚座
+          required: true
+          description: 星座名稱（中文）
+          example: 牡羊座
+      responses:
+        "200":
+          description: 成功取得星座運勢資料
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    description: 星座運勢文字
+                    example: |
+                      今日牡羊座解析
+                      整體運勢★★★☆☆：今天有什麼想法可以跟另一半交流，會獲得對方的支持；單身者有機會與能言善道的異性結緣。出門辦事較順利，有機會接觸到新鮮事物，例如：結識有名的人物、應邀參觀展覽等。
+                      愛情運勢★★★☆☆：熱戀中的人可以徜徉在甜蜜的戀情之中，與伴侶共同享受羅曼蒂克的約會時光。
+
+                      事業運勢★★★☆☆：心情愉快，願意聽取家人、親友的意見，讓你有不少新的領悟，對事業有助益。
+                      財運運勢★★☆☆☆：財運稍弱，想投機取巧而得財比較困難。
+        "400":
+          description: 無效的星座名稱
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    const: Invalid
+        "404":
+          description: 找不到該星座的運勢資料
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    const: No data found
+        "429":
+          description: 請求過於頻繁，請稍後再試
