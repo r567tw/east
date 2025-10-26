@@ -12,7 +12,7 @@
         "changes": [
             "新增星座運勢API Spec",
             "新增例行公事通知/系統功能",
-            "刪除自己寫的 JWT Middleware 改用預設套件有的`jwt.auth`"
+            "刪除自己寫的 JWT Middleware 改用預設有的`jwt.auth`"
         ]
     }
 ]
