@@ -124,4 +124,5 @@ return [
     ],
 
     'cwb_api_key' => env('CWB_API_KEY', 'aaa-bbb-ccc'),
+    'google_gemini_api_key' => env('GOOGLE_GEMINI_API_KEY', ''),
 ];

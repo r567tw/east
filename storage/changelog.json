@@ -15,5 +15,12 @@
             "刪除自己寫的 JWT Middleware 改用預設`jwt.auth` middleware",
             "Fix 我的 Github Actions, 因為導入 Storage JSON 導致有點麻煩的 Linux 權限問題"
         ]
+    },
+    {
+        "date": "2025-10-28",
+        "changes": [
+            "新增 AiHelper 用於處理 AI 相關功能",
+            "新增文字總結功能，使用 Google Gemini API 來簡化輸入的文字內容(串接 Line Webhook)"
+        ]
     }
 ]
