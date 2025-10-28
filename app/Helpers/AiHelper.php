@@ -34,4 +34,27 @@ class AiHelper
             return "API 請求失敗，狀態碼：" . $response->status();
         }
     }
+
+    public static function ask(string $question): string
+    {
+        $apiKey = config('app.google_gemini_api_key'); // 請將 API Key 放在 .env
+        $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={$apiKey}";
+        $payload = [
+            "contents" => [[
+                "parts" => [[
+                    "text" => $question
+                ]]
+            ]]
+        ];
+
+        $response = Http::post($url, $payload);
+
+        if ($response->successful()) {
+            $result = $response->json();
+            $output = $result['candidates'][0]['content']['parts'][0]['text'];
+            return $output ?? "";
+        } else {
+            return "";
+        }
+    }
 }
