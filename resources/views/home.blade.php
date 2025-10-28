@@ -7,11 +7,11 @@
           <h1 class="display-3">Hi, Developers</h1>
           <h2>{{ Carbon\Carbon::now()->format('Y-m-d H:i') }}</h2>
           <p>距離今年結束<span id="days" style="font-weight: bold;font-size: 4em;color: #ff6347;">0</span>天</p>
-          <p>
+          <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-start">
             <a class="btn btn-primary btn-lg" href="{{ route("present") }}" role="button">Present »</a>
             <a class="btn btn-info btn-lg" href="{{ route("production.swagger") }}" role="button" target="_blank">Production API »</a>
             <a class="btn btn-secondary btn-lg" href="{{ route("changelog") }}" role="button">changelog »</a>
-          </p>
+          </div>
         </div>
     </div>
 @endsection

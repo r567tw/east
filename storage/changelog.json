@@ -26,7 +26,7 @@
     {
         "date": "2025-10-29",
         "changes": [
-            "增加 AiHelper 中的 ask 方法，用於與 AI 進行對話",
+            "首頁調整 For Responsive",
             "Line Webhook 現在可以處理非指令的訊息，並預設使用 AI 回覆，如果發生錯誤則就是重複使用者輸入的訊息"
         ]
     }
