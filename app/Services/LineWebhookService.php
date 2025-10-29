@@ -123,9 +123,21 @@ class LineWebhookService
         if (strpos($command, '精簡') === 0) {
             $text = str_replace('精簡', '', $command);
             $helper = new \App\Helpers\AiHelper();
-            return $helper->summarizeText($text);
+            $result = $helper->summarizeText($text);
+            if ($result == "") {
+                return "無法精簡該段文字。";
+            }
+            return $result;
+        }
 
-            return $this->bind($inviteCode, $user->line_user_id ?? null);
+        if (strpos($command, '翻譯') === 0) {
+            $text = str_replace('翻譯', '', $command);
+            $helper = new \App\Helpers\AiHelper();
+            $result = $helper->translate($text);
+            if ($result == "") {
+                return "無法翻譯該段文字。";
+            }
+            return $result;
         }
 
         if ($command === 'help') {

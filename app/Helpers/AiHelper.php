@@ -14,25 +14,7 @@ class AiHelper
      */
     public static function summarizeText(string $text): string
     {
-        $apiKey = config('app.google_gemini_api_key'); // 請將 API Key 放在 .env
-        $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={$apiKey}";
-        $payload = [
-            "contents" => [[
-                "parts" => [[
-                    "text" => "請在不改變意思的情況下，將以下文字精簡成 100 字以內。\n\n{$text}"
-                ]]
-            ]]
-        ];
-
-        $response = Http::post($url, $payload);
-
-        if ($response->successful()) {
-            $result = $response->json();
-            $output = $result['candidates'][0]['content']['parts'][0]['text'];
-            return $output ?? "結果取得失敗";
-        } else {
-            return "API 請求失敗，狀態碼：" . $response->status();
-        }
+        return self::ask("請在不改變意思的情況下，將以下文字精簡成 100 字以內。\n\n{$text}");
     }
 
     public static function ask(string $question): string
@@ -56,5 +38,11 @@ class AiHelper
         } else {
             return "";
         }
+    }
+
+    public static function translate(string $text): string
+    {
+        $question = "請將以下文字翻譯成中文，如果文字用的語言是中文則就翻譯成英文：\n\n{$text}";
+        return self::ask($question);
     }
 }
