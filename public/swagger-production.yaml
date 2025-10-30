@@ -118,15 +118,28 @@ paths:
                 type: object
                 properties:
                   result:
-                    type: string
-                    description: 星座運勢文字
-                    example: |
-                      今日牡羊座解析
-                      整體運勢★★★☆☆：今天有什麼想法可以跟另一半交流，會獲得對方的支持；單身者有機會與能言善道的異性結緣。出門辦事較順利，有機會接觸到新鮮事物，例如：結識有名的人物、應邀參觀展覽等。
-                      愛情運勢★★★☆☆：熱戀中的人可以徜徉在甜蜜的戀情之中，與伴侶共同享受羅曼蒂克的約會時光。
-
-                      事業運勢★★★☆☆：心情愉快，願意聽取家人、親友的意見，讓你有不少新的領悟，對事業有助益。
-                      財運運勢★★☆☆☆：財運稍弱，想投機取巧而得財比較困難。
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        description: 星座名稱
+                        example: 今日牡羊座解析
+                      all:
+                        type: string
+                        description: 整體運勢
+                        example: 整體運勢★★★☆☆：今天有什麼想法可以跟另一半交流，會獲得對方的支持；單身者有機會與能言善道的異性結緣。出門辦事較順利，有機會接觸到新鮮事物，例如：結識有名的人物、應邀參觀展覽等。
+                      love:
+                        type: string
+                        description: 愛情運勢
+                        example: 愛情運勢★★★☆☆：熱戀中的人可以徜徉在甜蜜的戀情之中，與伴侶共同享受羅曼
+                      career:
+                        type: string
+                        description: 事業運勢
+                        example: 事業運勢★★★☆☆：心情愉快，願意聽取家人、親友的意見，讓你有不少新的領悟，對事業有助益。
+                      money:
+                        type: string
+                        description: 財運運勢
+                        example: 財運運勢★★☆☆☆：財運稍弱，想投機取巧而得財比較困難。
         "400":
           description: 無效的星座名稱
           content:

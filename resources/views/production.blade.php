@@ -4,23 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <title>EAST API</title>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui.css" />
+  <script type="module" src="https://unpkg.com/rapidoc/dist/rapidoc-min.js"></script>
 </head>
 <body>
-<p>此為公開 API, 開放所有人使用，若有使用上的問題可聯絡 <<em><code style="color:red;">r567tw@gmail.com</code></em>></p>
-  <div id="swagger-ui"></div>
-  <script src="https://cdn.jsdelivr.net/npm/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
-  <script>
-    const ui = SwaggerUIBundle({
-      url: '/swagger-production.yaml',
-      dom_id: '#swagger-ui',
-      deepLinking: true,
-      presets: [
-        SwaggerUIBundle.presets.apis,
-      ],
-      // layout 可選值有 "BaseLayout", "StandaloneLayout"
-      layout: "BaseLayout",
-    })
-  </script>
+<rapi-doc
+    spec-url="/swagger-production.yaml"
+    allow-server-selection="false"
+    layout="column"
+    default-schema-tab="model"
+    schema-description-expanded="true"
+></rapi-doc>
+<p>此為公開 API, 開放所有人使用，若有使用上的問題可聯絡 &lt;<em><code style="color:red; text-decoration:underline;"><a style="color:red; text-decoration:underline;" href="mailto:r567tw@gmail.com">r567tw@gmail.com</a></code></em>&gt;</p>
 </body>
 </html>

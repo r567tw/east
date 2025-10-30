@@ -42,7 +42,7 @@ class AiHelper
 
     public static function translate(string $text): string
     {
-        $question = "請將以下文字翻譯成中文，如果文字用的語言是中文則就翻譯成英文：\n\n{$text}";
+        $question = "請將以下文字翻譯成繁體中文，如果文字用的語言是中文(無論是簡體還是繁體)則就翻譯成英文：\n\n{$text}";
         return self::ask($question);
     }
 }

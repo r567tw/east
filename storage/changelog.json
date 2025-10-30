@@ -35,5 +35,13 @@
         "changes": [
             "Line Webhook 現在新增翻譯功能，可以使用「翻譯」指令來翻譯文字內容"
         ]
+    },
+    {
+        "date": "2025-10-31",
+        "changes": [
+            "修了很多很多東西，每次都是晚上才寫Code...睡眠不足...囧",
+            "fix AI 翻譯有時候會回傳簡體中文的問題、Astro 的 API 調整 Spec、Line 帳號這時候可以問目前專案的 Version囉",
+            "區分 Production 和 Demo 用的 Swagger UI, Production 改成 Rapidoc Component"
+        ]
     }
 ]

@@ -21,10 +21,19 @@ class AstroController extends Controller
 
         $data = Cache::get("astro_{$astroIndex}");
 
+
         if (!$data) {
             return response()->json(['error' => 'No data found'], 404);
         }
 
-        return response()->json(["result" => $data]);
+        [$title, $all, $love,, $career, $money] = explode("\r\n", $data);
+
+        return response()->json(["result" => [
+            'title' => $title,
+            'all' => $all,
+            'love' => $love,
+            'career' => $career,
+            'money' => $money,
+        ]]);
     }
 }
