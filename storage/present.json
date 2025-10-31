@@ -1,0 +1,64 @@
+{
+    "features": [
+        {
+            "icon": "fa-solid fa-list-check",
+            "title": "Task List",
+            "description": "每次基礎能力應該做的展示",
+            "link": "/tasks",
+            "action": "Demo"
+        },
+        {
+            "icon": "fa-solid fa-calendar-days",
+            "title": "Event API",
+            "description": "提供活動列表、報名(會寄信)",
+            "link": "/demo/swagger",
+            "action": "查看 API Spec"
+        },
+        {
+            "icon": "fa-solid fa-vote-yea",
+            "title": "投票網站",
+            "description": "做簡單的投票網站(Livewire)",
+            "link": "/poll",
+            "action": "Demo"
+        },
+        {
+            "icon": "fa-brands fa-line",
+            "title": "Line 個人助手(不開放)",
+            "description": "串接 Line Webhook 查詢天氣、黃金、空氣品質等資訊"
+        }
+    ],
+    "technologies": [
+        {
+            "title": "Laravel",
+            "image": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg"
+        },
+        {
+            "title": "Postgresql",
+            "image": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
+        },
+        {
+            "title": "Redis",
+            "image": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg"
+        },
+        {
+            "title": "Livewire",
+            "image": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/livewire/livewire-original.svg"
+        },
+        {
+            "title": "Github Action",
+            "image": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg"
+        }
+    ],
+    "monitors": [
+        {
+            "image": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/uptime-kuma.svg",
+            "title": "Uptime Kuma",
+            "description": "監控網站服務狀態"
+        },
+        {
+            "image": "/images/laravel-nightwatch-logo.svg",
+            "title": "Laravel NightWatch",
+            "description": "監控 Laravel App"
+        }
+    ]
+}

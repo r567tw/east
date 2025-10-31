@@ -52,7 +52,7 @@
 <section class="bg-lightgray py-5">
   <div class="container">
     <h2 class="text-center mb-4">技術架構</h2>
-    <p class="text-center">本平台自架於 Ubuntu Linux Server。</p>
+    <p class="text-center">本平台自架於 <img src="https://devicon-website.vercel.app/api/ubuntu/plain.svg" alt="Ubuntu Logo" style="width: 30px; vertical-align: middle;"> Ubuntu Linux Server。</p>
     <div class="row justify-content-center">
       @foreach ($technologies as $tech)
         <div class="col-6 col-md-4 col-lg-2 mb-4 d-flex justify-content-center">
@@ -60,6 +60,26 @@
             <img src="{{ $tech["image"] }}" class="card-img-top mx-auto mt-3" style="width:60px;" alt="{{ $tech["title"] }}">
             <div class="card-body p-2">
               <h6 class="card-title text-center">{{ $tech['title'] }}</h6>
+            </div>
+          </div>
+        </div>
+      @endforeach
+    </div>
+  </div>
+</section>
+
+<!-- 監控 -->
+<section class="bg-lightgray py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">監控</h2>
+    <div class="row justify-content-center">
+      @foreach ($monitors as $monitor)
+        <div class="col-6 col-md-2 col-lg-2 mb-4 d-flex justify-content-center">
+          <div class="card shadow-sm" >
+            <img src="{{ $monitor["image"] }}" class="card-img-top mx-auto mt-3" style="width:60px;" alt="{{ $monitor["title"] }}">
+            <div class="card-body p-2">
+              <h6 class="card-title text-center">{{ $monitor['title'] }}</h6>
+              <p class="card-text text-center">{{ $monitor['description'] ?? '' }}</p>
             </div>
           </div>
         </div>

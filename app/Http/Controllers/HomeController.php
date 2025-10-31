@@ -19,9 +19,11 @@ class HomeController extends Controller
 
     public function present()
     {
-        $features = json_decode(file_get_contents(storage_path('present/features.json')), true);
-        $technologies = json_decode(file_get_contents(storage_path('present/technologies.json')), true);
-        return view("present", compact('features', 'technologies'));
+        $all = json_decode(file_get_contents(storage_path('present.json')), true);
+        $features = $all['features'] ?? [];
+        $technologies = $all['technologies'] ?? [];
+        $monitors = $all['monitors'] ?? [];
+        return view("present", compact('features', 'technologies', 'monitors'));
     }
 
     public function demo()

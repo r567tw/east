@@ -67,7 +67,7 @@ class LineWebhookService
             return (new \App\Helpers\WeatherHelper())->getWeather($user->location);
         }
 
-        if ($command === '空氣') {
+        if ($command === '空氣' || $command === '空汙' || $command === '空氣品質' || $command === 'air') {
             if ($user == null) {
                 return "請先綁定 LINE 帳號。";
             }
@@ -141,7 +141,7 @@ class LineWebhookService
         }
 
         if ($command === 'version') {
-            return "Laravel Version: " . app()->version() . "\n PHP Version: " . PHP_VERSION .  "\n Reference: https://php.watch/versions";
+            return "Laravel Version: " . app()->version() . "\nPHP Version: " . PHP_VERSION .  "\nReference: https://php.watch/versions";
         }
 
         if ($command === 'help') {
