@@ -54,6 +54,11 @@
     },
     {
         "date": "2025-11-02",
-        "changes": ["看看 ufw、看看一些sshd的設定，將一些主機相關瑣碎做一做"]
+        "changes": [
+            "看看 ufw、看看一些sshd的設定，將一些主機相關瑣碎做一做",
+            "將 Book 的功能重寫(因為sqlite,postgres 遇到 HAVING 在非聚合查詢上無效 的問題)並重構程式碼-採用 Service + Repository 的架構",
+            "關於上面那個問題可以參考：https://r567tw.cc/blog/sql-having-in-non-aggregate-query/",
+            "增加 Portal 頁面，這是給我自己用的東西"
+        ]
     }
 ]

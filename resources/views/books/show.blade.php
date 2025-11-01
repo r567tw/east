@@ -2,7 +2,11 @@
 
 @section('content')
     <div class="mb-4">
-        <h1 class="sticky top-0 mb-2 text-2xl">{{ $book->title }}</h1>
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="sticky top-0 mb-2 text-2xl">{{ $book->title }}</h1>
+            <a href="{{ route('books.edit', $book) }}" class="link underline">Edit</a>
+        </div>
+
 
         <div class="book-info">
             <div class="book-author mb-4 text-lg font-semibold">by {{ $book->author }}</div>
@@ -46,5 +50,9 @@
                 </li>
             @endforelse
         </ul>
+    </div>
+
+    <div class="mt-6">
+        <a href="{{ route('books.index') }}" class="link underline">Back to List</a>
     </div>
 @endsection

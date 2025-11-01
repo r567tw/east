@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', isset($book) ? 'Update Task' : 'Create Task')
+@section('title', isset($book) ? 'Update Book' : 'Create Book')
 @section('content')
     @if ($errors->any())
         <div class="alert alert-danger">

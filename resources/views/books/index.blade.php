@@ -1,8 +1,10 @@
 @extends('layouts.books')
 
 @section('content')
-    <h1 class="mb-10 text-2xl">Books</h1>
-
+    <div class="mb-10 flex justify-between items-center">
+        <h1 class="text-2xl">Books</h1>
+        <a href="{{ route('books.create') }}" class="link underline">Create</a>
+    </div>
     <form method="GET" action="{{ route('books.index') }}" class="mb-6 flex item-center space-x-2">
         <input type="text" name="title" placeholder="Search by title" value="{{ request('title') }}" class="input h-10" />
         <input type="hidden" name="filter" value="{{ request('filter') }}" />
@@ -14,10 +16,8 @@
         @php
             $filters = [
                 '' => 'Latest',
-                'popular_last_month' => 'Popular Last Month',
-                'popular_last_6months' => 'Popular Last 6 Months',
-                'highest_rated_last_month' => 'Highest Rated Last Month',
-                'highest_rated_last_6months' => 'Highest Rated Last 6 Months',
+                'highest_review_count' => 'Highest Review Count',
+                'highest_rating_avg' => 'Highest Rating Average',
             ];
         @endphp
 

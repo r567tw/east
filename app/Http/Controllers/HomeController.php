@@ -26,6 +26,11 @@ class HomeController extends Controller
         return view("present", compact('features', 'technologies', 'monitors'));
     }
 
+    public function portal()
+    {
+        return view("portal");
+    }
+
     public function demo()
     {
         return view("demo");

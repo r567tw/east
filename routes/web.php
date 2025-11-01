@@ -30,6 +30,7 @@ Route::get('events/{event}', [EventController::class, 'show'])->name('page.event
 
 // Presentation route
 Route::get('present', [HomeController::class, 'present'])->name('present');
+Route::get('portal', [HomeController::class, 'portal'])->name('portal');
 
 // ChangeLog route
 Route::get('changelog', [HomeController::class, 'changelog'])->name('changelog');
