@@ -36,7 +36,6 @@ class BookRepository
         return Book::withAvgRating()
             ->withReviewsCount()
             ->orderByDesc('reviews_count')
-            ->latest()
             ->get();
     }
 
@@ -45,7 +44,6 @@ class BookRepository
         return Book::withAvgRating()
             ->withReviewsCount()
             ->orderByDesc('reviews_avg_rating')
-            ->latest()
             ->get();
     }
 

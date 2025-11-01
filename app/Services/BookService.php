@@ -26,11 +26,15 @@ class BookService
             return $this->bookRepository->findByTitle($title);
         }
 
-        return match ($filter) {
-            'highest_review_count' => $this->bookRepository->getHighestReviewCount(),
-            'highest_rating_avg' => $this->bookRepository->getHighestRatingAvg(),
-            default => $this->bookRepository->getBooksByLatest()
-        };
+        $data = cache()->remember('book_list:' . $filter, 3600, function () use ($filter) {
+            return match ($filter) {
+                'highest_review_count' => $this->bookRepository->getHighestReviewCount(),
+                'highest_rating_avg' => $this->bookRepository->getHighestRatingAvg(),
+                default => $this->bookRepository->getBooksByLatest()
+            };
+        });
+
+        return $data;
     }
 
     /**
