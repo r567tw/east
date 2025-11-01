@@ -19,9 +19,8 @@
 <header>
   <div class="container">
     <h1 class="display-4">專案展示</h1>
-    <p class="lead">這是一個提供面試的能力參考</p>
-    <a href="{{ route('home') }}" class="btn btn-outline-light btn-lg mt-3">回首頁</a>
     <a href="#features" class="btn btn-light btn-lg mt-3">Go</a>
+    <a href="{{ route('home') }}" class="btn btn-outline-light btn-lg mt-3">回首頁</a>
   </div>
 </header>
 
@@ -52,7 +51,10 @@
 <section class="bg-lightgray py-5">
   <div class="container">
     <h2 class="text-center mb-4">技術架構</h2>
-    <p class="text-center">本平台自架於 <img src="https://devicon-website.vercel.app/api/ubuntu/plain.svg" alt="Ubuntu Logo" style="width: 30px; vertical-align: middle;"> Ubuntu Linux Server。</p>
+    <p class="text-center">
+        本平台自架於 <img src="https://devicon-website.vercel.app/api/ubuntu/plain.svg" alt="Ubuntu Logo" style="width: 30px; vertical-align: middle;"> Ubuntu Server、
+        DNS 由 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cloudflare/cloudflare-original.svg" alt="Cloudflare Logo" style="width: 30px; vertical-align: middle;"> Cloudflare 支援
+    </p>
     <div class="row justify-content-center">
       @foreach ($technologies as $tech)
         <div class="col-6 col-md-4 col-lg-2 mb-4 d-flex justify-content-center">
