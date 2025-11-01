@@ -15,11 +15,15 @@ Route::get("/", [HomeController::class, 'home'])->name('home');
 Route::resource('tasks', TaskController::class);
 Route::patch('tasks/{task}/toggle', [TaskController::class, 'toggle'])->name('tasks.toggle');
 
-// Book and Review routes
+// Book Review System routes
 Route::resource('books', BookController::class);
 Route::resource('books.reviews', ReviewController::class)->only(['create', 'store'])->middleware('throttle:reviews');
 
+// Poll routes
 Route::get('poll', [HomeController::class, 'poll'])->name('poll');
+
+// BMI Page
+Route::get('bmi', [HomeController::class, 'bmi'])->name('bmi');
 
 // Line Services
 Route::post('/line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook');
@@ -28,7 +32,7 @@ Route::get('s/{code}', [ShortRedirectController::class, 'redirect'])->name('shor
 // Event routes
 Route::get('events/{event}', [EventController::class, 'show'])->name('page.event.show');
 
-// Presentation route
+// Presentation and Portal routes
 Route::get('present', [HomeController::class, 'present'])->name('present');
 Route::get('portal', [HomeController::class, 'portal'])->name('portal');
 
