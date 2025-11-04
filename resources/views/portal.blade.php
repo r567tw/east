@@ -33,6 +33,9 @@
                             <li>
                                 <a href="https://my.vultr.com/">Vultr</a>
                             </li>
+                            <li>
+                                <a href="https://free-for.dev/#/">Free for Developers</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
