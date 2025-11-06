@@ -24,7 +24,8 @@ Route::post('logout', [JWTAuthController::class, 'logout'])->middleware('jwt.aut
 Route::apiResource('events', EventController::class)->only(['index', 'show']);
 Route::apiResource('events', EventController::class)->only(['store', 'update', 'destroy'])->middleware(['jwt.auth', 'throttle:api']);
 Route::apiResource('events.attendees', AttendeeController::class)->only(['index', 'show'])->middleware(['jwt.auth', 'throttle:api']);
-Route::apiResource('events.attendees', AttendeeController::class)->only(['store', 'update'])->middleware(['jwt.auth', 'throttle:api']);
+Route::apiResource('events.attendees', AttendeeController::class)->only(['store'])->middleware(['throttle:api']);
+Route::apiResource('events.attendees', AttendeeController::class)->only(['update'])->middleware(['jwt.auth', 'throttle:api']);
 Route::apiResource('events.attendees', AttendeeController::class)->only(['destroy'])->middleware(['jwt.auth', 'throttle:api']);
 
 // Production Useful Routes
