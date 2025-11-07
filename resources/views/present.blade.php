@@ -36,9 +36,9 @@
                 <div class="card-body">
                     <h5 class="card-title"><i class="{{ $item["icon"] }}"></i>  {{ $item["title"]}}</h5>
                     <p class="card-text">{{ $item["description"]}}</p>
-                    @if (!empty($item["link"]))
-                        <a href="{{ $item["link"] }}" target="_blank" class="card-link">{{ $item["action"] }}</a>
-                    @endif
+                    @foreach ($item["links"] as $link)
+                        <a href="{{ $link["url"] }}" target="_blank" class="card-link">{{ $link["label"] }}</a>
+                    @endforeach
                 </div>
             </div>
         </div>

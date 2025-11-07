@@ -64,5 +64,12 @@
     {
         "date": "2025-11-04",
         "changes": ["先去搞一些 Vue 和 React...這裡先休息一下下"]
+    },
+    {
+        "date": "2025-11-07",
+        "changes": [
+            "建立 Event Frontend 專案 Demo 用",
+            "移除後端的 Event Page、 更新 Email 連結"
+        ]
     }
 ]

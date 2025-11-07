@@ -29,8 +29,6 @@ Route::get('bmi', [HomeController::class, 'bmi'])->name('bmi');
 Route::post('/line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook');
 // Short URL redirect
 Route::get('s/{code}', [ShortRedirectController::class, 'redirect'])->name('short.redirect');
-// Event routes
-Route::get('events/{event}', [EventController::class, 'show'])->name('page.event.show');
 
 // Presentation and Portal routes
 Route::get('present', [HomeController::class, 'present'])->name('present');
