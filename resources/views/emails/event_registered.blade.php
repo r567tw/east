@@ -39,7 +39,7 @@
         <p>你已成功報名活動：<strong>{{ $attendee->event->name }}</strong></p>
         <p>活動期間：{{ $start }} ~ {{ $end }}<br>
 
-        <a href="https://r567tw.github.io/event-app/events/{{ $attendee->event_id }}" class="button">查看活動詳情</a>
+        <a href="https://r567tw.github.io/event-app/#/events/{{ $attendee->event_id }}" class="button">查看活動詳情</a>
 
         <p>謝謝你參加我們的活動！</p>
     </div>
