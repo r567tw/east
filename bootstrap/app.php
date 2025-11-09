@@ -20,6 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append([
             \App\Http\Middleware\CompressResponse::class,
         ]);
+
+        $middleware->alias([
+            'line.webhook' => \App\Http\Middleware\LineWebhookMiddleware::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

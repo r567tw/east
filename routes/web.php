@@ -26,7 +26,8 @@ Route::get('poll', [HomeController::class, 'poll'])->name('poll');
 Route::get('bmi', [HomeController::class, 'bmi'])->name('bmi');
 
 // Line Services
-Route::post('/line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook');
+Route::post('/line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook')->middleware('line.webhook');
+
 // Short URL redirect
 Route::get('s/{code}', [ShortRedirectController::class, 'redirect'])->name('short.redirect');
 

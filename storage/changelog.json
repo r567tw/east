@@ -71,5 +71,12 @@
             "建立 Event Frontend 專案 Demo 用",
             "移除後端的 Event Page、 更新 Email 連結"
         ]
+    },
+    {
+        "date": "2025-11-09",
+        "changes": [
+            "新增 Line Webhook Middleware 測試(phpunit)",
+            "將部分程式碼抽出做 Line Webhook Middleware"
+        ]
     }
 ]

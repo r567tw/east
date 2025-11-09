@@ -13,16 +13,6 @@ class LineWebhookController extends Controller
 
     public function handle(Request $request)
     {
-        // 驗證簽名（選擇性，但建議做）
-        $channelSecret = config('line.line_channel_secret'); // .env 中設定
-        $signature = $request->header('X-Line-Signature');
-
-        $body = $request->getContent();
-        $hash = base64_encode(hash_hmac('sha256', $body, $channelSecret, true));
-        if ($signature !== $hash) {
-            return response('Invalid signature', 400);
-        }
-
         $events = $request->input('events', []);
 
         foreach ($events as $event) {
