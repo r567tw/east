@@ -23,18 +23,31 @@ class ShortUrlController extends Controller
         // Validate the request and save the short URL
         $request->validate([
             'url' => 'required|url|max:2048',
+            'code' => 'nullable|string|unique:short_urls,short',
+            'expires_at' => 'date|after:now',
         ]);
 
-        $shortCode = Str::random(6); // Generate a random short code
-
-        while (ShortUrl::where('short', $shortCode)->where('expires_at', '>', now())->exists()) {
-            $shortCode = Str::random(6); // Regenerate if the code already exists
+        if ($request->has('expires_at')) {
+            $expiresAt = $request->input('expires_at');
+        } else {
+            $expiresAt = now()->addDay(); // Default expiration: 1 day
         }
+
+        if ($request->has('code')) {
+            $shortCode = $request->input('code');
+        } else {
+            $shortCode = Str::random(6); // Generate a random short code
+            while (ShortUrl::where('short', $shortCode)->where('expires_at', '>', now())->exists()) {
+                $shortCode = Str::random(6); // Regenerate if the code already exists
+            }
+        }
+
 
         $shortUrl = ShortUrl::create([
             'url' => $request->url,
             'short' => $shortCode, // Generate a random short code
-            'expires_at' => now()->addDay(), // Set expiration date
+            'expires_at' => $expiresAt, // Set expiration date
+            'user_id' => $request->user()->id,
         ]);
 
         return new ShortUrlResource($shortUrl);

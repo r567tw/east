@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class ShortUrl extends Model
 {
     //
-    protected $fillable = ['url', 'short', 'expires_at'];
+    protected $fillable = ['url', 'short', 'user_id', 'expires_at'];
 }

@@ -14,6 +14,7 @@ class ShortRedirectController extends Controller
 
         if ($shortUrl) {
             // Todo: Increment the visit count
+            $shortUrl->increment('visit_count');
             // Redirect to the original URL
             return redirect()->to($shortUrl->url);
         }
