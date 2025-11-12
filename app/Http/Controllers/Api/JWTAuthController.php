@@ -25,7 +25,7 @@ class JWTAuthController extends Controller
 
     public function me()
     {
-        $user = JWTAuth::user();
+        $user = request()->user();
         return response()->json([
             'email' => $user->email,
             'name' => $user->name,

@@ -10,9 +10,12 @@ class ShortRedirectController extends Controller
     //
     public function redirect($code)
     {
-        $shortUrl = ShortUrl::where('short', $code)->where('expires_at', '>', now())->first();
+        $shortUrl = ShortUrl::where('short', $code)->first();
 
         if ($shortUrl) {
+            if ($shortUrl->expires_at && $shortUrl->expires_at->isPast()) {
+                return abort(410, 'Short link has expired');
+            }
             // Todo: Increment the visit count
             $shortUrl->increment('visit_count');
             // Redirect to the original URL
