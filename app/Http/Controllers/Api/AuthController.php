@@ -64,6 +64,9 @@ class AuthController extends Controller
                     'used_at' => now(),
                 ]);
 
+            $user->code = $request->invite_code;
+            $user->save();
+
             return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
         } else {
             return response()->json(['message' => 'Invalid invite code'], 422);
