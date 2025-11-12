@@ -24,13 +24,17 @@
             <p style="margin:8px 0 0 0;color:#333;font-size:16px;">請留意以下本週需完成的事項：</p>
         </div>
         <ul style="padding:0;">
-            @foreach ($tasks as $task)
-                <li style="margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid #eee;">
-                    <span style="font-weight:bold;color:#4F8A8B;font-size:15px;">{{ $task->getTargetDateForThisMonth()->format('Y-m-d') }}</span>
-                    <span style="font-size:16px;margin-left:8px;">{{ $task->title }}</span>
-                    <div style="color:#666;margin-left:24px;font-size:14px;">{{ $task->description }}</div>
-                </li>
-            @endforeach
+            @if ($tasks->isEmpty())
+                <li style="font-size:16px;color:#666;">本週沒有例行公事。</li>
+            @else
+                @foreach ($tasks as $task)
+                    <li style="margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid #eee;">
+                        <span style="font-weight:bold;color:#4F8A8B;font-size:15px;">{{ $task->getTargetDateForThisMonth()->format('Y-m-d') }}</span>
+                        <span style="font-size:16px;margin-left:8px;">{{ $task->title }}</span>
+                        <div style="color:#666;margin-left:24px;font-size:14px;">{{ $task->description }}</div>
+                    </li>
+                @endforeach
+            @endif
         </ul>
         <div style="margin-top:32px;color:#888;font-size:13px;">
             <hr>

@@ -31,15 +31,8 @@ class SendWeeklyRoutineTasks extends Command
         $service = app(RoutineTaskService::class);
         $tasks = $service->getTasksForThisWeek();
 
-        if ($tasks->isEmpty()) {
-            $this->info('本週沒有例行公事');
-            return;
-        }
-
         // 使用 Notification 機制
         Notification::route('mail', 'r567tw@gmail.com')
             ->notify(new RoutineTaskNotification($tasks));
-
-        $this->info('本週例行公事已通知');
     }
 }
