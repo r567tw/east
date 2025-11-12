@@ -78,5 +78,9 @@
             "新增 Line Webhook Middleware 測試(phpunit)",
             "將部分程式碼抽出做 Line Webhook Middleware"
         ]
+    },
+    {
+        "date": "2025-11-12",
+        "changes": ["短網址可以設定過期時間、客製化、並且會記錄訪問次數"]
     }
 ]
