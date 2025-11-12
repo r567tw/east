@@ -11,7 +11,6 @@ use App\Http\Controllers\Api\RomanNumberController;
 use App\Http\Controllers\Api\RoutineTaskController;
 use App\Http\Controllers\Api\ShortUrlController;
 use Illuminate\Support\Facades\Route;
-use PHPUnit\Event\Runtime\PHP;
 
 // Authentication Routes
 Route::post('register', [AuthController::class, 'register'])->middleware('throttle:5,1');
@@ -29,12 +28,12 @@ Route::apiResource('events.attendees', AttendeeController::class)->only(['update
 Route::apiResource('events.attendees', AttendeeController::class)->only(['destroy'])->middleware(['jwt.auth', 'throttle:api']);
 
 // Production Useful Routes
-Route::get('gold-price', [GoldPriceController::class, 'index'])->name('gold.price')->middleware('throttle:5,1');
-Route::get('convert-to-roman', [RomanNumberController::class, 'convertToRoman'])->name('convertToRoman');
-Route::get('astro/{name}', [AstroController::class, 'show'])->name('astro.show')->middleware('throttle:5,1');
+Route::get('gold-price', [GoldPriceController::class, 'index'])->name('gold.price')->middleware('throttle:30,1');
+Route::get('convert-to-roman', [RomanNumberController::class, 'convertToRoman'])->name('convertToRoman')->middleware('throttle:30,1');
+Route::get('astro/{name}', [AstroController::class, 'show'])->name('astro.show')->middleware('throttle:30,1');
 Route::apiResource('short-url', ShortUrlController::class)->only(['index', 'store'])->middleware(['jwt.auth', 'throttle:30,1']);
 Route::apiResource('routine-tasks', RoutineTaskController::class)->middleware(['jwt.auth', 'throttle:api']);
 
 // For Line Bot Custom Integration
-Route::post('get-our-location', [LocationController::class, 'getOurLocation'])->name('get.our.location')->middleware(['throttle:5,1']);
+Route::post('get-our-location', [LocationController::class, 'getOurLocation'])->name('get.our.location')->middleware(['throttle:10,1']);
 Route::post('set-our-location', [LocationController::class, 'setOurLocation'])->name('set.our.location')->middleware(['jwt.auth', 'throttle:api']);
