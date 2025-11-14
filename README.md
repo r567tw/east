@@ -32,6 +32,7 @@
 -   **快取**: Redis (上線環境)
 -   **資料庫**: PostgreSQL (上線環境) SQLite (本地環境)
 -   **測試**: PHPUnit
+-   **DevOps**: Github Action
 
 ## 📦 安裝步驟
 
