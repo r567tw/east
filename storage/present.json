@@ -14,7 +14,7 @@
                 { "url": "/demo/swagger", "label": "查看 API Spec" },
                 {
                     "url": "https://r567tw.github.io/event-app",
-                    "label": "前端範例"
+                    "label": "前端"
                 }
             ]
         },

@@ -38,7 +38,6 @@
         <h1 class="mb-6 text-3xl font-bold text-center text-gray-800">BMI 健康計算器</h1>
         <div class="mb-4 text-center text-sm text-gray-600">
             <p>💾 您的身高和體重會自動儲存在瀏覽器中</p>
-            <p>🔒 數據只存在您的設備上，不會上傳到服務器</p>
         </div>
         @livewire('bmi-calculator')
 

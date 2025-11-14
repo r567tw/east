@@ -1,14 +1,102 @@
-# Demo
+# EAST
 
-## 想玩的
+一個基於 Laravel 12 的個人 Side Project，整合多元化 API 服務與實用工具的全端 Web 應用程式。
 
--   [V] Redis or Queue ...etc
--   [V] Vultr
--   [] Broadcast: https://laravel.com/docs/11.x/broadcasting
--   [V] 短網址
+## 🚀 特色功能
 
-## php mcp
+### API
 
-https://laravel-news.com/official-php-sdk-for-mcp-announced
-https://packagist.org/packages/mcp/sdk
-Example: https://github.com/pronskiy/mcp
+-   **認證系統** - JWT 認證機制，包含註冊、登入、刷新 token
+-   **活動管理** - 完整的活動與參與者管理系統
+-   **短網址** - 建立 URL 縮短與訪問統計
+-   **例行任務管理** - 方便自己做例行任務管理 (無前端)
+-   **實用工具 API**：
+    -   即時黃金價格查詢
+    -   羅馬數字轉換
+    -   占星資訊查詢
+    -   位置服務
+
+### Web
+
+-   **任務管理** - 待辦事項系統
+-   **書籍評論** - 書籍管理與評論功能
+-   **投票系統** - 線上投票功能
+-   **BMI 計算器** - 互動式 BMI 計算工具
+-   **與 LINE Bot 整合** - LINE Webhook 處理 ()
+
+## 🛠 技術架構
+
+-   **後端**: Laravel 12 + PHP 8.2
+-   **前端**: Livewire 3.6 + Vite
+-   **認證**: JWT (tymon/jwt-auth)
+-   **快取**: Redis (上線環境)
+-   **資料庫**: PostgreSQL (上線環境) SQLite (本地環境)
+-   **測試**: PHPUnit
+
+## 📦 安裝步驟
+
+```bash
+# 複製專案
+git clone https://github.com/r567tw/east.git
+cd east
+
+# 安裝依賴
+composer install
+
+# 環境設定
+cp .env.example .env
+php artisan key:generate
+php artisan jwt:secret
+
+# 資料庫設定
+touch database/database.sqlite
+php artisan migrate
+
+# 啟動服務
+php artisan serve
+```
+
+## 🔧 環境變數設定
+
+```bash
+# JWT 設定
+JWT_SECRET=your_jwt_secret
+
+# LINE Bot 設定
+LINE_CHANNEL_SECRET=your_line_channel_secret
+LINE_CHANNEL_ACCESS_TOKEN=your_line_access_token
+
+# 第三方 API
+CWB_API_KEY=your_weather_api_key # 整合中央氣象局 公開資訊 API
+GOOGLE_GEMINI_API_KEY=your_gemini_api_key # 整合 AI API
+```
+
+## 🧪 測試
+
+```bash
+# 執行所有測試
+php artisan test
+
+# 執行特定測試
+php artisan test --filter=LineWebhookMiddlewareTest
+```
+
+## 📝 部署資訊
+
+### Vultr Specification
+
+-   Current Plan: 1 vCPU, 1 GB RAM, 25 GB Storage, 2 TB Transfer (AMD High Performance)
+-   12 USD: 1 vCPU, 2 GB RAM , 50 GB Storage, 3 TB Transfer (AMD High Performance)
+-   **18 USD: 2 vCPU, 2 GB RAM , 60 GB Storage, 4 TB Transfer (AMD High Performance)**
+-   **24 USD: 2 vCPU, 4 GB RAM , 100 GB Storage, 5 TB Transfer (AMD High Performance)**
+-   參考：https://www.vultr.com/pricing/#cloud-compute
+
+> 綜合考量，建議選擇 Regular Performance $10/月方案 作為起點，若在實際使用中發現效能不足，可升級至 High Performance 或 High Frequency。
+
+## 🔗 相關資源
+
+### PHP MCP
+
+-   https://laravel-news.com/official-php-sdk-for-mcp-announced
+-   https://packagist.org/packages/mcp/sdk
+-   Example: https://github.com/pronskiy/mcp
