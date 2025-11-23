@@ -24,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('shorturls', function (Blueprint $table) {
             //
+            $table->dropColumn('user_type');
         });
     }
 };
