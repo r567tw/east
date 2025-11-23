@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AstroController;
 use App\Http\Controllers\Api\AttendeeController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CustomerAuthController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\GoldPriceController;
 use App\Http\Controllers\Api\JWTAuthController;
@@ -10,14 +11,17 @@ use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\RomanNumberController;
 use App\Http\Controllers\Api\RoutineTaskController;
 use App\Http\Controllers\Api\ShortUrlController;
+use App\Http\Controllers\Api\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 // Authentication Routes
+Route::post('me', [JWTAuthController::class, 'me'])->middleware('jwt.auth');
 Route::post('register', [AuthController::class, 'register'])->middleware('throttle:5,1');
 Route::post('login', [JWTAuthController::class, 'login']);
 Route::post('refresh', [JWTAuthController::class, 'refresh'])->middleware('jwt.auth');
-Route::post('me', [JWTAuthController::class, 'me'])->middleware('jwt.auth');
 Route::post('logout', [JWTAuthController::class, 'logout'])->middleware('jwt.auth');
+
+Route::post('customer/register', [CustomerController::class, 'register']);
 
 // Event and Attendee Routes
 Route::apiResource('events', EventController::class)->only(['index', 'show']);

@@ -14,7 +14,9 @@ class JWTAuthController extends Controller
         // Validate the request
         $credentials = $request->only('email', 'password');
 
-        if (!$token = JWTAuth::attempt($credentials)) {
+        $loginType = $request->get('login_type', 'api');
+
+        if (!$token = auth($loginType)->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -25,11 +27,16 @@ class JWTAuthController extends Controller
 
     public function me()
     {
-        $user = request()->user();
+        $token = JWTAuth::getToken();
+        $payload = JWTAuth::setToken($token)->getPayload();
+        $userType = $payload->get('user_type');
+        $guard = $userType === 'user' ? 'api' : 'customer';
+        $user = auth()->guard($guard)->user();
+
         return response()->json([
             'email' => $user->email,
             'name' => $user->name,
-            'location' => $user->location
+            'user_type' => $userType,
         ]);
     }
 
