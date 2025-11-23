@@ -82,5 +82,9 @@
     {
         "date": "2025-11-12",
         "changes": ["短網址可以設定過期時間、客製化、並且會記錄訪問次數"]
+    },
+    {
+        "date": "2025-11-23",
+        "changes": ["實作 Multi Guard & Customer Register"]
     }
 ]
