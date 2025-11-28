@@ -37,14 +37,7 @@ class LineWebhookService
             return $this->processCommand($message, $user);
         }
 
-        // 改成問 AI
-        $helper = new \App\Helpers\AiHelper();
-        $message = $helper->ask($message);
-        if (empty($message)) {
-            return "你說的是：「{$message}」";
-        } else {
-            return $message;
-        }
+        return "你說的是：「{$message}」";
     }
 
     public function processCommand($command, $user = null)
