@@ -86,5 +86,13 @@
     {
         "date": "2025-11-23",
         "changes": ["實作 Multi Guard & Customer Register"]
+    },
+    {
+        "date": "2025-12-09",
+        "changes": [
+            "好久沒有上來這裡更新一下",
+            "玩一下 PHPUnit 的 Code Coverage、加入相關設定到 phpunit.xml",
+            "加一點 PHPUnit 單元測試"
+        ]
     }
 ]

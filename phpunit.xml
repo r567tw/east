@@ -31,8 +31,11 @@
         <env name="TELESCOPE_ENABLED" value="false"/>
         <env name="LINE_CHANNEL_SECRET" value="test_secret"/>
     </php>
-    <logging>
-        <log type="coverage-html" target="coverage-html" />
-        <log type="coverage-clover" target="coverage-clover.xml" />
-    </logging>
+    <coverage>
+        <report>
+            <html outputDirectory="coverage-html"/>
+            <clover outputFile="coverage-clover.xml"/>
+            <text outputFile="php://stdout"/>
+        </report>
+    </coverage>
 </phpunit>
