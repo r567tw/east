@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\ShortUrl;
-use Illuminate\Http\Request;
 
 class ShortRedirectController extends Controller
 {
@@ -18,6 +17,7 @@ class ShortRedirectController extends Controller
             }
             // Todo: Increment the visit count
             $shortUrl->increment('visit_count');
+
             // Redirect to the original URL
             return redirect()->to($shortUrl->url);
         }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\RoutineTask;
+use Illuminate\Http\Request;
 
 class RoutineTaskController extends Controller
 {
@@ -25,6 +25,7 @@ class RoutineTaskController extends Controller
             'active' => 'boolean',
         ]);
         $task = RoutineTask::create($data);
+
         return response()->json($task, 201);
     }
 
@@ -32,9 +33,10 @@ class RoutineTaskController extends Controller
     public function show($id)
     {
         $task = RoutineTask::find($id);
-        if (!$task) {
+        if (! $task) {
             return response()->json(['error' => 'Not found'], 404);
         }
+
         return response()->json($task);
     }
 
@@ -42,7 +44,7 @@ class RoutineTaskController extends Controller
     public function update(Request $request, $id)
     {
         $task = RoutineTask::find($id);
-        if (!$task) {
+        if (! $task) {
             return response()->json(['error' => 'Not found'], 404);
         }
         $data = $request->validate([
@@ -53,6 +55,7 @@ class RoutineTaskController extends Controller
             'active' => 'boolean',
         ]);
         $task->update($data);
+
         return response()->json($task);
     }
 
@@ -60,10 +63,11 @@ class RoutineTaskController extends Controller
     public function destroy($id)
     {
         $task = RoutineTask::find($id);
-        if (!$task) {
+        if (! $task) {
             return response()->json(['error' => 'Not found'], 404);
         }
         $task->delete();
+
         return response()->json(['success' => true]);
     }
 }

@@ -11,7 +11,7 @@ class GoldPriceHelperTest extends TestCase
      */
     public function test_example(): void
     {
-        $goldPriceHelper = new \App\Helpers\GoldPriceHelper();
+        $goldPriceHelper = new \App\Helpers\GoldPriceHelper;
         $result = $goldPriceHelper->getGoldPrice();
         $this->assertIsInt($result[0]);
         $this->assertIsInt($result[1]);

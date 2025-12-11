@@ -5,19 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventResource;
 use App\Models\Event;
-use Illuminate\Container\Attributes\Cache;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
 class EventController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return cache()->remember('events_list', 3600, fn() => EventResource::collection(Event::with('user')->get()));
+        return cache()->remember('events_list', 3600, fn () => EventResource::collection(Event::with('user')->get()));
     }
 
     /**
@@ -57,7 +54,6 @@ class EventController extends Controller
             return response()->json(['message' => 'You are not authorized to update this event.'], 403);
         }
 
-
         $event->update([
             ...$request->validate([
                 'name' => 'sometimes|string|max:255',
@@ -71,7 +67,6 @@ class EventController extends Controller
 
         return $event;
     }
-
 
     /**
      * Remove the specified resource from storage.

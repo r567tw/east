@@ -9,7 +9,7 @@ class CPBLHelperTest extends TestCase
 {
     public function test_get_cpbl(): void
     {
-        $service = new CPBLHelper();
+        $service = new CPBLHelper;
 
         $result = $service->get();
         $this->assertIsString($result);

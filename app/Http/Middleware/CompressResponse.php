@@ -45,6 +45,7 @@ class CompressResponse
     {
         // 只壓縮 JSON 或 text 類型
         $contentType = $response->headers->get('Content-Type', '');
+
         return str_contains($contentType, 'application/json')
             || str_contains($contentType, 'text/');
     }

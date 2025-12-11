@@ -29,8 +29,6 @@ class CreateInviteCode extends Command
     {
         $count = (int) $this->argument('count');
 
-
-
         for ($i = 0; $i < $count; $i++) {
             $this->generateInviteCode();
         }

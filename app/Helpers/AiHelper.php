@@ -9,7 +9,7 @@ class AiHelper
     /**
      * 使用 Google Gemini API 精簡文字
      *
-     * @param string $text 要精簡的文字
+     * @param  string  $text  要精簡的文字
      * @return string 精簡後的文字或錯誤訊息
      */
     public static function summarizeText(string $text): string
@@ -22,11 +22,11 @@ class AiHelper
         $apiKey = config('app.google_gemini_api_key'); // 請將 API Key 放在 .env
         $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={$apiKey}";
         $payload = [
-            "contents" => [[
-                "parts" => [[
-                    "text" => $question
-                ]]
-            ]]
+            'contents' => [[
+                'parts' => [[
+                    'text' => $question,
+                ]],
+            ]],
         ];
 
         $response = Http::post($url, $payload);
@@ -34,15 +34,17 @@ class AiHelper
         if ($response->successful()) {
             $result = $response->json();
             $output = $result['candidates'][0]['content']['parts'][0]['text'];
-            return $output ?? "";
+
+            return $output ?? '';
         } else {
-            return "";
+            return '';
         }
     }
 
     public static function translate(string $text): string
     {
         $question = "請將以下文字翻譯成繁體中文，如果文字用的語言是中文(無論是簡體還是繁體)則就翻譯成英文：\n\n{$text}";
+
         return self::ask($question);
     }
 }

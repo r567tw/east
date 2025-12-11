@@ -53,7 +53,7 @@ class EventReminderNotification extends Notification implements ShouldQueue
         return [
             'event_id' => $this->event->id,
             'event_name' => $this->event->name,
-            'event_start_time' => $this->event->start_time
+            'event_start_time' => $this->event->start_time,
         ];
     }
 }

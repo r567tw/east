@@ -13,7 +13,7 @@ class GoldPriceHelper
 
         libxml_use_internal_errors(true); // ignore HTML parsing errors
 
-        $dom = new \DOMDocument();
+        $dom = new \DOMDocument;
         $dom->loadHTML($response);
         $xpath = new \DOMXPath($dom);
 

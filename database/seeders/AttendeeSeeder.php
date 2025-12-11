@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Event;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AttendeeSeeder extends Seeder
@@ -23,7 +22,7 @@ class AttendeeSeeder extends Seeder
             foreach ($eventsToAttend as $event) {
                 \App\Models\Attendee::create([
                     'user_id' => $user->id,
-                    'event_id' => $event->id
+                    'event_id' => $event->id,
                 ]);
             }
         }

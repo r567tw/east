@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Models\Book;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class BookRepository
 {
@@ -24,7 +23,7 @@ class BookRepository
      */
     public function findByTitle(string $title): Collection
     {
-        return Book::where('title', 'like', '%' . $title . '%')
+        return Book::where('title', 'like', '%'.$title.'%')
             ->withAvgRating()
             ->withReviewsCount()
             ->latest()
@@ -47,16 +46,16 @@ class BookRepository
             ->get();
     }
 
-
     /**
      * 建立新書籍
      */
     public function createBook(string $title, string $author): Book
     {
-        $book = new Book();
+        $book = new Book;
         $book->title = $title;
         $book->author = $author;
         $book->save();
+
         return $book;
     }
 
@@ -88,6 +87,7 @@ class BookRepository
     {
         $book->title = $data['title'] ?? $book->title;
         $book->author = $data['author'] ?? $book->author;
+
         return $book->save();
     }
 

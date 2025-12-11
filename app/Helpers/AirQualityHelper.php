@@ -15,9 +15,9 @@ class AirQualityHelper
 
         if ($response->successful()) {
             $data = $response->json();
-            $air = $data["air"] ?? "結果取得失敗";
+            $air = $data['air'] ?? '結果取得失敗';
         } else {
-            $air = "空氣品質Api回傳出現問題，請稍後再試。";
+            $air = '空氣品質Api回傳出現問題，請稍後再試。';
         }
 
         return "空氣品質：{$air}";

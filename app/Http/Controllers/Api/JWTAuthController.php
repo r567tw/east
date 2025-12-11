@@ -16,7 +16,7 @@ class JWTAuthController extends Controller
 
         $loginType = $request->get('login_type', 'api');
 
-        if (!$token = auth($loginType)->attempt($credentials)) {
+        if (! $token = auth($loginType)->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -50,7 +50,7 @@ class JWTAuthController extends Controller
     public function refresh()
     {
         return response()->json([
-            'token' => JWTAuth::refresh()
+            'token' => JWTAuth::refresh(),
         ]);
     }
 }

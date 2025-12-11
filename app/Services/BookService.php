@@ -2,11 +2,10 @@
 
 namespace App\Services;
 
-use App\Repositories\BookRepository;
 use App\Models\Book;
-use Illuminate\Http\Request;
+use App\Repositories\BookRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Http\Request;
 
 class BookService
 {
@@ -26,7 +25,7 @@ class BookService
             return $this->bookRepository->findByTitle($title);
         }
 
-        $data = cache()->remember('book_list:' . $filter, 3600, function () use ($filter) {
+        $data = cache()->remember('book_list:'.$filter, 3600, function () use ($filter) {
             return match ($filter) {
                 'highest_review_count' => $this->bookRepository->getHighestReviewCount(),
                 'highest_rating_avg' => $this->bookRepository->getHighestRatingAvg(),
@@ -58,7 +57,7 @@ class BookService
      */
     public function getBookById(int $id): ?Book
     {
-        $cache_key = 'book:' . $id;
+        $cache_key = 'book:'.$id;
 
         return cache()->remember($cache_key, 3600, function () use ($id) {
             return $this->bookRepository->findByIdWithReviews($id);
@@ -76,7 +75,7 @@ class BookService
         ]);
 
         // 清除快取
-        cache()->forget('book:' . $book->id);
+        cache()->forget('book:'.$book->id);
 
         return $this->bookRepository->updateBook($book, $validated);
     }
@@ -87,7 +86,7 @@ class BookService
     public function deleteBook(Book $book): bool
     {
         // 清除快取
-        cache()->forget('book:' . $book->id);
+        cache()->forget('book:'.$book->id);
 
         return $this->bookRepository->deleteBook($book);
     }

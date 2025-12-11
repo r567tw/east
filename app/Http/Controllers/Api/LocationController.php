@@ -20,7 +20,7 @@ class LocationController extends Controller
 
         // Nominatim 反向地理編碼 API
         $lat = $request->input('lat'); // latitude
-        $lng = $request->input('lng'); // longitude 
+        $lng = $request->input('lng'); // longitude
 
         $location = $this->getLocationFromCoordinates($lat, $lng);
         if ($location === null) {
@@ -28,7 +28,7 @@ class LocationController extends Controller
         }
 
         return response()->json([
-            'location' => $location
+            'location' => $location,
         ]);
     }
 

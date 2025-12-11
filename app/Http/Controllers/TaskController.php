@@ -13,6 +13,7 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::latest()->paginate(20);
+
         return view('tasks.index', ['tasks' => $tasks]);
     }
 
@@ -35,7 +36,7 @@ class TaskController extends Controller
             'long_description' => 'max:150',
         ]);
 
-        $task = new Task();
+        $task = new Task;
         $task->title = $data['title'];
         $task->description = $data['description'];
         $task->long_description = $data['long_description'];
@@ -85,13 +86,15 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $task->delete();
+
         return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
     }
 
     public function toggle(Task $task)
     {
-        $task->completed = !$task->completed;
+        $task->completed = ! $task->completed;
         $task->save();
+
         return redirect()->back();
     }
 }

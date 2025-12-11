@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Customer extends Authenticatable implements JWTSubject
 {

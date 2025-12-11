@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('code', 10)->nullable()->comment("邀請碼");
+            $table->string('code', 10)->nullable()->comment('邀請碼');
         });
     }
 

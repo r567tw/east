@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Events\EventRegistered;
 use App\Notifications\EventRegisteredNotification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
 class SendEventRegisteredNotification
 {

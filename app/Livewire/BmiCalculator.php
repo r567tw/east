@@ -2,13 +2,14 @@
 
 namespace App\Livewire;
 
-use App\Models\Option;
 use Livewire\Component;
 
 class BmiCalculator extends Component
 {
     public $weight;
+
     public $height;
+
     public $bmi = 0;
 
     public function mount()
@@ -71,7 +72,9 @@ class BmiCalculator extends Component
     // 取得 BMI 分類
     public function getBmiCategory()
     {
-        if ($this->bmi == 0) return '';
+        if ($this->bmi == 0) {
+            return '';
+        }
 
         if ($this->bmi < 18.5) {
             return '體重過輕';
@@ -91,7 +94,9 @@ class BmiCalculator extends Component
     // 取得 BMI 分類顏色
     public function getBmiColor()
     {
-        if ($this->bmi == 0) return 'text-gray-500';
+        if ($this->bmi == 0) {
+            return 'text-gray-500';
+        }
 
         if ($this->bmi < 18.5) {
             return 'text-blue-500';

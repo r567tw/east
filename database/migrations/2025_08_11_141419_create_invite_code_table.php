@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('invite_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 10)->unique()->comment("邀請碼");
-            $table->timestamp('expires_at')->nullable()->comment("邀請碼過期時間");
-            $table->boolean('is_used')->default(false)->comment("是否已使用");
-            $table->timestamp('used_at')->nullable()->comment("使用邀請碼的時間");
-            $table->unsignedBigInteger('user_id')->nullable()->comment("使用邀請碼的用戶ID");
+            $table->string('code', 10)->unique()->comment('邀請碼');
+            $table->timestamp('expires_at')->nullable()->comment('邀請碼過期時間');
+            $table->boolean('is_used')->default(false)->comment('是否已使用');
+            $table->timestamp('used_at')->nullable()->comment('使用邀請碼的時間');
+            $table->unsignedBigInteger('user_id')->nullable()->comment('使用邀請碼的用戶ID');
             $table->timestamps();
         });
     }

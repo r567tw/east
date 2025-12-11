@@ -9,9 +9,9 @@ class WeatherHelperTest extends TestCase
 {
     public function test_get_weather(): void
     {
-        $service = new WeatherHelper();
+        $service = new WeatherHelper;
 
         $result = $service->getWeather('臺北市');
-        $this->assertStringContainsString("天氣查詢結果", $result);
+        $this->assertStringContainsString('天氣查詢結果', $result);
     }
 }

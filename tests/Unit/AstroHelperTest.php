@@ -9,9 +9,9 @@ class AstroHelperTest extends TestCase
 {
     public function test_get_astro(): void
     {
-        $service = new AstroHelper();
+        $service = new AstroHelper;
 
         $result = $service->get();
-        $this->assertStringContainsString("今日射手座解析", $result);
+        $this->assertStringContainsString('今日射手座解析', $result);
     }
 }

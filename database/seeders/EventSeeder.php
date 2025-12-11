@@ -18,7 +18,7 @@ class EventSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             $user = $users->random();
             Event::factory()->create([
-                'user_id' => $user->id
+                'user_id' => $user->id,
             ]);
         }
     }

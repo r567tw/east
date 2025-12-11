@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class Book extends Model
 {
@@ -37,7 +36,7 @@ class Book extends Model
      */
     public function scopeSearchByTitle(Builder $query, string $title): Builder
     {
-        return $query->where('title', 'like', '%' . $title . '%');
+        return $query->where('title', 'like', '%'.$title.'%');
     }
 
     /**
@@ -45,7 +44,7 @@ class Book extends Model
      */
     public function scopeSearchByAuthor(Builder $query, string $author): Builder
     {
-        return $query->where('author', 'like', '%' . $author . '%');
+        return $query->where('author', 'like', '%'.$author.'%');
     }
 
     /**
@@ -66,7 +65,7 @@ class Book extends Model
 
     protected static function booted()
     {
-        static::saved(fn(Book $book) => cache()->forget('book:' . $book->id));
-        static::deleted(fn(Book $book) => cache()->forget('book:' . $book->id));
+        static::saved(fn (Book $book) => cache()->forget('book:'.$book->id));
+        static::deleted(fn (Book $book) => cache()->forget('book:'.$book->id));
     }
 }

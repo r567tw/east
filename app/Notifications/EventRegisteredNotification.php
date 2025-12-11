@@ -37,7 +37,7 @@ class EventRegisteredNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("參加活動通知")
+            ->subject('參加活動通知')
             ->view('emails.event_registered', [
                 'attendee' => $this->attendee,
                 'start' => Carbon::parse($this->attendee->event->start_time)->format('Y-m-d H:i'),

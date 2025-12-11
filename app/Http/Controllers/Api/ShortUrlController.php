@@ -14,6 +14,7 @@ class ShortUrlController extends Controller
     public function index()
     {
         $urls = ShortUrl::where('expires_at', '>', now())->paginate(10);
+
         return ShortUrlResource::collection($urls);
     }
 
@@ -41,7 +42,6 @@ class ShortUrlController extends Controller
                 $shortCode = Str::random(6); // Regenerate if the code already exists
             }
         }
-
 
         $shortUrl = ShortUrl::create([
             'url' => $request->url,

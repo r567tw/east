@@ -15,12 +15,13 @@ class LineWebhookService
             ->where('expires_at', '>', now())
             ->first();
 
-        if (!$inviteCode) {
-            return "無效的邀請碼。";
+        if (! $inviteCode) {
+            return '無效的邀請碼。';
         }
         $userId = $inviteCode->user_id;
         User::where('id', $userId)->update(['line_user_id' => $lineUserId]);
-        return "成功綁定 LINE 帳號！";
+
+        return '成功綁定 LINE 帳號！';
     }
 
     public function process($message, $user = null)
@@ -29,11 +30,11 @@ class LineWebhookService
         $message = mb_strtolower($message);
         $message = str_replace('／', '/', $message); // 將全形斜線轉為半形斜線
 
-
         // 第一個字元是 '/'，表示這是一個指令 例如 '/黃金' 或 '/天氣'
         if (mb_substr($message, 0, 1) === '/') {
             $message = mb_substr($message, 1); // 去除 '/' 符號
             $message = trim($message); // 去除前後空白
+
             return $this->processCommand($message, $user);
         }
 
@@ -51,39 +52,43 @@ class LineWebhookService
 
         if ($command === '天氣') {
             if ($user == null) {
-                return "請先綁定 LINE 帳號。";
+                return '請先綁定 LINE 帳號。';
             }
 
             if (empty($user->location)) {
-                return "請先設定你的位置。";
+                return '請先設定你的位置。';
             }
-            return (new \App\Helpers\WeatherHelper())->getWeather($user->location);
+
+            return (new \App\Helpers\WeatherHelper)->getWeather($user->location);
         }
 
         if ($command === '空氣' || $command === '空汙' || $command === '空氣品質' || $command === 'air') {
             if ($user == null) {
-                return "請先綁定 LINE 帳號。";
+                return '請先綁定 LINE 帳號。';
             }
 
             if (empty($user->location)) {
-                return "請先設定你的位置。";
+                return '請先設定你的位置。';
             }
-            return (new \App\Helpers\AirQualityHelper())->getAirQuality($user->lat, $user->lng);
+
+            return (new \App\Helpers\AirQualityHelper)->getAirQuality($user->lat, $user->lng);
         }
 
         if ($command === '位置') {
             if ($user == null) {
-                return "請先綁定 LINE 帳號。";
+                return '請先綁定 LINE 帳號。';
             }
 
             if (empty($user->location)) {
-                return "請先設定你的位置。";
+                return '請先設定你的位置。';
             }
+
             return "你的經緯度: {$user->lat},{$user->lng}\n城市：{$user->location}";
         }
 
         if ($command === 'cpbl') {
-            $result = (new \App\Helpers\CPBLHelper())->get();
+            $result = (new \App\Helpers\CPBLHelper)->get();
+
             return rtrim($result, "\n");
         }
 
@@ -94,7 +99,7 @@ class LineWebhookService
             $astroName = trim($astroName);
 
             if (empty($astroName)) {
-                $astroName = "射手座"; // 預設為射手座
+                $astroName = '射手座'; // 預設為射手座
             }
 
             $astroMap = config('astro.chinese');
@@ -107,34 +112,37 @@ class LineWebhookService
             if (Cache::has("astro_{$astroIndex}")) {
                 return Cache::get("astro_{$astroIndex}");
             } else {
-                $astroHelper = new \App\Helpers\AstroHelper();
+                $astroHelper = new \App\Helpers\AstroHelper;
                 $result = $astroHelper->get($astroIndex);
+
                 return $result;
             }
         }
 
         if (strpos($command, '精簡') === 0) {
             $text = str_replace('精簡', '', $command);
-            $helper = new \App\Helpers\AiHelper();
+            $helper = new \App\Helpers\AiHelper;
             $result = $helper->summarizeText($text);
-            if ($result == "") {
-                return "無法精簡該段文字。";
+            if ($result == '') {
+                return '無法精簡該段文字。';
             }
+
             return $result;
         }
 
         if (strpos($command, '翻譯') === 0) {
             $text = str_replace('翻譯', '', $command);
-            $helper = new \App\Helpers\AiHelper();
+            $helper = new \App\Helpers\AiHelper;
             $result = $helper->translate($text);
-            if ($result == "") {
-                return "無法翻譯該段文字。";
+            if ($result == '') {
+                return '無法翻譯該段文字。';
             }
+
             return $result;
         }
 
         if ($command === 'version') {
-            return "Laravel Version: " . app()->version() . "\nPHP Version: " . PHP_VERSION .  "\nReference: https://php.watch/versions";
+            return 'Laravel Version: '.app()->version()."\nPHP Version: ".PHP_VERSION."\nReference: https://php.watch/versions";
         }
 
         if ($command === 'help') {

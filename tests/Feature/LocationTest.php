@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class LocationTest extends TestCase
@@ -20,9 +18,9 @@ class LocationTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonStructure([
-                'location'
+                'location',
             ])->assertJson([
-                'location' => '高雄市'
+                'location' => '高雄市',
             ]);
     }
 }

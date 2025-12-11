@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
 use App\Services\LineWebhookService;
 use Illuminate\Support\Facades\Http;
-use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 

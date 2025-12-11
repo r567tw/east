@@ -20,9 +20,9 @@ class AttendeeController extends Controller
         if (Gate::denies('list-attendees', $event)) {
             return response()->json(['message' => 'You are not authorized to view attendees for this event.'], 403);
         }
+
         return AttendeeResource::collection($event->attendees()->latest()->paginate());
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -55,6 +55,7 @@ class AttendeeController extends Controller
         if (Gate::denies('show-attendee', [$event, $attendee])) {
             return response()->json(['message' => 'You are not authorized to view this attendee.'], 403);
         }
+
         return new AttendeeResource($attendee);
     }
 

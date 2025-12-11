@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\AstroController;
 use App\Http\Controllers\Api\AttendeeController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\CustomerAuthController;
+use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\GoldPriceController;
 use App\Http\Controllers\Api\JWTAuthController;
@@ -11,7 +11,6 @@ use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\RomanNumberController;
 use App\Http\Controllers\Api\RoutineTaskController;
 use App\Http\Controllers\Api\ShortUrlController;
-use App\Http\Controllers\Api\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 // Authentication Routes

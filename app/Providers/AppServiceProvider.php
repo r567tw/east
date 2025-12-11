@@ -7,10 +7,10 @@ use App\Models\Event;
 use App\Models\User;
 use App\Policies\EventPolicy;
 use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

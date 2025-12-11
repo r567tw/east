@@ -20,11 +20,13 @@ class RoutineTaskService
 
         return $tasks->filter(function ($task) use ($startOfWeek, $endOfWeek) {
             $targetDate = $this->getTaskDateForThisMonth($task);
+
             return $targetDate->between($startOfWeek, $endOfWeek);
         })->sort(function ($a, $b) {
             // 根據本月的具體日期排序 (由近到遠)
             $dateA = $this->getTaskDateForThisMonth($a);
             $dateB = $this->getTaskDateForThisMonth($b);
+
             return $dateB->diffInDays($dateA);
         });
     }

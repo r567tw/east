@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use Illuminate\Http\Request;
 use App\Services\BookService;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -25,9 +25,10 @@ class BookController extends Controller
 
         try {
             $books = $this->bookService->getBookQuery($title, $filter);
+
             return view('books.index', ['books' => $books]);
         } catch (\Exception $e) {
-            return back()->withErrors('獲取書籍列表時發生錯誤：' . $e->getMessage());
+            return back()->withErrors('獲取書籍列表時發生錯誤：'.$e->getMessage());
         }
     }
 
@@ -52,7 +53,7 @@ class BookController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
-            return back()->withErrors('建立書籍時發生錯誤：' . $e->getMessage())->withInput();
+            return back()->withErrors('建立書籍時發生錯誤：'.$e->getMessage())->withInput();
         }
     }
 
@@ -64,17 +65,17 @@ class BookController extends Controller
         try {
             $bookWithDetails = $this->bookService->getBookById($book->id);
 
-            if (!$bookWithDetails) {
+            if (! $bookWithDetails) {
                 return redirect()->route('books.index')
                     ->withErrors('找不到指定的書籍。');
             }
 
             return view('books.show', [
-                'book' => $bookWithDetails
+                'book' => $bookWithDetails,
             ]);
         } catch (\Exception $e) {
             return redirect()->route('books.index')
-                ->withErrors('獲取書籍詳情時發生錯誤：' . $e->getMessage());
+                ->withErrors('獲取書籍詳情時發生錯誤：'.$e->getMessage());
         }
     }
 
@@ -84,7 +85,7 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         return view('books.form', [
-            'book' => $book
+            'book' => $book,
         ]);
     }
 
@@ -105,7 +106,7 @@ class BookController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
-            return back()->withErrors('更新書籍時發生錯誤：' . $e->getMessage())->withInput();
+            return back()->withErrors('更新書籍時發生錯誤：'.$e->getMessage())->withInput();
         }
     }
 
@@ -124,7 +125,7 @@ class BookController extends Controller
                 return back()->withErrors('刪除書籍時發生錯誤。');
             }
         } catch (\Exception $e) {
-            return back()->withErrors('刪除書籍時發生錯誤：' . $e->getMessage());
+            return back()->withErrors('刪除書籍時發生錯誤：'.$e->getMessage());
         }
     }
 }

@@ -14,7 +14,7 @@ class AstroHelper
         $response = Http::retry(3, 5000)->get($url);
 
         libxml_use_internal_errors(true);
-        $dom = new \DOMDocument();
+        $dom = new \DOMDocument;
         // Convert response to UTF-8 encoding
         /** @phpstan-ignore-next-line */
         $html = mb_convert_encoding($response->body(), 'HTML-ENTITIES', 'UTF-8');

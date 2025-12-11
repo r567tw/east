@@ -7,19 +7,19 @@ use Livewire\Component;
 
 class CreatePoll extends Component
 {
-
     public $title;
+
     public $options = [];
 
     protected $rules = [
         'title' => 'required|min:3|max:255',
         'options' => 'required|array|min:1|max:10',
-        'options.*' => 'required|min:1|max:255'
+        'options.*' => 'required|min:1|max:255',
     ];
 
     protected $messages = [
         'options.required' => 'You must have at least one option.',
-        'options.*' => 'The option can\'t be empty.'
+        'options.*' => 'The option can\'t be empty.',
     ];
 
     public function addOption()
@@ -38,7 +38,7 @@ class CreatePoll extends Component
         $this->validate();
         // Here you would typically save the poll to the database
         $poll = Poll::create([
-            'title' => $this->title
+            'title' => $this->title,
         ]);
 
         foreach ($this->options as $option) {

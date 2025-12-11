@@ -26,7 +26,7 @@ class FetchAstro extends Command
      */
     public function handle()
     {
-        $helper = new \App\Helpers\AstroHelper();
+        $helper = new \App\Helpers\AstroHelper;
 
         $progressBar = $this->output->createProgressBar(12);
         $progressBar->start();

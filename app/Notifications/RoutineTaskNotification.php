@@ -3,8 +3,8 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Collection;
 
 class RoutineTaskNotification extends Notification
@@ -28,7 +28,7 @@ class RoutineTaskNotification extends Notification
         return (new MailMessage)
             ->subject('每週例行公事提醒')
             ->view('emails.routine_reminder', [
-                'tasks' => $this->tasks
+                'tasks' => $this->tasks,
             ]);
     }
 }
