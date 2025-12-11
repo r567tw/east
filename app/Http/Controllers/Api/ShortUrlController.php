@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ShortUrlResource;
 use App\Models\ShortUrl;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Services\ShortUrlService;
 
 class ShortUrlController extends Controller
 {
-    //
+    public function __construct(public ShortUrlService $service) {}
+
     public function index()
     {
         $urls = ShortUrl::where('expires_at', '>', now())->paginate(10);
@@ -37,10 +38,11 @@ class ShortUrlController extends Controller
         if ($request->has('code')) {
             $shortCode = $request->input('code');
         } else {
-            $shortCode = Str::random(6); // Generate a random short code
-            while (ShortUrl::where('short', $shortCode)->where('expires_at', '>', now())->exists()) {
-                $shortCode = Str::random(6); // Regenerate if the code already exists
-            }
+            $shortCode = $this->service->generateCode(); // Generate a random short code
+        }
+
+        while (ShortUrl::where('short', $shortCode)->where('expires_at', '>', now())->exists()) {
+            $shortCode = $this->service->generateCode(); // Regenerate if the code already exists
         }
 
         $shortUrl = ShortUrl::create([

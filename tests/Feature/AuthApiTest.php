@@ -39,9 +39,23 @@ class AuthApiTest extends TestCase
         $logout->assertStatus(200);
     }
 
+    public function test_login_error()
+    {
+        $user = User::factory()->create();
+        // 登入
+        $login = $this->postJson('/api/login', [
+            'email' => $user->email,
+            'password' => 'wrongpassword',
+        ]);
+        $login->assertStatus(401);
+        $login->assertJson(['error' => 'Unauthorized']);
+    }
+
+
+
     public function test_customer_register()
     {
-        $email = 'customer'.Str::random(5).'@example.com';
+        $email = 'customer' . Str::random(5) . '@example.com';
         $response = $this->postJson('/api/customer/register', [
             'name' => 'Customer',
             'email' => $email,
