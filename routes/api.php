@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\AstroController;
 use App\Http\Controllers\Api\AttendeeController;
-use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\GoldPriceController;
@@ -15,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 
 // Authentication Routes
 Route::post('me', [JWTAuthController::class, 'me'])->middleware('jwt.auth');
-Route::post('register', [AuthController::class, 'register'])->middleware('throttle:5,1');
 Route::post('login', [JWTAuthController::class, 'login']);
 Route::post('refresh', [JWTAuthController::class, 'refresh'])->middleware('jwt.auth');
 Route::post('logout', [JWTAuthController::class, 'logout'])->middleware('jwt.auth');
