@@ -22,7 +22,7 @@
 -   **書籍評論** - 書籍管理與評論功能
 -   **投票系統** - 線上投票功能
 -   **BMI 計算器** - 互動式 BMI 計算工具
--   **與 LINE Bot 整合** - LINE Webhook 處理 ()
+-   **與 LINE Bot 整合** - LINE Webhook 處理
 
 ## 🛠 技術架構
 
@@ -43,6 +43,11 @@ cd east
 
 # 安裝依賴
 composer install
+
+# 如果想要啟用 laravel pint 在 每次 Git Commit 時 (Optional)
+cp ./pre-commit/pint .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+
 
 # 環境設定
 cp .env.example .env
