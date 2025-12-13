@@ -45,7 +45,7 @@ cd east
 composer install
 
 # 如果想要啟用 laravel pint 在 每次 Git Commit 時 (Optional)
-cp ./pre-commit/pint .git/hooks/pre-commit
+cp .pre-commit/pint .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
 
 
