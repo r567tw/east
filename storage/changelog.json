@@ -94,5 +94,12 @@
             "玩一下 PHPUnit 的 Code Coverage、加入相關設定到 phpunit.xml",
             "加一點 PHPUnit 單元測試"
         ]
+    },
+    {
+        "date": "2025-12-14",
+        "changes": [
+            "撰寫單元測試，測試覆蓋率從20-30% 提升到 97%",
+            "移除一些不必要的功能，例如 Book Review System、BMI 等等"
+        ]
     }
 ]

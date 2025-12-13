@@ -5,6 +5,7 @@ namespace Tests\Unit\Services;
 use App\Services\LineWebhookService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class LineWebhookServiceTest extends TestCase
@@ -169,6 +170,34 @@ class LineWebhookServiceTest extends TestCase
 
     public function test_process_command_weather_success()
     {
+        Http::fake([
+            '*' => Http::response([
+                'records' => [
+                    'location' => [[
+                        'weatherElement' => [
+                            [
+                                'elementName' => 'Wx',
+                                'time' => [[
+                                    'parameter' => ['parameterName' => '晴'],
+                                ]],
+                            ],
+                            [
+                                'elementName' => 'PoP',
+                                'time' => [[
+                                    'parameter' => ['parameterName' => '10'],
+                                ]],
+                            ],
+                            [
+                                'elementName' => 'CI',
+                                'time' => [[
+                                    'parameter' => ['parameterName' => '舒適'],
+                                ]],
+                            ],
+                        ],
+                    ]],
+                ],
+            ], 200),
+        ]);
         $user = (object) ['location' => '高雄市'];
 
         $service = new \App\Services\LineWebhookService;

@@ -6,6 +6,34 @@ on:
       - main
 
 jobs:
+  # test:
+  #   name: Run Tests
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+
+  #     - name: Set up PHP
+  #       uses: shivammathur/setup-php@v2
+  #       with:
+  #         php-version: "8.1"
+  #         extensions: mbstring, bcmath, sqlite, pdo, pdo_sqlite
+  #         ini-values: post_max_size=256M, upload_max_filesize=256M, memory_limit=512M
+  #         coverage: xdebug
+
+  #     - name: Install dependencies
+  #       run: |
+  #         composer install --prefer-dist --no-progress --no-suggest
+  #         cp .env.example .env
+  #         php artisan key:generate
+
+  #     - name: Run migrations
+  #       run: php artisan migrate --force
+
+  #     - name: Run tests
+  #       run: vendor/bin/phpunit --coverage-text --colors=never
+
   deploy:
     name: Deploy to Vultr
     runs-on: ubuntu-latest

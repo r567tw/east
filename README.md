@@ -19,9 +19,7 @@
 ### Web
 
 -   **任務管理** - 待辦事項系統
--   **書籍評論** - 書籍管理與評論功能
 -   **投票系統** - 線上投票功能
--   **BMI 計算器** - 互動式 BMI 計算工具
 -   **與 LINE Bot 整合** - LINE Webhook 處理
 
 ## 🛠 技術架構
@@ -85,19 +83,22 @@ php artisan test
 
 # 執行特定測試
 php artisan test --filter=LineWebhookMiddlewareTest
+
+# 加入測試覆蓋率報告
+php artisan test --coverage
 ```
 
 ## 📝 部署資訊
 
 ### Vultr Specification
 
--   Current Plan: 1 vCPU, 1 GB RAM, 25 GB Storage, 2 TB Transfer (AMD High Performance)
--   12 USD: 1 vCPU, 2 GB RAM , 50 GB Storage, 3 TB Transfer (AMD High Performance)
--   **18 USD: 2 vCPU, 2 GB RAM , 60 GB Storage, 4 TB Transfer (AMD High Performance)**
--   **24 USD: 2 vCPU, 4 GB RAM , 100 GB Storage, 5 TB Transfer (AMD High Performance)**
--   參考：https://www.vultr.com/pricing/#cloud-compute
+#### AMD High Performance
 
-> 綜合考量，建議選擇 Regular Performance $10/月方案 作為起點，若在實際使用中發現效能不足，可升級至 High Performance 或 High Frequency。
+-   **1 vCPU, 1 GB RAM, 25 GB Storage, 2 TB Transfer (6 USD)(Current)**
+-   1 vCPU, 2 GB RAM , 50 GB Storage, 3 TB Transfer (12 USD)
+-   2 vCPU, 2 GB RAM , 60 GB Storage, 4 TB Transfer (18 USD)
+-   2 vCPU, 4 GB RAM , 100 GB Storage, 5 TB Transfer (24 USD)
+-   參考：https://www.vultr.com/pricing/#cloud-compute
 
 ## 🔗 相關資源
 

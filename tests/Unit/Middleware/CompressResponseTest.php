@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\Middleware;
 
 use App\Http\Middleware\CompressResponse;
 use Illuminate\Http\Request;
