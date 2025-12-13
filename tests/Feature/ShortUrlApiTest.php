@@ -42,11 +42,11 @@ class ShortUrlApiTest extends TestCase
         ]);
         $response->assertStatus(201);
         $this->assertDatabaseHas('short_urls', [
-            'url' => 'https://example.com'
+            'url' => 'https://example.com',
         ]);
     }
 
-    public function test_short_url_store_hasExpiresAt_authorized()
+    public function test_short_url_store_has_expires_at_authorized()
     {
         $user = User::factory()->create();
         $token = JWTAuth::fromUser($user);
@@ -56,11 +56,11 @@ class ShortUrlApiTest extends TestCase
         ]);
         $response->assertStatus(201);
         $this->assertDatabaseHas('short_urls', [
-            'url' => 'https://example.com'
+            'url' => 'https://example.com',
         ]);
     }
 
-    public function test_short_url_store_hasCustomCode_authorized()
+    public function test_short_url_store_has_custom_code_authorized()
     {
         $user = User::factory()->create();
         $token = JWTAuth::fromUser($user);
@@ -70,14 +70,14 @@ class ShortUrlApiTest extends TestCase
         ]);
         $response->assertStatus(201);
         $this->assertDatabaseHas('short_urls', [
-            'url' => 'https://example.com'
+            'url' => 'https://example.com',
         ]);
         $response->assertJson([
-            'data' => ['short' => 'custom123']
+            'data' => ['short' => 'custom123'],
         ]);
     }
 
-    public function test_short_url_store_CodeRegenerate_authorized()
+    public function test_short_url_store_code_regenerate_authorized()
     {
         // 1. 先建立一筆已存在的 short code
         \App\Models\ShortUrl::factory()->create([
@@ -89,7 +89,6 @@ class ShortUrlApiTest extends TestCase
         $serviceMock = \Mockery::mock(\App\Services\ShortUrlService::class);
         $serviceMock->shouldReceive('generateCode')->andReturn('ABC123', 'ZZZZZZ');
         $this->app->instance(\App\Services\ShortUrlService::class, $serviceMock);
-
 
         $user = User::factory()->create();
         $token = JWTAuth::fromUser($user);

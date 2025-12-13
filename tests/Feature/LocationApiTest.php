@@ -66,7 +66,7 @@ class LocationApiTest extends TestCase
         ]);
         $response->assertStatus(404);
         $response->assertJson([
-            'error' => 'Unable to fetch location data'
+            'error' => 'Unable to fetch location data',
         ]);
     }
 
@@ -74,7 +74,7 @@ class LocationApiTest extends TestCase
     {
         $user = \App\Models\User::factory()->create();
         $token = \Tymon\JWTAuth\Facades\JWTAuth::fromUser($user);
-        $response = $this->withHeader('Authorization', 'Bearer ' . $token)->postJson('/api/get-our-location', [
+        $response = $this->withHeader('Authorization', 'Bearer '.$token)->postJson('/api/get-our-location', [
             'lat' => 'abc',
             'lng' => 'xyz',
         ]);
@@ -92,13 +92,13 @@ class LocationApiTest extends TestCase
 
         $user = \App\Models\User::factory()->create();
         $token = \Tymon\JWTAuth\Facades\JWTAuth::fromUser($user);
-        $response = $this->withHeader('Authorization', 'Bearer ' . $token)->postJson('/api/set-our-location', [
+        $response = $this->withHeader('Authorization', 'Bearer '.$token)->postJson('/api/set-our-location', [
             'lat' => 25.033,
             'lng' => 121.5654,
         ]);
         $response->assertStatus(500);
         $response->assertJson([
-            'error' => 'Unable to fetch location data'
+            'error' => 'Unable to fetch location data',
         ]);
     }
 
@@ -115,7 +115,7 @@ class LocationApiTest extends TestCase
 
         $user = \App\Models\User::factory()->create();
         $token = \Tymon\JWTAuth\Facades\JWTAuth::fromUser($user);
-        $response = $this->withHeader('Authorization', 'Bearer ' . $token)->postJson('/api/set-our-location', [
+        $response = $this->withHeader('Authorization', 'Bearer '.$token)->postJson('/api/set-our-location', [
             'lat' => 25.033,
             'lng' => 121.5654,
         ]);

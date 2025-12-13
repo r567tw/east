@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
 use App\Models\RoutineTask;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -15,6 +15,7 @@ class RoutineTaskApiTest extends TestCase
     private function authHeader(User $user)
     {
         $token = JWTAuth::fromUser($user);
+
         return ['Authorization' => "Bearer $token"];
     }
 

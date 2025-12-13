@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ShortUrlResource;
 use App\Models\ShortUrl;
-use Illuminate\Http\Request;
 use App\Services\ShortUrlService;
+use Illuminate\Http\Request;
 
 class ShortUrlController extends Controller
 {

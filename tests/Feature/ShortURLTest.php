@@ -34,7 +34,7 @@ class ShortURLTest extends TestCase
             'expires_at' => now()->subDays(1),
         ]);
 
-        $response = $this->get('/s/' . $result->short);
+        $response = $this->get('/s/'.$result->short);
         $response->assertStatus(410);
     }
 

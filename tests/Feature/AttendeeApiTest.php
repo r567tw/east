@@ -16,6 +16,7 @@ class AttendeeApiTest extends TestCase
     private function authHeader(User $user)
     {
         $token = JWTAuth::fromUser($user);
+
         return ['Authorization' => "Bearer $token"];
     }
 
@@ -97,8 +98,6 @@ class AttendeeApiTest extends TestCase
         $response->assertStatus(200);
     }
 
-
-
     public function test_update_destroy_require_auth()
     {
         $attendee = Attendee::factory()->create();
@@ -117,7 +116,7 @@ class AttendeeApiTest extends TestCase
         $attendee = Attendee::factory()->create(['event_id' => $event->id]);
         $update = $this->putJson("/api/events/{$event->id}/attendees/{$attendee->id}", [
             'email' => $attendee->email,
-            'name' => 'Updated'
+            'name' => 'Updated',
         ], $this->authHeader($user));
         $update->assertStatus(200);
     }
@@ -131,11 +130,12 @@ class AttendeeApiTest extends TestCase
 
         $update = $this->putJson("/api/events/{$event->id}/attendees/{$attendee->id}", [
             'email' => $attendee2->email,
-            'name' => 'Updated'
+            'name' => 'Updated',
         ], $this->authHeader($user));
 
         $update->assertStatus(409);
     }
+
     public function test_destroy_attendee_with_auth()
     {
         $user = User::factory()->create();
