@@ -33,7 +33,7 @@
     </php>
     <coverage>
         <report>
-            <html outputDirectory="coverage-html"/>
+            <html outputDirectory="/var/www/coverage-html"/>
             <clover outputFile="coverage-clover.xml"/>
             <text outputFile="php://stdout"/>
         </report>
