@@ -14,11 +14,6 @@ class HomeController extends Controller
         return view('poll');
     }
 
-    public function bmi()
-    {
-        return view('bmi');
-    }
-
     public function present()
     {
         $all = json_decode(file_get_contents(storage_path('present.json')), true);

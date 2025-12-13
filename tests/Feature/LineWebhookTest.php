@@ -63,4 +63,30 @@ class LineWebhookTest extends TestCase
             return $request->url() === 'https://api.line.me/v2/bot/message/reply';
         });
     }
+
+    public function test_line_webhook_bind_command_no_invite_code()
+    {
+        $this->withoutMiddleware();
+        Http::fake();
+
+        $payload = [
+            'events' => [[
+                'type' => 'message',
+                'replyToken' => 'reply123',
+                'source' => ['userId' => 'U123456'],
+                'message' => [
+                    'type' => 'text',
+                    'text' => '/綁定:',
+                ],
+            ]],
+        ];
+
+        $response = $this->postJson('/line/webhook', $payload);
+        $response->assertStatus(200);
+        Http::assertSent(function ($request) {
+            $data = $request['messages'] ?? [];
+
+            return isset($data[0]['text']) && $data[0]['text'] === '請提供邀請碼。';
+        });
+    }
 }

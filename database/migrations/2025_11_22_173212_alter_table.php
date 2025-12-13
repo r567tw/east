@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('shorturls', function (Blueprint $table) {
+        Schema::table('short_urls', function (Blueprint $table) {
             //
             $table->dropColumn('user_type');
         });

@@ -27,6 +27,8 @@ class LineWebhookController extends Controller
                     $message = $inviteCode; // 預設訊息為邀請碼
                     if (empty($inviteCode)) {
                         $message = '請提供邀請碼。';
+
+                        return $this->replyText($replyToken, $message);
                     }
                     $message = $this->lineWebhookService->bind($inviteCode, $userId);
                 } else {

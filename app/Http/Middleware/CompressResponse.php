@@ -25,10 +25,6 @@ class CompressResponse
 
                 if ($encoding === 'gzip') {
                     $compressed = gzencode($content, 9);
-                } elseif ($encoding === 'br' && function_exists('brotli_compress')) {
-                    $compressed = brotli_compress($content);
-                } else {
-                    $compressed = $content;
                 }
 
                 $response->setContent($compressed);
@@ -53,10 +49,6 @@ class CompressResponse
     protected function getSupportedEncoding(Request $request)
     {
         $acceptEncoding = $request->header('Accept-Encoding', '');
-
-        if (str_contains($acceptEncoding, 'br') && function_exists('brotli_compress')) {
-            return 'br';
-        }
 
         if (str_contains($acceptEncoding, 'gzip')) {
             return 'gzip';
