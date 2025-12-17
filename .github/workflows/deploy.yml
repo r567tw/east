@@ -27,7 +27,7 @@ jobs:
           composer install --prefer-dist --no-progress --no-suggest
           cp .env.example .env
           php artisan key:generate
-          php artisan jwt:secret
+          php artisan jwt:secret --force
           touch database/database.sqlite
 
       - name: Run migrations
