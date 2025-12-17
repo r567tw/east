@@ -1,5 +1,7 @@
 # EAST
 
+[![CI/CD Pipeline](https://github.com/r567tw/east/actions/workflows/deploy.yml/badge.svg)](https://github.com/r567tw/east/actions/workflows/deploy.yml)
+
 一個基於 Laravel 12 的個人 Side Project，整合多元化 API 服務與實用工具的全端 Web 應用程式。
 
 ## 🚀 特色功能
