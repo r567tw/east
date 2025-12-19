@@ -34,13 +34,14 @@ jobs:
         run: php artisan migrate
 
       - name: Run tests
-        run: ./vendor/bin/phpunit --log-junit junit.xml
+        run: php artisan test --coverage --coverage-clover storage/coverage/coverage.xml
 
       - name: Upload test results to Codecov
         if: ${{ !cancelled() }}
-        uses: codecov/test-results-action@v1
+        uses: codecov/test-results-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./storage/coverage/coverage.xml
 
   test-notify:
     runs-on: ubuntu-latest
