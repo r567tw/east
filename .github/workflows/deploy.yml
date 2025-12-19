@@ -54,6 +54,10 @@ jobs:
           if [ "$TEST_STATUS" = "success" ]; then
             TEST_ICON="✅"
             TEST_TEXT="測試通過"
+          else
+            TEST_ICON="❌"
+            TEST_TEXT="測試失敗"
+          fi
 
           MESSAGE="$TEST_ICON 測試: $TEST_TEXT\n"
 
