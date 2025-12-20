@@ -12,9 +12,6 @@ jobs:
     secrets:
       SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-    secrets:
-      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   deploy:
     name: Deploy to Vultr
