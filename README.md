@@ -1,7 +1,6 @@
 # EAST
 
-[![CI/CD Pipeline](https://github.com/r567tw/east/actions/workflows/deploy.yml/badge.svg)](https://github.com/r567tw/east/actions/workflows/deploy.yml)
-
+[![Deploy](https://github.com/r567tw/east/actions/workflows/deploy.yml/badge.svg)](https://github.com/r567tw/east/actions/workflows/deploy.yml)
 [![codecov](https://codecov.io/github/r567tw/east/graph/badge.svg?token=YMF3NXRXRJ)](https://codecov.io/github/r567tw/east)
 
 一個基於 Laravel 12 的個人 Side Project，整合多元化 API 服務與實用工具的全端 Web 應用程式。

@@ -1,10 +1,15 @@
-name: Test Pipeline
+name: Test
 
 on:
   pull_request:
     branches:
       - main
   workflow_call:
+    secrets:
+      SLACK_WEBHOOK:
+        required: false
+      CODECOV_TOKEN:
+        required: false
 
 jobs:
   test:

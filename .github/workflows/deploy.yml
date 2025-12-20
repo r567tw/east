@@ -7,8 +7,14 @@ on:
 
 jobs:
   call-testing:
-    name: Run Tests
+    name: Tests
     uses: ./.github/workflows/test.yaml # 呼叫另一個 workflow
+    secrets:
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    secrets:
+      SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   deploy:
     name: Deploy to Vultr
