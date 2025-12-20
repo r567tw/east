@@ -7,7 +7,7 @@ on:
 
 jobs:
   call-testing:
-    uses: ./.github/workflows/test.yml # 先呼叫測試流程
+    uses: ./.github/workflows/test.yaml # 先呼叫測試流程
 
   deploy:
     name: Deploy to Vultr
