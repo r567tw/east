@@ -101,5 +101,11 @@
             "撰寫單元測試，測試覆蓋率從20-30% 提升到 97%",
             "移除一些不必要的功能，例如 Book Review System、BMI 等等"
         ]
+    },
+    {
+        "date": "2025-12-20",
+        "changes": [
+            "重構 Github Actions 的 Deploy 流程，將測試流程(CI)導入、上傳 Code Coverage，現在會先呼叫 Test 流程，確保測試通過後才會進行部署"
+        ]
     }
 ]
