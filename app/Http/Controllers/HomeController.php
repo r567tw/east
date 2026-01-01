@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\File;
+
 class HomeController extends Controller
 {
     public function home()
@@ -16,12 +18,9 @@ class HomeController extends Controller
 
     public function present()
     {
-        $all = json_decode(file_get_contents(storage_path('present.json')), true);
-        $features = $all['features'] ?? [];
-        $technologies = $all['technologies'] ?? [];
-        $monitors = $all['monitors'] ?? [];
+        $content = File::json(storage_path('present.json'));
 
-        return view('present', compact('features', 'technologies', 'monitors'));
+        return view('present', compact('content'));
     }
 
     public function demo()

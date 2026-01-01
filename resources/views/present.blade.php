@@ -30,7 +30,7 @@
     <h2 class="mb-4 text-center">作品展示</h2>
     <div class="row g-4">
 
-    @foreach ($features as $item)
+    @foreach ($content['features'] as $item)
         <div class="col-md-3">
             <div class="card h-100">
                 <div class="card-body">
@@ -56,7 +56,7 @@
         DNS 由 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cloudflare/cloudflare-original.svg" alt="Cloudflare Logo" style="width: 30px; vertical-align: middle;"> Cloudflare 支援
     </p>
     <div class="row justify-content-center">
-      @foreach ($technologies as $tech)
+      @foreach ($content['technologies'] as $tech)
         <div class="col-6 col-md-4 col-lg-2 mb-4 d-flex justify-content-center">
           <div class="card shadow-sm" style="width: 120px;">
             <img src="{{ $tech["image"] }}" class="card-img-top mx-auto mt-3" style="width:60px;" alt="{{ $tech["title"] }}">
@@ -75,7 +75,7 @@
   <div class="container">
     <h2 class="text-center mb-4">監控</h2>
     <div class="row justify-content-center">
-      @foreach ($monitors as $monitor)
+      @foreach ($content['monitors'] as $monitor)
         <div class="col-6 col-md-2 col-lg-2 mb-4 d-flex justify-content-center">
           <div class="card shadow-sm" >
             <img src="{{ $monitor["image"] }}" class="card-img-top mx-auto mt-3" style="width:60px;" alt="{{ $monitor["title"] }}">
