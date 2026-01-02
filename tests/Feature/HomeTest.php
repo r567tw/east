@@ -14,14 +14,6 @@ class HomeTest extends TestCase
         $response->assertViewIs('home');
     }
 
-    public function test_poll_page_loads_successfully()
-    {
-        $response = $this->get('/poll');
-
-        $response->assertStatus(200);
-        $response->assertViewIs('poll');
-    }
-
     public function test_present_page_loads_successfully()
     {
         $response = $this->get('/present');

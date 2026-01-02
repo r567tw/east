@@ -11,10 +11,10 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function poll()
-    {
-        return view('poll');
-    }
+    // public function poll()
+    // {
+    //     return view('poll');
+    // }
 
     public function present()
     {
