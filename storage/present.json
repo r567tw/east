@@ -19,12 +19,6 @@
             ]
         },
         {
-            "icon": "fa-solid fa-vote-yea",
-            "title": "投票網站",
-            "description": "做簡單的投票網站(Livewire)",
-            "links": [{ "url": "/poll", "label": "Demo" }]
-        },
-        {
             "icon": "fa-brands fa-line",
             "title": "Line 個人助手(不開放)",
             "description": "串接 Line Webhook 查詢天氣、黃金、空氣品質等資訊",
@@ -43,10 +37,6 @@
         {
             "title": "Redis",
             "image": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg"
-        },
-        {
-            "title": "Livewire",
-            "image": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/livewire/livewire-original.svg"
         },
         {
             "title": "Github Action",

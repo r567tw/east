@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
 
-            $table->foreignIdFor(\App\Models\Poll::class)->constrained();
+            // $table->foreignIdFor(\App\Models\Poll::class)->constrained();
         });
     }
 

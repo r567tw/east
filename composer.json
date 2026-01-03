@@ -13,7 +13,6 @@
         "laravel/nightwatch": "^1.7",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
-        "livewire/livewire": "^3.6",
         "tymon/jwt-auth": "^2.2"
     },
     "require-dev": {

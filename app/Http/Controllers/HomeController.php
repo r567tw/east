@@ -11,11 +11,6 @@ class HomeController extends Controller
         return view('home');
     }
 
-    // public function poll()
-    // {
-    //     return view('poll');
-    // }
-
     public function present()
     {
         $content = File::json(storage_path('present.json'));

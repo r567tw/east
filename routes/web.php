@@ -12,9 +12,6 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::resource('tasks', TaskController::class);
 Route::patch('tasks/{task}/toggle', [TaskController::class, 'toggle'])->name('tasks.toggle');
 
-// Poll routes
-// Route::get('poll', [HomeController::class, 'poll'])->name('poll');
-
 // Line Services
 Route::post('/line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook')->middleware('line.webhook');
 
