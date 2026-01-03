@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::dropIfExists('polls');
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('options');
+        Schema::dropIfExists('polls');
+        Schema::dropIfExists('votes');
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
