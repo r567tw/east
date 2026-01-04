@@ -22,12 +22,12 @@ class HomeTest extends TestCase
         $response->assertViewIs('present');
     }
 
-    public function test_demo_page_loads_successfully()
+    public function test_swagger_page_loads_successfully()
     {
-        $response = $this->get('/demo/swagger');
+        $response = $this->get('/swagger');
 
         $response->assertStatus(200);
-        $response->assertViewIs('demo');
+        $response->assertViewIs('swagger');
     }
 
     public function test_changelog_page_loads_successfully()

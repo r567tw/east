@@ -276,3 +276,151 @@ paths:
       responses:
         "204":
           description: 取消參加
+  /api/gold-price:
+    get:
+      tags:
+        - 黃金價格
+      summary: 取得黃金價格
+      description: 取得黃金價格，資料來自台灣銀行(**每小時更新一次，並非即時更新**，另有做請求上的限制，請勿頻繁請求)
+      responses:
+        "200":
+          description: 取得黃金價格
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currency:
+                    type: string
+                    const: TWD
+                  gold_buy_price:
+                    type: number
+                    example: 3600
+                  gold_sell_price:
+                    type: number
+                    example: 3640
+        "429":
+          description: 請求過於頻繁，請稍後再試
+
+  /api/get-our-location:
+    post:
+      tags:
+        - 位置
+      summary: 利用經緯度可以取得該經緯度所在的城市級資訊
+      description: 利用`nominatim.openstreetmap.org`的 API 反查取得目前位置資訊
+      parameters:
+        - in: query
+          name: lat
+          schema:
+            type: string
+          required: true
+          description: 經度
+        - in: query
+          name: lng
+          schema:
+            type: string
+          required: true
+          description: 緯度
+      responses:
+        "200":
+          description: 取得目前位置資訊
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    type: string
+                    example: 臺北市
+        "404":
+          description: 無法取得位置資訊
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  const: Unable to fetch location data
+        "429":
+          description: 請求過於頻繁，請稍後再試
+
+  /api/astro/{name}:
+    get:
+      tags:
+        - 星座運勢
+      summary: 取得星座運勢
+      description: 根據星座名稱取得該星座的運勢資料。支援的星座名稱包括：牡羊座、金牛座、雙子座、巨蟹座、獅子座、處女座、天秤座、天蠍座、射手座、摩羯座、水瓶座、雙魚座
+      parameters:
+        - in: path
+          name: name
+          schema:
+            type: string
+            enum:
+              - 牡羊座
+              - 金牛座
+              - 雙子座
+              - 巨蟹座
+              - 獅子座
+              - 處女座
+              - 天秤座
+              - 天蠍座
+              - 射手座
+              - 摩羯座
+              - 水瓶座
+              - 雙魚座
+          required: true
+          description: 星座名稱（中文）
+          example: 牡羊座
+      responses:
+        "200":
+          description: 成功取得星座運勢資料
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: object
+                    properties:
+                      title:
+                        type: string
+                        description: 星座名稱
+                        example: 今日牡羊座解析
+                      all:
+                        type: string
+                        description: 整體運勢
+                        example: 整體運勢★★★☆☆：今天有什麼想法可以跟另一半交流，會獲得對方的支持；單身者有機會與能言善道的異性結緣。出門辦事較順利，有機會接觸到新鮮事物，例如：結識有名的人物、應邀參觀展覽等。
+                      love:
+                        type: string
+                        description: 愛情運勢
+                        example: 愛情運勢★★★☆☆：熱戀中的人可以徜徉在甜蜜的戀情之中，與伴侶共同享受羅曼
+                      career:
+                        type: string
+                        description: 事業運勢
+                        example: 事業運勢★★★☆☆：心情愉快，願意聽取家人、親友的意見，讓你有不少新的領悟，對事業有助益。
+                      money:
+                        type: string
+                        description: 財運運勢
+                        example: 財運運勢★★☆☆☆：財運稍弱，想投機取巧而得財比較困難。
+        "400":
+          description: 無效的星座名稱
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    const: Invalid
+        "404":
+          description: 找不到該星座的運勢資料
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    const: No data found
+        "429":
+          description: 請求過於頻繁，請稍後再試
