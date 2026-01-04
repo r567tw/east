@@ -29,7 +29,7 @@ class LineWebhookServiceTest extends TestCase
     public function test_process_command_astro()
     {
         Http::fake([
-            '*' => Http::response(file_get_contents(__DIR__ . '/../../Stubs/astro_response.html'), 200),
+            '*' => Http::response(file_get_contents(__DIR__.'/../../Stubs/astro_response.html'), 200),
         ]);
         $service = new \App\Services\LineWebhookService;
         $result = $service->processCommand('運勢');
