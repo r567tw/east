@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\AstroHelper;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 
@@ -21,7 +22,9 @@ class AstroController extends Controller
         $data = Cache::get("astro_{$astroIndex}");
 
         if (! $data) {
-            return response()->json(['error' => 'No data found'], 404);
+            $helper = new AstroHelper();
+            $data = $helper->get($astroIndex);
+            Cache::put("astro_{$astroIndex}", $data, now()->addHours(24));
         }
 
         [$title, $all, $love,, $career, $money] = explode("\r\n", $data);

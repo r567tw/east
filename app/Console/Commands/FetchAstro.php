@@ -32,8 +32,11 @@ class FetchAstro extends Command
         $progressBar->start();
 
         for ($i = 0; $i < 12; $i++) {
-            $data = $helper->get($i);
-            Cache::put("astro_{$i}", $data, now()->addHours(24));
+            if ($i == 8) {
+                // 看起來網站在 ban 我了，所以我改成只抓射手座了
+                $data = $helper->get($i);
+                Cache::put("astro_{$i}", $data, now()->addHours(24));
+            }
             $progressBar->advance();
             usleep(rand(500000, 1500000));
         }
