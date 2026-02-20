@@ -33,7 +33,6 @@ Route::get('gold-price', [GoldPriceController::class, 'index'])->name('gold.pric
 Route::get('convert-to-roman', [RomanNumberController::class, 'convertToRoman'])->name('convertToRoman')->middleware('throttle:30,1');
 Route::get('astro/{name}', [AstroController::class, 'show'])->name('astro.show')->middleware('throttle:30,1');
 Route::apiResource('short-url', ShortUrlController::class)->only(['index', 'store'])->middleware(['jwt.auth', 'throttle:30,1']);
-Route::apiResource('routine-tasks', RoutineTaskController::class)->middleware(['jwt.auth', 'throttle:api']);
 
 // For Line Bot Custom Integration
 Route::post('get-our-location', [LocationController::class, 'getOurLocation'])->name('get.our.location')->middleware(['throttle:10,1']);
