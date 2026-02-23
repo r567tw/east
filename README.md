@@ -9,31 +9,28 @@
 
 ### API
 
--   **認證系統** - JWT 認證機制，包含註冊、登入、刷新 token
--   **活動管理** - 完整的活動與參與者管理系統
--   **短網址** - 建立 URL 縮短與訪問統計
--   **例行任務管理** - 方便自己做例行任務管理 (無前端)
--   **實用工具 API**：
-    -   即時黃金價格查詢
-    -   羅馬數字轉換
-    -   占星資訊查詢
-    -   位置服務
+- **認證系統** - JWT 認證機制，包含註冊、登入、刷新 token
+- **活動管理** - 完整的活動與參與者管理系統
+- **短網址** - 建立 URL 縮短與訪問統計
+- **實用工具 API**：
+    - 即時黃金價格查詢
+    - 羅馬數字轉換
+    - 占星資訊查詢
+    - 位置服務
 
 ### Web
 
--   **任務管理** - 待辦事項系統
--   **投票系統** - 線上投票功能
--   **與 LINE Bot 整合** - LINE Webhook 處理
+- **任務管理** - 待辦事項系統
+- **與 LINE Bot 整合** - LINE Webhook 處理
 
 ## 🛠 技術架構
 
--   **後端**: Laravel 12 + PHP 8.2
--   **前端**: Livewire 3.6 + Vite
--   **認證**: JWT (tymon/jwt-auth)
--   **快取**: Redis (上線環境)
--   **資料庫**: PostgreSQL (上線環境) SQLite (本地環境)
--   **測試**: PHPUnit
--   **DevOps**: Github Action
+- **後端**: Laravel 12 + PHP 8.2
+- **認證**: JWT (tymon/jwt-auth)
+- **快取**: Redis (上線環境)
+- **資料庫**: PostgreSQL (上線環境) SQLite (本地環境)
+- **測試**: PHPUnit
+- **DevOps**: Github Action
 
 ## 📦 安裝步驟
 
@@ -97,8 +94,8 @@ php artisan test --coverage
 
 #### AMD High Performance
 
--   **1 vCPU, 1 GB RAM, 25 GB Storage, 2 TB Transfer (6 USD)(Current)**
--   1 vCPU, 2 GB RAM , 50 GB Storage, 3 TB Transfer (12 USD)
--   2 vCPU, 2 GB RAM , 60 GB Storage, 4 TB Transfer (18 USD)
--   2 vCPU, 4 GB RAM , 100 GB Storage, 5 TB Transfer (24 USD)
--   參考：https://www.vultr.com/pricing/#cloud-compute
+- **1 vCPU, 1 GB RAM, 25 GB Storage, 2 TB Transfer (6 USD)(Current)**
+- 1 vCPU, 2 GB RAM , 50 GB Storage, 3 TB Transfer (12 USD)
+- 2 vCPU, 2 GB RAM , 60 GB Storage, 4 TB Transfer (18 USD)
+- 2 vCPU, 4 GB RAM , 100 GB Storage, 5 TB Transfer (24 USD)
+- 參考：https://www.vultr.com/pricing/#cloud-compute
