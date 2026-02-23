@@ -8,7 +8,6 @@ use App\Http\Controllers\Api\GoldPriceController;
 use App\Http\Controllers\Api\JWTAuthController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\RomanNumberController;
-use App\Http\Controllers\Api\RoutineTaskController;
 use App\Http\Controllers\Api\ShortUrlController;
 use Illuminate\Support\Facades\Route;
 
