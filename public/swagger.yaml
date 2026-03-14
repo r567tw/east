@@ -173,13 +173,13 @@ paths:
         - in: query
           name: lat
           schema:
-            type: integer
+            type: float
           required: true
           description: 經度
         - in: query
           name: lng
           schema:
-            type: integer
+            type: float
           required: true
           description: 緯度
       responses:
