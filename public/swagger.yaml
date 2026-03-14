@@ -46,19 +46,26 @@ paths:
         - 位置
       summary: 利用經緯度可以取得該經緯度所在的城市級資訊
       description: 利用`nominatim.openstreetmap.org`的 API 反查取得目前位置資訊
-      parameters:
-        - in: query
-          name: lat
-          schema:
-            type: string
-          required: true
-          description: 經度
-        - in: query
-          name: lng
-          schema:
-            type: string
-          required: true
-          description: 緯度
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - lat
+                - lng
+              properties:
+                lat:
+                  type: number
+                  format: float
+                  description: 緯度
+                  example: 25.033964
+                lng:
+                  type: number
+                  format: float
+                  description: 經度
+                  example: 121.564468
       responses:
         "200":
           description: 取得目前位置資訊
@@ -72,13 +79,14 @@ paths:
                     example: 臺北市
         "404":
           description: 無法取得位置資訊
-          application/json:
-            schema:
-              type: object
-              properties:
-                error:
-                  type: string
-                  const: Unable to fetch location data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    const: Unable to fetch location data
         "429":
           description: 請求過於頻繁，請稍後再試
 
@@ -173,15 +181,17 @@ paths:
         - in: query
           name: lat
           schema:
-            type: float
+            type: number
+            format: float
           required: true
-          description: 經度
+          description: 緯度
         - in: query
           name: lng
           schema:
-            type: float
+            type: number
+            format: float
           required: true
-          description: 緯度
+          description: 經度
       responses:
         "200":
           description: 取得空氣品質資料
