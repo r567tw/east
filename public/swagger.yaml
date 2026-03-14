@@ -169,6 +169,19 @@ paths:
         - 空氣品質
       summary: 取得空氣品質資料
       description: 取得台灣各地區的空氣品質資料，資料來自環保署
+      parameters:
+        - in: query
+          name: lat
+          schema:
+            type: integer
+          required: true
+          description: 經度
+        - in: query
+          name: lng
+          schema:
+            type: integer
+          required: true
+          description: 緯度
       responses:
         "200":
           description: 取得空氣品質資料
