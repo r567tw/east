@@ -7,18 +7,6 @@
             "links": [{ "url": "/tasks", "label": "Demo" }]
         },
         {
-            "icon": "fa-solid fa-calendar-days",
-            "title": "Event API",
-            "description": "提供活動列表、報名(會寄信)、前端使用 Vue(TypeScript) + Bootstrap 做簡單展示",
-            "links": [
-                { "url": "/demo/swagger", "label": "查看 API Spec" },
-                {
-                    "url": "https://r567tw.github.io/event-app",
-                    "label": "前端"
-                }
-            ]
-        },
-        {
             "icon": "fa-brands fa-line",
             "title": "Line 個人助手(不開放)",
             "description": "串接 Line Webhook 查詢天氣、黃金、空氣品質等資訊",

@@ -2,11 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Book;
-use App\Models\Review;
-use App\Models\Task;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -34,8 +30,5 @@ class DatabaseSeeder extends Seeder
 
         //     Review::factory()->count($number)->bad()->for($book)->create();
         // });
-
-        $this->call(EventSeeder::class);
-        $this->call(AttendeeSeeder::class);
     }
 }

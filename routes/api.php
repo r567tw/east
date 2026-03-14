@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AstroController;
-use App\Http\Controllers\Api\AttendeeController;
 use App\Http\Controllers\Api\CustomerController;
-use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\GoldPriceController;
 use App\Http\Controllers\Api\JWTAuthController;
 use App\Http\Controllers\Api\LocationController;
@@ -18,14 +16,6 @@ Route::post('refresh', [JWTAuthController::class, 'refresh'])->middleware('jwt.a
 Route::post('logout', [JWTAuthController::class, 'logout'])->middleware('jwt.auth');
 
 Route::post('customer/register', [CustomerController::class, 'register']);
-
-// Event and Attendee Routes
-Route::apiResource('events', EventController::class)->only(['index', 'show']);
-Route::apiResource('events', EventController::class)->only(['store', 'update', 'destroy'])->middleware(['jwt.auth', 'throttle:api']);
-Route::apiResource('events.attendees', AttendeeController::class)->only(['index', 'show'])->middleware(['jwt.auth', 'throttle:api']);
-Route::apiResource('events.attendees', AttendeeController::class)->only(['store'])->middleware(['throttle:api']);
-Route::apiResource('events.attendees', AttendeeController::class)->only(['update'])->middleware(['jwt.auth', 'throttle:api']);
-Route::apiResource('events.attendees', AttendeeController::class)->only(['destroy'])->middleware(['jwt.auth', 'throttle:api']);
 
 // Production Useful Routes
 Route::get('gold-price', [GoldPriceController::class, 'index'])->name('gold.price')->middleware('throttle:30,1');
