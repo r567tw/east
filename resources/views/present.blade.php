@@ -31,7 +31,7 @@
     <div class="row g-4">
 
     @foreach ($content['features'] as $item)
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title"><i class="{{ $item["icon"] }}"></i>  {{ $item["title"]}}</h5>

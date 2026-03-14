@@ -162,3 +162,28 @@ paths:
                     const: No data found
         "429":
           description: 請求過於頻繁，請稍後再試
+
+  /api/air-quality:
+    get:
+      tags:
+        - 空氣品質
+      summary: 取得空氣品質資料
+      description: 取得台灣各地區的空氣品質資料，資料來自環保署
+      responses:
+        "200":
+          description: 取得空氣品質資料
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        air_quality:
+                          type: string
+                          example: 良好
+        "429":
+          description: 請求過於頻繁，請稍後再試

@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\AstroController;
+use App\Http\Controllers\Api\AirQualityController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\GoldPriceController;
 use App\Http\Controllers\Api\JWTAuthController;
 use App\Http\Controllers\Api\LocationController;
-use App\Http\Controllers\Api\RomanNumberController;
 use App\Http\Controllers\Api\ShortUrlController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +19,7 @@ Route::post('customer/register', [CustomerController::class, 'register']);
 
 // Production Useful Routes
 Route::get('gold-price', [GoldPriceController::class, 'index'])->name('gold.price')->middleware('throttle:30,1');
+Route::get('air-quality', [AirQualityController::class, 'index'])->name('air.quality')->middleware('throttle:30,1');
 Route::get('astro/{name}', [AstroController::class, 'show'])->name('astro.show')->middleware('throttle:30,1');
 Route::apiResource('short-url', ShortUrlController::class)->only(['index', 'store'])->middleware(['jwt.auth', 'throttle:30,1']);
 

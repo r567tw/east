@@ -1,6 +1,12 @@
 {
     "features": [
         {
+            "icon": "fa-solid fa-file-lines",
+            "title": "API Specification",
+            "description": "提供 API 文件與規格，方便開發者查詢與測試",
+            "links": [{ "url": "/swagger", "label": "Spec" }]
+        },
+        {
             "icon": "fa-solid fa-list-check",
             "title": "Task List",
             "description": "每次基礎能力應該做的展示",
