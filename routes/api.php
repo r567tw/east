@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AstroController;
 use App\Http\Controllers\Api\AirQualityController;
+use App\Http\Controllers\Api\BibleDailyVerseController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\GoldPriceController;
 use App\Http\Controllers\Api\JWTAuthController;
@@ -21,6 +22,7 @@ Route::post('customer/register', [CustomerController::class, 'register']);
 Route::get('gold-price', [GoldPriceController::class, 'index'])->name('gold.price')->middleware('throttle:30,1');
 Route::get('air-quality', [AirQualityController::class, 'index'])->name('air.quality')->middleware('throttle:30,1');
 Route::get('astro/{name}', [AstroController::class, 'show'])->name('astro.show')->middleware('throttle:30,1');
+Route::get('bible-daily-verse', [BibleDailyVerseController::class, 'index'])->name('bible.daily.verse')->middleware('throttle:60,1');
 Route::apiResource('short-url', ShortUrlController::class)->only(['index', 'store'])->middleware(['jwt.auth', 'throttle:30,1']);
 
 // For Line Bot Custom Integration
