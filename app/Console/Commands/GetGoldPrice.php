@@ -28,7 +28,9 @@ class GetGoldPrice extends Command
     public function handle()
     {
         [$goldSellPrice, $goldBuyPrice] = (new GoldPriceHelper)->getGoldPrice();
-        Cache::put('gold_sell_price', $goldSellPrice, 3600);
-        Cache::put('gold_buy_price', $goldBuyPrice, 3600);
+        Cache::put('gold_sell_price', $goldSellPrice, 30);
+        Cache::put('gold_buy_price', $goldBuyPrice, 30);
+        $this->info("Gold Sell Price: $goldSellPrice");
+        $this->info("Gold Buy Price: $goldBuyPrice");
     }
 }

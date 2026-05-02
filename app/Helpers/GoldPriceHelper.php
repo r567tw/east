@@ -21,14 +21,14 @@ class GoldPriceHelper
         if ($rows->length > 0) {
             $cell = $rows->item(0); // DOMElement
             $value = trim($cell->nodeValue); // 取出文字內容
-            $goldSellPrice = intval(str_replace('回售', '', preg_replace('/\s+/', '', $value)));
+            $goldSellPrice = intval(str_replace(",","",str_replace('回售', '', preg_replace('/\s+/', '', $value))));
         }
 
         $rows = $xpath->query('//table[1]/tbody/tr[1]/td[3]');
         if ($rows->length > 0) {
             $cell = $rows->item(0); // DOMElement
             $value = trim($cell->nodeValue); // 取出文字內容
-            $goldBuyPrice = intval(str_replace('買進', '', preg_replace('/\s+/', '', $value)));
+            $goldBuyPrice = intval(str_replace(",","",str_replace('買進', '', preg_replace('/\s+/', '', $value))));
         }
 
         return [
