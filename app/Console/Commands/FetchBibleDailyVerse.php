@@ -30,11 +30,11 @@ class FetchBibleDailyVerse extends Command
         /** @var \Illuminate\Http\Client\Response $response */
         $response = Http::retry(3, 5000)->get('https://taiwanbible.com/blog/dailyverse.jsp');
         if ($response->successful()) {
-            $result = trim(str_replace(["\r", "\n", "\t"], "", $response->body()));
+            $result = trim(str_replace(["\r", "\n", "\t"], '', $response->body()));
             Cache::put('bible_daily_verse', $result, now()->addHours(24));
         } else {
-            $this->error('Failed to fetch the daily verse. Status: ' . $response->status());
-            Cache::put('bible_daily_verse', "查詢錯誤", now()->addHours(24));
+            $this->error('Failed to fetch the daily verse. Status: '.$response->status());
+            Cache::put('bible_daily_verse', '查詢錯誤', now()->addHours(24));
         }
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
@@ -13,14 +14,14 @@ class BibleDailyVerseController extends Controller
             $result = Cache::get('bible_daily_verse');
         } else {
             /** @var \Illuminate\Http\Client\Response $response */
-            $response = Http::retry(3,5000)->get('https://taiwanbible.com/blog/dailyverse.jsp');
+            $response = Http::retry(3, 5000)->get('https://taiwanbible.com/blog/dailyverse.jsp');
             if ($response->successful()) {
-                $result = trim(str_replace(["\r","\n","\t"],"",$response->body()));
+                $result = trim(str_replace(["\r", "\n", "\t"], '', $response->body()));
             }
         }
 
         return response()->json([
-            'result' => $result
+            'result' => $result,
         ]);
 
     }

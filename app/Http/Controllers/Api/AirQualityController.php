@@ -13,11 +13,11 @@ class AirQualityController extends Controller
         $lat = $request->query('lat');
         $lng = $request->query('lng');
 
-        if (!$lat || !$lng) {
+        if (! $lat || ! $lng) {
             return response()->json(['error' => '請提供 lat 和 lng 參數'], 400);
         }
 
-        $airQuality = \App\Helpers\AirQualityHelper::getAirQuality((float)$lat, (float)$lng);
+        $airQuality = \App\Helpers\AirQualityHelper::getAirQuality((float) $lat, (float) $lng);
 
         return response()->json(['air_quality' => $airQuality]);
     }

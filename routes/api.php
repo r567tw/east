@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\AstroController;
 use App\Http\Controllers\Api\AirQualityController;
+use App\Http\Controllers\Api\AstroController;
 use App\Http\Controllers\Api\BibleDailyVerseController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\GoldPriceController;
