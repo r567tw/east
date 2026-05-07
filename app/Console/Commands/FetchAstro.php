@@ -42,7 +42,7 @@ class FetchAstro extends Command
         //     usleep(rand(500000, 1500000));
         // }
         $data = $helper->get(8);
-        Cache::put("astro_8", $data, now()->addHours(24));
+        Cache::put('astro_8', $data, now()->addHours(24));
         $progressBar->advance();
 
         $progressBar->finish();
