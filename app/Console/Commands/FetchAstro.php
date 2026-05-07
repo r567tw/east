@@ -28,18 +28,22 @@ class FetchAstro extends Command
     {
         $helper = new \App\Helpers\AstroHelper;
 
-        $progressBar = $this->output->createProgressBar(12);
+        // $progressBar = $this->output->createProgressBar(12);
+        $progressBar = $this->output->createProgressBar(1);
         $progressBar->start();
 
-        for ($i = 0; $i < 12; $i++) {
-            if ($i == 8) {
-                // 看起來網站在 ban 我了，所以我改成只抓射手座了
-                $data = $helper->get($i);
-                Cache::put("astro_{$i}", $data, now()->addHours(24));
-            }
-            $progressBar->advance();
-            usleep(rand(500000, 1500000));
-        }
+        // for ($i = 0; $i < 12; $i++) {
+        //     if ($i == 8) {
+        //         // 看起來網站在 ban 我了，所以我改成只抓射手座了
+        //         $data = $helper->get($i);
+        //         Cache::put("astro_{$i}", $data, now()->addHours(24));
+        //     }
+        //     $progressBar->advance();
+        //     usleep(rand(500000, 1500000));
+        // }
+        $data = $helper->get(8);
+        Cache::put("astro_8", $data, now()->addHours(24));
+        $progressBar->advance();
 
         $progressBar->finish();
     }

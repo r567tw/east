@@ -11,7 +11,7 @@ class AstroHelper
         $actualDate = date('Y-m-d');
         $url = "https://astro.click108.com.tw/daily_{$astroIndex}.php?iAstro={$astroIndex}&iAcDay={$actualDate}";
 
-        $response = Http::retry(3, 5000)->get($url);
+        $response = Http::withoutVerifying()->retry(3, 5000)->get($url);
 
         libxml_use_internal_errors(true);
         $dom = new \DOMDocument;
