@@ -20,4 +20,16 @@ class GoldPriceTest extends TestCase
                 'gold_sell_price',
             ]);
     }
+
+    public function test_api_get_gold_price_with_amount(): void
+    {
+        $response = $this->get('/api/gold-price?amount=10');
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'currency',
+                'gold_buy_price',
+                'gold_sell_price',
+            ]);
+    }
 }
