@@ -36,17 +36,6 @@ class LineWebhookServiceTest extends TestCase
         $this->assertStringContainsString('射手座', $result);
     }
 
-    public function test_process_command_gold()
-    {
-        \Illuminate\Support\Facades\Cache::shouldReceive('get')->with('gold_buy_price', 0)->andReturn(123);
-        \Illuminate\Support\Facades\Cache::shouldReceive('get')->with('gold_sell_price', 0)->andReturn(456);
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('黃金');
-        $this->assertStringContainsString('黃金價格查詢結果', $result);
-        $this->assertStringContainsString('123', $result);
-        $this->assertStringContainsString('456', $result);
-    }
-
     public function test_process_command_weather_no_user()
     {
         $service = new \App\Services\LineWebhookService;

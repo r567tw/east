@@ -43,13 +43,6 @@ class LineWebhookService
 
     public function processCommand($command, $user = null)
     {
-        if ($command === '黃金') {
-            $goldBuyPrice = Cache::get('gold_buy_price', 0);
-            $goldSellPrice = Cache::get('gold_sell_price', 0);
-
-            return "黃金價格查詢結果：\n買進：{$goldBuyPrice} 元/克\n回售：{$goldSellPrice} 元/克";
-        }
-
         if ($command === '天氣') {
             if ($user == null) {
                 return '請先綁定 LINE 帳號。';

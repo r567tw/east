@@ -10,6 +10,7 @@
             <a class="btn btn-primary btn-lg" href="{{ route("present") }}" role="button">Present »</a>
             <a class="btn btn-secondary btn-lg" href="{{ route("changelog") }}" role="button">changelog »</a>
           </div>
+          
         </div>
     </div>
 @endsection
