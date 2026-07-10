@@ -3,14 +3,28 @@
 @section('content')
     <div class="jumbotron">
         <div class="container">
-          <h1 class="display-3">Hi, Developers</h1>
           <h2>{{ Carbon\Carbon::now()->format('Y-m-d H:i') }}</h2>
           <p>距離今年結束<span id="days" style="font-weight: bold;font-size: 4em;color: #ff6347;">0</span>天</p>
           <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-start">
             <a class="btn btn-primary btn-lg" href="{{ route("present") }}" role="button">Present »</a>
-            <a class="btn btn-secondary btn-lg" href="{{ route("changelog") }}" role="button">changelog »</a>
+            {{-- <a class="btn btn-secondary btn-lg" href="{{ route("changelog") }}" role="button">changelog »</a> --}}
+            <a href="https://r567tw.cc/blog/架站日記" class="position-fixed end-0 top-0 m-4 btn btn-secondary" style="z-index: 1050;">架站筆記</a>
           </div>
-          
+            <div class="mt-5">
+                    <h3>Change Log</h3>
+                    <div class="overflow-y-scroll mt-5" style="max-height: 150px;">
+                    @foreach ($logs as $log)
+                        <div class="mb-5">
+                            <h4 class="text-primary mb-2">{{ $log['date'] }}</h4>
+                            <ul class="list-disc ps-5 text-gray-800">
+                                @foreach ($log['changes'] as $change)
+                                    <li>{{ $change }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endforeach
+                    </div>
+            </div>
         </div>
     </div>
 @endsection

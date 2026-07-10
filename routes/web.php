@@ -21,8 +21,5 @@ Route::get('s/{code}', [ShortRedirectController::class, 'redirect'])->name('shor
 // Presentation and Portal routes
 Route::get('present', [HomeController::class, 'present'])->name('present');
 
-// ChangeLog route
-Route::get('changelog', [HomeController::class, 'changelog'])->name('changelog');
-
 // Swagger UI routes
 Route::get('swagger', [HomeController::class, 'swagger'])->name('swagger.ui');

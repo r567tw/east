@@ -8,7 +8,12 @@ class HomeController extends Controller
 {
     public function home()
     {
-        return view('home');
+        $logs = json_decode(file_get_contents(storage_path('changelog.json')), true);
+        usort($logs, function ($a, $b) {
+            return strtotime($b['date']) - strtotime($a['date']);
+        });
+
+        return view('home', compact('logs'));
     }
 
     public function present()
@@ -21,15 +26,5 @@ class HomeController extends Controller
     public function swagger()
     {
         return view('swagger');
-    }
-
-    public function changelog()
-    {
-        $logs = json_decode(file_get_contents(storage_path('changelog.json')), true);
-        usort($logs, function ($a, $b) {
-            return strtotime($b['date']) - strtotime($a['date']);
-        });
-
-        return view('changelog', compact('logs'));
     }
 }

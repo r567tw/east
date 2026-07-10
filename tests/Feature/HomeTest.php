@@ -29,12 +29,4 @@ class HomeTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('swagger');
     }
-
-    public function test_changelog_page_loads_successfully()
-    {
-        $response = $this->get('/changelog');
-
-        $response->assertStatus(200);
-        $response->assertViewIs('changelog');
-    }
 }
