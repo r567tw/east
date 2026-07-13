@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BibleDailyVerseController;
 use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\JWTAuthController;
 use App\Http\Controllers\Api\LocationController;
+use App\Http\Controllers\Api\LineWebhookController;
 use App\Http\Controllers\Api\ShortUrlController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,9 @@ Route::post('me', [JWTAuthController::class, 'me'])->middleware('jwt.auth');
 Route::post('login', [JWTAuthController::class, 'login']);
 Route::post('refresh', [JWTAuthController::class, 'refresh'])->middleware('jwt.auth');
 Route::post('logout', [JWTAuthController::class, 'logout'])->middleware('jwt.auth');
+
+// Line Services
+Route::post('line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook')->middleware('line.webhook');
 
 Route::post('customer/register', [CustomerController::class, 'register']);
 

@@ -19,7 +19,7 @@ class LineWebhookMiddlewareTest extends TestCase
 
         $response = $this->withHeaders([
             'X-Line-Signature' => $signature,
-        ])->postJson('/line/webhook', json_decode($body, true));
+        ])->postJson('api/line/webhook', json_decode($body, true));
 
         $this->assertEquals(200, $response->getStatusCode());
     }
@@ -34,7 +34,7 @@ class LineWebhookMiddlewareTest extends TestCase
 
         $response = $this->withHeaders([
             'X-Line-Signature' => $signature,
-        ])->postJson('/line/webhook', json_decode($actual_body, true));
+        ])->postJson('api/line/webhook', json_decode($actual_body, true));
 
         $this->assertEquals(400, $response->getStatusCode());
     }

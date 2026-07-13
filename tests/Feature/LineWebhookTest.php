@@ -33,7 +33,7 @@ class LineWebhookTest extends TestCase
             ]],
         ];
 
-        $response = $this->postJson('/line/webhook', $payload);
+        $response = $this->postJson('/api/line/webhook', $payload);
         $response->assertStatus(200);
         Http::assertSent(function ($request) {
             return $request->url() === 'https://api.line.me/v2/bot/message/reply';
@@ -57,7 +57,7 @@ class LineWebhookTest extends TestCase
             ]],
         ];
 
-        $response = $this->postJson('/line/webhook', $payload);
+        $response = $this->postJson('/api/line/webhook', $payload);
         $response->assertStatus(200);
         Http::assertSent(function ($request) {
             return $request->url() === 'https://api.line.me/v2/bot/message/reply';
@@ -81,7 +81,7 @@ class LineWebhookTest extends TestCase
             ]],
         ];
 
-        $response = $this->postJson('/line/webhook', $payload);
+        $response = $this->postJson('/api/line/webhook', $payload);
         $response->assertStatus(200);
         Http::assertSent(function ($request) {
             $data = $request['messages'] ?? [];

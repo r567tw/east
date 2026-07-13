@@ -14,32 +14,6 @@ components:
       bearerFormat: JWT
 
 paths:
-  /api/gold-price:
-    get:
-      tags:
-        - 黃金價格
-      summary: 取得黃金價格
-      description: 取得黃金價格，資料來自台灣銀行(**每小時更新一次，並非即時更新**，另有做請求上的限制，請勿頻繁請求)
-      responses:
-        "200":
-          description: 取得黃金價格
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  currency:
-                    type: string
-                    const: TWD
-                  gold_buy_price:
-                    type: number
-                    example: 3600
-                  gold_sell_price:
-                    type: number
-                    example: 3640
-        "429":
-          description: 請求過於頻繁，請稍後再試
-
   /api/get-our-location:
     post:
       tags:
