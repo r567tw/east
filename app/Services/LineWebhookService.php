@@ -38,6 +38,10 @@ class LineWebhookService
             return $this->processCommand($message, $user);
         }
 
+        if ($user !== null) {
+            return (new \App\Helpers\AiHelper)->ask($message);
+        }
+
         return "你說的是：「{$message}」";
     }
 
