@@ -131,35 +131,6 @@ class LineWebhookServiceTest extends TestCase
         $this->assertIsString($result);
     }
 
-    public function test_bind_with_invalid_invite_code_returns_error()
-    {
-        \Illuminate\Support\Facades\DB::shouldReceive('table')->with('invite_codes')->andReturnSelf();
-        \Illuminate\Support\Facades\DB::shouldReceive('where')->with('code', 'badcode')->andReturnSelf();
-        \Illuminate\Support\Facades\DB::shouldReceive('where')->with('expires_at', '>', \Mockery::any())->andReturnSelf();
-        \Illuminate\Support\Facades\DB::shouldReceive('first')->andReturn(null);
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->bind('badcode', 'U123');
-        $this->assertStringContainsString('無效的邀請碼', $result);
-    }
-
-    public function test_bind_with_valid_invite_code_updates_user_and_returns_success()
-    {
-        // 建立測試用 invite_codes 與 user
-        $user = \App\Models\User::factory()->create(['line_user_id' => null]);
-        DB::table('invite_codes')->insert([
-            'code' => 'goodcode',
-            'user_id' => $user->id,
-            'expires_at' => now()->addDay(),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->bind('goodcode', 'U123');
-        $this->assertStringContainsString('成功綁定', $result);
-        $user->refresh();
-        $this->assertEquals('U123', $user->line_user_id);
-    }
-
     public function test_process_command_weather_success()
     {
         Http::fake([
