@@ -128,5 +128,11 @@
         "changes": [
             "將 Line Webhook 移到 API"
         ]
+    },
+    {
+        "date": "2026-07-22",
+        "changes": [
+            "移除 Line Webhook 綁定功能、移除 Customer"
+        ]
     }
 ]
