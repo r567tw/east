@@ -19,8 +19,6 @@ Route::post('logout', [JWTAuthController::class, 'logout'])->middleware('jwt.aut
 // Line Services
 Route::post('line/webhook', [LineWebhookController::class, 'handle'])->name('line.webhook')->middleware('line.webhook');
 
-Route::post('customer/register', [CustomerController::class, 'register']);
-
 // Production Useful Routes
 Route::get('air-quality', [AirQualityController::class, 'index'])->name('air.quality')->middleware('throttle:30,1');
 Route::get('astro/{name}', [AstroController::class, 'show'])->name('astro.show')->middleware('throttle:30,1');

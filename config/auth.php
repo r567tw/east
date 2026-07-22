@@ -43,11 +43,7 @@ return [
         'api' => [
             'driver' => 'jwt',
             'provider' => 'users',
-        ],
-        'customer' => [ // 新增 Customer 的 JWT Guard
-            'driver' => 'jwt', // 確保使用你的 JWT 驅動
-            'provider' => 'customers', // 綁定到新的 customers provider
-        ],
+        ]
     ],
 
     /*
@@ -71,12 +67,6 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
-        ],
-
-        // 新增 Customer Provider
-        'customers' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Customer::class,
         ],
 
         // 'users' => [
