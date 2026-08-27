@@ -27,3 +27,4 @@ Route::apiResource('short-url', ShortUrlController::class)->only(['index', 'stor
 // For Line Bot Custom Integration
 Route::post('get-our-location', [LocationController::class, 'getOurLocation'])->name('get.our.location')->middleware(['throttle:10,1']);
 Route::post('set-our-location', [LocationController::class, 'setOurLocation'])->name('set.our.location')->middleware(['jwt.auth', 'throttle:api']);
+Route::get('cpbl', [App\Http\Controllers\Api\CPBLController::class, 'index'])->name('cpbl.api')->middleware('throttle:30,1');
