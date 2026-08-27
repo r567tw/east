@@ -16,9 +16,10 @@ class MLBHelper
      */
     public static function fetchGames(string $targetDate): array
     {
+        $url = config("services.mlb.base_url").self::SCHEDULE_PATH;
         $payload = Http::retry(3, 200)
             ->acceptJson()
-            ->get(self::SCHEDULE_PATH, ['sportId' => 1, 'date' => $targetDate])
+            ->get($url, ['sportId' => 1, 'date' => $targetDate])
             ->json();
 
         if (! is_array($payload)) {
