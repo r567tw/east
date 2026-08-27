@@ -4,7 +4,6 @@ namespace Tests\Unit\Services;
 
 use App\Services\LineWebhookService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 

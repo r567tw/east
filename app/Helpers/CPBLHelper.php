@@ -37,7 +37,7 @@ class CPBLHelper
             throw new \RuntimeException('CPBL API 回傳失敗。');
         }
 
-        $games = $payload["GameADetailJson"] ?? [];
+        $games = $payload['GameADetailJson'] ?? [];
         $games = is_string($games) ? json_decode($games, true, 512, JSON_THROW_ON_ERROR) : $games;
 
         if (! is_array($games)) {
@@ -46,7 +46,7 @@ class CPBLHelper
 
         return array_values(array_map(
             self::simplifyGame(...),
-            array_filter($games, static fn(mixed $game): bool => is_array($game))
+            array_filter($games, static fn (mixed $game): bool => is_array($game))
         ));
     }
 
@@ -57,7 +57,7 @@ class CPBLHelper
         return Http::baseUrl($baseUrl)
             ->withHeaders([
                 'Accept' => 'application/json, text/javascript, */*; q=0.01',
-                'Referer' => $baseUrl . self::SCHEDULE_PATH,
+                'Referer' => $baseUrl.self::SCHEDULE_PATH,
             ])
             ->withUserAgent('cpbl-scores/1.0 (+https://www.cpbl.com.tw/)')
             ->timeout((int) config('services.cpbl.timeout', 20))
@@ -75,7 +75,7 @@ class CPBLHelper
     }
 
     /**
-     * @param array<string, mixed> $game
+     * @param  array<string, mixed>  $game
      * @return array<string, int|string>
      */
     private static function simplifyGame(array $game): array

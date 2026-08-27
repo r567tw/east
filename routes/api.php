@@ -3,10 +3,9 @@
 use App\Http\Controllers\Api\AirQualityController;
 use App\Http\Controllers\Api\AstroController;
 use App\Http\Controllers\Api\BibleDailyVerseController;
-use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\JWTAuthController;
-use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\LineWebhookController;
+use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\ShortUrlController;
 use Illuminate\Support\Facades\Route;
 

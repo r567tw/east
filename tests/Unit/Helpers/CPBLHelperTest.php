@@ -11,7 +11,6 @@ class CPBLHelperTest extends TestCase
 {
     public function test_it_fetches_and_simplifies_major_league_games(): void
     {
-        Http::preventStrayRequests();
         Http::fake([
             'https://www.cpbl.com.tw/schedule/index' => Http::response(
                 '<input name="__RequestVerificationToken" type="hidden" value="test-token" />'

@@ -85,19 +85,21 @@ class LineWebhookService
 
         if ($command === 'cpbl') {
             $games = (new \App\Helpers\CPBLHelper)->fetchGames();
-            $result = "";
+            $result = '';
             foreach ($games as $game) {
                 $result .= "{$game['homeTeam']} {$game['homeScore']} vs {$game['awayScore']} {$game['awayTeam']} - {$game['status']}\n";
             }
+
             return rtrim($result, "\n");
         }
 
         if ($command === 'mlb') {
             $games = (new \App\Helpers\MLBHelper)->fetchGames(date('Y-m-d'));
-            $result = "";
+            $result = '';
             foreach ($games as $game) {
                 $result .= "{$game['homeTeam']} {$game['homeScore']} vs {$game['awayScore']} {$game['awayTeam']} - {$game['status']}\n";
             }
+
             return rtrim($result, "\n");
         }
 

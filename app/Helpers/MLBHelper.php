@@ -56,7 +56,7 @@ class MLBHelper
     }
 
     /**
-     * @param array<string, mixed> $game
+     * @param  array<string, mixed>  $game
      * @return array<string, int|string>
      */
     private static function simplifyGame(array $game): array
