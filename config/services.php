@@ -35,4 +35,18 @@ return [
         ],
     ],
 
+    'cpbl' => [
+        'base_url' => env('CPBL_BASE_URL', 'https://www.cpbl.com.tw'),
+        'timeout' => env('CPBL_TIMEOUT', 20),
+        'connect_timeout' => env('CPBL_CONNECT_TIMEOUT', 5),
+        'retry_times' => env('CPBL_RETRY_TIMES', 3),
+    ],
+
+    'mlb' => [
+        'base_url' => env('MLB_BASE_URL', 'https://statsapi.mlb.com'),
+        'timeout' => env('MLB_TIMEOUT', 20),
+        'connect_timeout' => env('MLB_CONNECT_TIMEOUT', 5),
+        'retry_times' => env('MLB_RETRY_TIMES', 3),
+    ],
+
 ];

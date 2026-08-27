@@ -117,6 +117,13 @@ class LineWebhookServiceTest extends TestCase
         $this->assertIsString($result);
     }
 
+    public function test_process_command_mlb()
+    {
+        $service = new \App\Services\LineWebhookService;
+        $result = $service->processCommand('mlb');
+        $this->assertIsString($result);
+    }
+
     public function test_process_command_simple()
     {
         $service = new \App\Services\LineWebhookService;
