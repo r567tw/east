@@ -49,7 +49,6 @@ class MLBHelper
 
         return Http::baseUrl($baseUrl)
             ->acceptJson()
-            ->withUserAgent('mlb-scores/1.0')
             ->timeout((int) config('services.mlb.timeout', 20))
             ->connectTimeout((int) config('services.mlb.connect_timeout', 5))
             ->retry((int) config('services.mlb.retry_times', 3), 200);
