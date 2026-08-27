@@ -134,5 +134,11 @@
         "changes": [
             "移除 Line Webhook 綁定功能、移除 Customer"
         ]
+    },
+    {
+        "date": "2026-08-27",
+        "changes": [
+            "新增 MLB 指令，可以查詢 MLB 賽事資訊 ; 優化 CPBL 查詢"
+        ]
     }
 ]
