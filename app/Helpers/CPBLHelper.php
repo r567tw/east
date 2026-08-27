@@ -8,26 +8,38 @@ class CPBLHelper
 {
     private const SCHEDULE_PATH = '/schedule/index';
 
-    private const DETAIL_LIST_PATH = '/home/getdetaillist';
+    private const GAMES_PATH = '/schedule/getgamedatas';
 
     /**
      * Fetch and simplify CPBL games for the requested date.
      *
      * @return array<int, array<string, int|string>>
      */
-    public static function fetchGames(): array
+    public static function fetchGames(string $targetDate = ''): array
     {
-        $client = self::client();
-        $page = $client->get(self::SCHEDULE_PATH)->throw();
+        $baseUrl = rtrim((string) config('services.cpbl.base_url', 'http://www.cpbl.com.tw'), '/');
+        $targetDate = $targetDate !== '' ? $targetDate : date('Y-m-d');
+        $baseUrl = rtrim((string) config('services.cpbl.base_url', 'https://www.cpbl.com.tw'), '/');
+        $page = Http::retry((int) config('services.cpbl.retry_times', 3), 200)
+            ->timeout((int) config('services.cpbl.timeout', 20))
+            ->connectTimeout((int) config('services.cpbl.connect_timeout', 5))
+            ->get($baseUrl.self::SCHEDULE_PATH)
+            ->throw();
         $token = self::getVerificationToken($page->body());
 
-        $payload = $client
+        $payload = Http::retry((int) config('services.cpbl.retry_times', 3), 200)
+            ->timeout((int) config('services.cpbl.timeout', 20))
+            ->connectTimeout((int) config('services.cpbl.connect_timeout', 5))
+            ->acceptJson()
             ->withHeaders([
                 'RequestVerificationToken' => $token,
                 'X-Requested-With' => 'XMLHttpRequest',
             ])
             ->asForm()
-            ->post(self::DETAIL_LIST_PATH, [
+            ->post($baseUrl.self::GAMES_PATH, [
+                'calendar' => substr($targetDate, 0, 4).'/01/01',
+                'location' => '',
+                'kindCode' => 'A',
                 '__RequestVerificationToken' => $token,
             ])
             ->throw()
@@ -37,7 +49,7 @@ class CPBLHelper
             throw new \RuntimeException('CPBL API 回傳失敗。');
         }
 
-        $games = $payload['GameADetailJson'] ?? [];
+        $games = $payload['GameDatas'] ?? [];
         $games = is_string($games) ? json_decode($games, true, 512, JSON_THROW_ON_ERROR) : $games;
 
         if (! is_array($games)) {
@@ -46,29 +58,26 @@ class CPBLHelper
 
         return array_values(array_map(
             self::simplifyGame(...),
-            array_filter($games, static fn (mixed $game): bool => is_array($game))
+            array_filter(
+                $games,
+                static fn (mixed $game): bool => is_array($game)
+                    && str_starts_with((string) ($game['GameDate'] ?? ''), $targetDate)
+            )
         ));
-    }
-
-    private static function client(): \Illuminate\Http\Client\PendingRequest
-    {
-        $baseUrl = rtrim((string) config('services.cpbl.base_url'), '/');
-
-        return Http::baseUrl($baseUrl)
-            ->withHeaders([
-                'Accept' => 'application/json, text/javascript, */*; q=0.01',
-                'Referer' => $baseUrl.self::SCHEDULE_PATH,
-            ])
-            ->withUserAgent('cpbl-scores/1.0 (+https://www.cpbl.com.tw/)')
-            ->timeout((int) config('services.cpbl.timeout', 20))
-            ->connectTimeout((int) config('services.cpbl.connect_timeout', 5))
-            ->retry((int) config('services.cpbl.retry_times', 3), 200);
     }
 
     private static function getVerificationToken(string $html): string
     {
-        if (preg_match('/name=["\']__RequestVerificationToken["\'][^>]+value=["\']([^"\']+)["\']/', $html, $matches) !== 1) {
-            throw new \RuntimeException('官方頁面驗證 token 格式無法解析。');
+        $endpointStart = strpos($html, self::GAMES_PATH);
+
+        if ($endpointStart === false) {
+            throw new \RuntimeException('找不到官方 API 驗證 token，可能是網站格式已變更。');
+        }
+
+        $endpointBlock = substr($html, $endpointStart, 5000);
+
+        if (preg_match('/RequestVerificationToken:\s*[\'\"]([^\'\"]+)[\'\"]/', $endpointBlock, $matches) !== 1) {
+            throw new \RuntimeException('官方 API 驗證 token 格式無法解析。');
         }
 
         return $matches[1];
@@ -93,6 +102,12 @@ class CPBLHelper
             default => "未知狀態（{$gameStatus}）",
         };
 
+        if ($gameStatus == "" && $game["IsPlayBall"] == "N"){
+            $status = "未開賽";
+        } elseif ($gameStatus == "" && $game["IsPlayBall"] == "Y"){
+            $status = "進行中";
+        }
+
         return [
             'gameNumber' => (int) ($game['GameSno'] ?? 0),
             'time' => (string) ($game['PreExeDate'] ?? ''),
@@ -101,7 +116,7 @@ class CPBLHelper
             'awayScore' => (int) ($game['VisitingTotalScore'] ?? 0),
             'homeScore' => (int) ($game['HomeTotalScore'] ?? 0),
             'field' => (string) ($game['FieldAbbe'] ?? ''),
-            'status' => $status,
+            'status' => $status
         ];
     }
 }

@@ -94,7 +94,7 @@ class LineWebhookService
         }
 
         if ($command === 'mlb') {
-            $games = (new \App\Helpers\MLBHelper)->fetchGames(date('Y-m-d'));
+            $games = (new \App\Helpers\MLBHelper)->fetchGames(date('Y-m-d', strtotime('-1 day')));
             $result = '';
             foreach ($games as $game) {
                 $result .= "{$game['homeTeam']} {$game['homeScore']} vs {$game['awayScore']} {$game['awayTeam']} - {$game['status']}\n";
