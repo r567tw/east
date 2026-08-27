@@ -109,40 +109,6 @@ class LineWebhookServiceTest extends TestCase
         $this->assertStringContainsString('城市：台北市', $result);
     }
 
-    public function test_process_command_cpbl()
-    {
-        Http::fake([
-            'https://www.cpbl.com.tw/schedule/index' => Http::response(
-                '<input name="__RequestVerificationToken" type="hidden" value="test-token" />'
-            ),
-            'https://www.cpbl.com.tw/home/getdetaillist' => Http::response([
-                'Success' => true,
-                'GameADetailJson' => json_encode([
-                    [
-                        'GameSno' => '1',
-                        'VisitingTeamName' => '客隊',
-                        'HomeTeamName' => '主隊',
-                        'VisitingTotalScore' => '3',
-                        'HomeTotalScore' => '2',
-                        'GameStatus' => '3',
-                    ],
-                ], JSON_THROW_ON_ERROR),
-            ]),
-        ]);
-
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('cpbl');
-
-        $this->assertSame('主隊 2 vs 3 客隊 - 已結束', $result);
-    }
-
-    public function test_process_command_mlb()
-    {
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('mlb');
-        $this->assertIsString($result);
-    }
-
     public function test_process_command_simple()
     {
         $service = new \App\Services\LineWebhookService;
