@@ -17,13 +17,9 @@ class MLBHelper
      */
     public static function fetchGames(string $targetDate): array
     {
-        $payload = self::client()
-            ->get(self::SCHEDULE_PATH, [
-                'sportId' => 1,
-                'date' => $targetDate,
-                'hydrate' => 'venue,team,linescore',
-            ])
-            ->throw()
+        $payload = Http::retry(3, 200)
+            ->acceptJson()
+            ->get(self::SCHEDULE_PATH, ['sportId' => 1, 'date' => $targetDate])
             ->json();
 
         if (! is_array($payload)) {
@@ -42,18 +38,6 @@ class MLBHelper
             array_filter($games, static fn (mixed $game): bool => is_array($game))
         ));
     }
-
-    private static function client(): PendingRequest
-    {
-        $baseUrl = rtrim((string) config('services.mlb.base_url'), '/');
-
-        return Http::baseUrl($baseUrl)
-            ->acceptJson()
-            ->timeout((int) config('services.mlb.timeout', 20))
-            ->connectTimeout((int) config('services.mlb.connect_timeout', 5))
-            ->retry((int) config('services.mlb.retry_times', 3), 200);
-    }
-
     /**
      * @param  array<string, mixed>  $game
      * @return array<string, int|string>
