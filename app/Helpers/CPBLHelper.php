@@ -15,7 +15,7 @@ class CPBLHelper
      *
      * @return array<int, array<string, int|string>>
      */
-    public static function fetchGames(string $targetDate = ''): array
+    public static function fetchGames(string $targetDate = '',string $kindCode = 'A'): array
     {
         $baseUrl = rtrim((string) config('services.cpbl.base_url', 'http://www.cpbl.com.tw'), '/');
         $targetDate = $targetDate !== '' ? $targetDate : date('Y-m-d');
@@ -39,8 +39,7 @@ class CPBLHelper
             ->post($baseUrl.self::GAMES_PATH, [
                 'calendar' => substr($targetDate, 0, 4).'/01/01',
                 'location' => '',
-                'kindCode' => 'A',
-                '__RequestVerificationToken' => $token,
+                'kindCode' => $kindCode,
             ])
             ->throw()
             ->json();
@@ -89,22 +88,18 @@ class CPBLHelper
      */
     private static function simplifyGame(array $game): array
     {
-        $gameStatus = (string) ($game['GameStatus'] ?? '');
+        $gameStatus = (string) ($game['GameResult'] ?? '');
         $status = match ($gameStatus) {
-            '1' => '未開賽',
-            '2' => '進行中',
-            '3' => '已結束',
-            '4' => '先發打序',
-            '5' => '取消',
-            '6' => '延賽',
-            '7' => '保留',
-            '8' => '比賽暫停',
-            default => "未知狀態（{$gameStatus}）",
+            '1' => '延賽',
+            '2' => '保留',
+            '4' => '取消',
+            '0' => '已結束',
+            default => "",
         };
 
-        if ($gameStatus == "" && $game["IsPlayBall"] == "N"){
+        if ($status == "" && $game["IsPlayBall"] == "N"){
             $status = "未開賽";
-        } elseif ($gameStatus == "" && $game["IsPlayBall"] == "Y"){
+        } elseif ($status == "" && $game["IsPlayBall"] == "Y"){
             $status = "進行中";
         }
 
@@ -113,8 +108,8 @@ class CPBLHelper
             'time' => (string) ($game['PreExeDate'] ?? ''),
             'awayTeam' => (string) ($game['VisitingTeamName'] ?? ''),
             'homeTeam' => (string) ($game['HomeTeamName'] ?? ''),
-            'awayScore' => (int) ($game['VisitingTotalScore'] ?? 0),
-            'homeScore' => (int) ($game['HomeTotalScore'] ?? 0),
+            'awayScore' => (int) ($game['VisitingScore'] ?? 0),
+            'homeScore' => (int) ($game['HomeScore'] ?? 0),
             'field' => (string) ($game['FieldAbbe'] ?? ''),
             'status' => $status
         ];
