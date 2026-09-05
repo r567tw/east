@@ -7,12 +7,6 @@
             "links": [{ "url": "/swagger", "label": "Spec" }]
         },
         {
-            "icon": "fa-solid fa-list-check",
-            "title": "Task List",
-            "description": "每次基礎能力應該做的展示",
-            "links": [{ "url": "/tasks", "label": "Demo" }]
-        },
-        {
             "icon": "fa-brands fa-line",
             "title": "Line 個人助手(不開放)",
             "description": "串接 Line Webhook 查詢天氣、黃金、空氣品質等資訊",
