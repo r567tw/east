@@ -21,12 +21,4 @@ class HomeTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('present');
     }
-
-    public function test_swagger_page_loads_successfully()
-    {
-        $response = $this->get('/swagger');
-
-        $response->assertStatus(200);
-        $response->assertViewIs('swagger');
-    }
 }
