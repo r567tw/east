@@ -146,5 +146,12 @@
         "changes": [
             "移除 Task 功能"
         ]
+    },
+    {
+        "date": "2026-09-10",
+        "changes": [
+            "新增 CPBL、MLB 查詢 API",
+            "移除 Swagger 文件"
+        ]
     }
 ]

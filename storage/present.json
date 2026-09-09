@@ -4,7 +4,7 @@
             "icon": "fa-solid fa-file-lines",
             "title": "API Specification",
             "description": "提供 API 文件與規格，方便開發者查詢與測試",
-            "links": [{ "url": "/swagger", "label": "Spec" }]
+            "links": [{ "url": "https://r567tw.github.io/swagger-doc", "label": "Spec" }]
         },
         {
             "icon": "fa-brands fa-line",

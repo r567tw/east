@@ -12,7 +12,7 @@
           </div>
             <div class="mt-5">
                     <h3>Change Log</h3>
-                    <div class="overflow-y-scroll mt-5" style="max-height: 150px;">
+                    <div class="mt-5">
                     @foreach ($logs as $log)
                         <div class="mb-5">
                             <h4 class="text-primary mb-2">{{ $log['date'] }}</h4>
