@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\BibleDailyVerseController;
 use App\Http\Controllers\Api\JWTAuthController;
 use App\Http\Controllers\Api\LineWebhookController;
 use App\Http\Controllers\Api\LocationController;
+use App\Http\Controllers\Api\MLBController;
 use App\Http\Controllers\Api\ShortUrlController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,4 @@ Route::apiResource('short-url', ShortUrlController::class)->only(['index', 'stor
 Route::post('get-our-location', [LocationController::class, 'getOurLocation'])->name('get.our.location')->middleware(['throttle:10,1']);
 Route::post('set-our-location', [LocationController::class, 'setOurLocation'])->name('set.our.location')->middleware(['jwt.auth', 'throttle:api']);
 Route::get('cpbl', [App\Http\Controllers\Api\CPBLController::class, 'index'])->name('cpbl.api')->middleware('throttle:30,1');
-Route::get('mlb', [])->name('mlb.api')->middleware('throttle:30,1');
+Route::get('mlb', [MLBController::class, 'index'])->name('mlb.api')->middleware('throttle:30,1');
