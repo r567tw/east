@@ -8,7 +8,7 @@
           <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-start">
             <a class="btn btn-primary btn-lg" href="{{ route("present") }}" role="button">Present »</a>
             {{-- <a class="btn btn-secondary btn-lg" href="{{ route("changelog") }}" role="button">changelog »</a> --}}
-            <a href="https://r567tw.cc/blog/架站日記" class="position-fixed end-0 top-0 m-4 btn btn-secondary" style="z-index: 1050;">架站筆記</a>
+            <a href="https://r567tw.cc/docs/site_notes" class="position-fixed end-0 top-0 m-4 btn btn-secondary" style="z-index: 1050;">架站筆記</a>
           </div>
             <div class="mt-5">
                     <h3>Change Log</h3>
