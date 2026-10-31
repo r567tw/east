@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
+use App\Clients\AstroClient;
 
 class FetchAstro extends Command
 {
@@ -26,7 +27,7 @@ class FetchAstro extends Command
      */
     public function handle()
     {
-        $helper = new \App\Helpers\AstroHelper;
+        $helper = new AstroClient();
 
         // $progressBar = $this->output->createProgressBar(12);
         $progressBar = $this->output->createProgressBar(1);

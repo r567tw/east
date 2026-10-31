@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Helpers\AstroHelper;
+use App\Clients\AstroClient;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 
@@ -22,7 +22,7 @@ class AstroController extends Controller
         $data = Cache::get("astro_{$astroIndex}");
 
         if (! $data) {
-            $helper = new AstroHelper;
+            $helper = new AstroClient();
             $data = $helper->get($astroIndex);
             Cache::put("astro_{$astroIndex}", $data, now()->addHours(24));
         }

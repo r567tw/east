@@ -39,7 +39,7 @@ class LineWebhookService
         }
 
         if ($user !== null) {
-            return (new \App\Helpers\AiHelper)->ask($message);
+            return (new \App\Clients\GeminiAiClient)->prompt($message);
         }
 
         return "你說的是：「{$message}」";
@@ -56,7 +56,7 @@ class LineWebhookService
                 return '請先設定你的位置。';
             }
 
-            return (new \App\Helpers\WeatherHelper)->getWeather($user->location);
+            return (new \App\Clients\WeatherClient)->getWeather($user->location);
         }
 
         if ($command === '空氣' || $command === '空汙' || $command === '空氣品質' || $command === 'air') {
@@ -68,7 +68,7 @@ class LineWebhookService
                 return '請先設定你的位置。';
             }
 
-            return (new \App\Helpers\AirQualityHelper)->getAirQuality($user->lat, $user->lng);
+            return (new \App\Clients\AirQualityClient)->getAirQuality($user->lat, $user->lng);
         }
 
         if ($command === '位置') {
@@ -83,25 +83,6 @@ class LineWebhookService
             return "你的經緯度: {$user->lat},{$user->lng}\n城市：{$user->location}";
         }
 
-        if ($command === 'cpbl') {
-            $games = (new \App\Helpers\CPBLHelper)->fetchGames();
-            $result = '';
-            foreach ($games as $game) {
-                $result .= "{$game['homeTeam']} {$game['homeScore']} vs {$game['awayScore']} {$game['awayTeam']} - {$game['status']}\n";
-            }
-
-            return rtrim($result, "\n");
-        }
-
-        if ($command === 'mlb') {
-            $games = (new \App\Helpers\MLBHelper)->fetchGames(date('Y-m-d', strtotime('-1 day')));
-            $result = '';
-            foreach ($games as $game) {
-                $result .= "{$game['homeTeam']} {$game['homeScore']} vs {$game['awayScore']} {$game['awayTeam']} - {$game['status']}\n";
-            }
-
-            return rtrim($result, "\n");
-        }
 
         if (strpos($command, '運勢') === 0) {
             // 例如 '運勢,射手座' 表示查詢射手座
@@ -123,7 +104,7 @@ class LineWebhookService
             if (Cache::has("astro_{$astroIndex}")) {
                 return Cache::get("astro_{$astroIndex}");
             } else {
-                $astroHelper = new \App\Helpers\AstroHelper;
+                $astroHelper = new \App\Clients\AstroClient;
                 $result = $astroHelper->get($astroIndex);
 
                 return $result;
@@ -132,7 +113,7 @@ class LineWebhookService
 
         if (strpos($command, '精簡') === 0) {
             $text = str_replace('精簡', '', $command);
-            $helper = new \App\Helpers\AiHelper;
+            $helper = new \App\Clients\GeminiAiClient;
             $result = $helper->summarizeText($text);
             if ($result == '') {
                 return '無法精簡該段文字。';
@@ -143,7 +124,7 @@ class LineWebhookService
 
         if (strpos($command, '翻譯') === 0) {
             $text = str_replace('翻譯', '', $command);
-            $helper = new \App\Helpers\AiHelper;
+            $helper = new \App\Clients\GeminiAiClient;
             $result = $helper->translate($text);
             if ($result == '') {
                 return '無法翻譯該段文字。';

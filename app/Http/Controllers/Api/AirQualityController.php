@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Clients\AirQualityClient;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class AirQualityController extends Controller
             return response()->json(['error' => '請提供 lat 和 lng 參數'], 400);
         }
 
-        $airQuality = \App\Helpers\AirQualityHelper::getAirQuality((float) $lat, (float) $lng);
+        $airQuality = AirQualityClient::getAirQuality((float) $lat, (float) $lng);
 
         return response()->json(['air_quality' => $airQuality]);
     }
