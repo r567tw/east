@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Helpers;
 
-use App\Helpers\AiHelper;
+use App\Clients\GeminiAiClient;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
-class AiHelperTest extends TestCase
+class GeminiAiClientTest extends TestCase
 {
     public function test_summarize_text_success()
     {
@@ -21,16 +21,16 @@ class AiHelperTest extends TestCase
                 ]],
             ], 200),
         ]);
-        $result = AiHelper::summarizeText('這是一段很長的文字');
+        $result = GeminiAiClient::summarizeText('這是一段很長的文字');
         $this->assertEquals('精簡後內容', $result);
     }
 
-    public function test_ask_failed()
+    public function test_prompt_failed()
     {
         Http::fake([
             '*' => Http::response([], 500),
         ]);
-        $result = AiHelper::ask('問題');
+        $result = GeminiAiClient::prompt('問題');
         $this->assertEquals('', $result);
     }
 
@@ -47,7 +47,7 @@ class AiHelperTest extends TestCase
                 ]],
             ], 200),
         ]);
-        $result = AiHelper::translate('hello');
+        $result = GeminiAiClient::translate('hello');
         $this->assertEquals('翻譯後內容', $result);
     }
 }

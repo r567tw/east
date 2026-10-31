@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Helpers;
 
-use App\Helpers\AirQualityHelper;
+use App\Clients\AirQualityClient;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
-class AirQualityHelperTest extends TestCase
+class AirQualityClientTest extends TestCase
 {
     public function test_get_air_quality_success()
     {
@@ -15,7 +15,7 @@ class AirQualityHelperTest extends TestCase
                 'air' => '良好',
             ], 200),
         ]);
-        $result = AirQualityHelper::getAirQuality(22.6, 120.3);
+        $result = AirQualityClient::getAirQuality(22.6, 120.3);
         $this->assertStringContainsString('空氣品質：良好', $result);
     }
 
@@ -24,7 +24,7 @@ class AirQualityHelperTest extends TestCase
         Http::fake([
             '*' => Http::response([], 500),
         ]);
-        $result = AirQualityHelper::getAirQuality(22.6, 120.3);
+        $result = AirQualityClient::getAirQuality(22.6, 120.3);
         $this->assertStringContainsString('空氣品質Api回傳出現問題', $result);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Tests\Unit\Helpers;
 
-use App\Helpers\WeatherHelper;
+use App\Clients\WeatherClient;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
-class WeatherHelperTest extends TestCase
+class WeatherClientTest extends TestCase
 {
     public function test_get_weather_successful_response()
     {
@@ -38,7 +38,7 @@ class WeatherHelperTest extends TestCase
                 ],
             ], 200),
         ]);
-        $helper = new WeatherHelper;
+        $helper = new WeatherClient;
         $result = $helper->getWeather('高雄市');
         $this->assertStringContainsString('天氣查詢結果', $result);
         $this->assertStringContainsString('晴', $result);
@@ -51,7 +51,7 @@ class WeatherHelperTest extends TestCase
         Http::fake([
             '*' => Http::response([], 500),
         ]);
-        $helper = new WeatherHelper;
+        $helper = new WeatherClient;
         $result = $helper->getWeather('高雄市');
         $this->assertStringContainsString('天氣查詢失敗', $result);
     }
