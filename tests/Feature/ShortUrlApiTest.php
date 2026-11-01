@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\ShortUrl;
 use App\Models\User;
+use App\Services\ShortUrlService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -80,15 +82,15 @@ class ShortUrlApiTest extends TestCase
     public function test_short_url_store_code_regenerate_authorized()
     {
         // 1. 先建立一筆已存在的 short code
-        \App\Models\ShortUrl::factory()->create([
+        ShortUrl::factory()->create([
             'short' => 'ABC123',
             'expires_at' => now()->addDay(),
         ]);
 
         // 2. Mock Str::random 讓第一次回傳已存在的 code，第二次回傳新 code
-        $serviceMock = \Mockery::mock(\App\Services\ShortUrlService::class);
+        $serviceMock = \Mockery::mock(ShortUrlService::class);
         $serviceMock->shouldReceive('generateCode')->andReturn('ABC123', 'ZZZZZZ');
-        $this->app->instance(\App\Services\ShortUrlService::class, $serviceMock);
+        $this->app->instance(ShortUrlService::class, $serviceMock);
 
         $user = User::factory()->create();
         $token = JWTAuth::fromUser($user);

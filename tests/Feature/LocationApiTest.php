@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LocationApiTest extends TestCase
 {
@@ -72,8 +74,8 @@ class LocationApiTest extends TestCase
 
     public function test_set_our_location_fail_validation()
     {
-        $user = \App\Models\User::factory()->create();
-        $token = \Tymon\JWTAuth\Facades\JWTAuth::fromUser($user);
+        $user = User::factory()->create();
+        $token = JWTAuth::fromUser($user);
         $response = $this->withHeader('Authorization', 'Bearer '.$token)->postJson('/api/get-our-location', [
             'lat' => 'abc',
             'lng' => 'xyz',
@@ -90,8 +92,8 @@ class LocationApiTest extends TestCase
             ], 500),
         ]);
 
-        $user = \App\Models\User::factory()->create();
-        $token = \Tymon\JWTAuth\Facades\JWTAuth::fromUser($user);
+        $user = User::factory()->create();
+        $token = JWTAuth::fromUser($user);
         $response = $this->withHeader('Authorization', 'Bearer '.$token)->postJson('/api/set-our-location', [
             'lat' => 25.033,
             'lng' => 121.5654,
@@ -113,8 +115,8 @@ class LocationApiTest extends TestCase
             ], 200),
         ]);
 
-        $user = \App\Models\User::factory()->create();
-        $token = \Tymon\JWTAuth\Facades\JWTAuth::fromUser($user);
+        $user = User::factory()->create();
+        $token = JWTAuth::fromUser($user);
         $response = $this->withHeader('Authorization', 'Bearer '.$token)->postJson('/api/set-our-location', [
             'lat' => 25.033,
             'lng' => 121.5654,

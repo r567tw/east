@@ -3,6 +3,7 @@
 namespace Tests\Unit\Services;
 
 use App\Events\Line\CommandEvent;
+use App\Events\Line\InValidEvent;
 use App\Events\Line\MessageEvent;
 use App\Listeners\Line\ReplyToLineCommand;
 use App\Models\User;
@@ -10,7 +11,6 @@ use App\Services\LineWebhookService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Http;
-use InvalidArgumentException;
 use Tests\TestCase;
 
 class LineWebhookServiceTest extends TestCase
@@ -21,6 +21,7 @@ class LineWebhookServiceTest extends TestCase
     {
         Event::fake([
             CommandEvent::class,
+            InValidEvent::class,
             MessageEvent::class,
         ]);
 
@@ -44,6 +45,22 @@ class LineWebhookServiceTest extends TestCase
                 'source' => ['userId' => 'U123'],
                 'message' => ['type' => 'image'],
             ],
+            [
+                'type' => 'message',
+                'replyToken' => 'missing-text-reply-token',
+                'source' => ['userId' => 'U123'],
+                'message' => ['type' => 'text'],
+            ],
+            [
+                'type' => 'message',
+                'replyToken' => 'missing-user-reply-token',
+                'source' => [],
+                'message' => ['type' => 'text', 'text' => 'hello'],
+            ],
+            [
+                'type' => 'follow',
+                'replyToken' => 'unsupported-event-reply-token',
+            ],
         ]);
 
         Event::assertDispatched(MessageEvent::class, fn (MessageEvent $event) => $event->message === 'hello'
@@ -53,16 +70,11 @@ class LineWebhookServiceTest extends TestCase
             && $event->replyToken === 'command-reply-token');
         Event::assertDispatchedTimes(MessageEvent::class, 1);
         Event::assertDispatchedTimes(CommandEvent::class, 1);
-    }
-
-    public function test_handle_rejects_text_events_without_a_reply_token(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        app(LineWebhookService::class)->handle([[
-            'type' => 'message',
-            'message' => ['type' => 'text', 'text' => 'hello'],
-        ]]);
+        Event::assertDispatchedTimes(InValidEvent::class, 4);
+        Event::assertDispatched(InValidEvent::class, fn (InValidEvent $event) => $event->replyToken === 'ignored-reply-token');
+        Event::assertDispatched(InValidEvent::class, fn (InValidEvent $event) => $event->replyToken === 'missing-text-reply-token');
+        Event::assertDispatched(InValidEvent::class, fn (InValidEvent $event) => $event->replyToken === 'missing-user-reply-token');
+        Event::assertDispatched(InValidEvent::class, fn (InValidEvent $event) => $event->replyToken === 'unsupported-event-reply-token');
     }
 
     public function test_process_returns_expected_string()

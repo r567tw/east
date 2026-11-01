@@ -6,7 +6,6 @@ use App\Http\Controllers\Api\BibleDailyVerseController;
 use App\Http\Controllers\Api\JWTAuthController;
 use App\Http\Controllers\Api\LineWebhookController;
 use App\Http\Controllers\Api\LocationController;
-use App\Http\Controllers\Api\MLBController;
 use App\Http\Controllers\Api\ShortUrlController;
 use Illuminate\Support\Facades\Route;
 

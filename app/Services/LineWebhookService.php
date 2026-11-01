@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Events\Line\CommandEvent;
+use App\Events\Line\InValidEvent;
 use App\Events\Line\MessageEvent;
-use InvalidArgumentException;
 
 class LineWebhookService
 {
@@ -16,28 +16,27 @@ class LineWebhookService
         foreach ($events as $event) {
             $lineEvent = match ($event['type'] ?? null) {
                 'message' => $this->processMessage($event),
-                default => null,
+                default => new InValidEvent($event['replyToken']),
             };
 
-            if ($lineEvent !== null) {
-                event($lineEvent);
-            }
+            event($lineEvent);
         }
     }
 
     /**
      * @param  array<string, mixed>  $event
      */
-    private function processMessage(array $event): CommandEvent|MessageEvent|null
+    private function processMessage(array $event): CommandEvent|MessageEvent|InValidEvent
     {
+        $replyToken = $event['replyToken'];
         $message = $event['message'] ?? [];
         if (! is_array($message) || ($message['type'] ?? null) !== 'text' || ! is_string($message['text'] ?? null)) {
-            return null;
+            return new InValidEvent($replyToken);
         }
 
         $replyToken = $event['replyToken'] ?? null;
         if (! is_string($replyToken) || $replyToken === '') {
-            throw new InvalidArgumentException('A reply token is required for LINE text messages.');
+            return new InValidEvent($replyToken);
         }
 
         $text = $message['text'];
@@ -45,7 +44,7 @@ class LineWebhookService
         $normalizedText = trim(str_replace('／', '/', $text));
 
         if (! is_string($userId) || $userId === '') {
-            throw new InvalidArgumentException('A user ID is required for LINE text messages.');
+            return new InValidEvent($replyToken);
         }
 
         if (mb_substr($normalizedText, 0, 1) === '/') {

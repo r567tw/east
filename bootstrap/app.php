@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\CompressResponse;
+use App\Http\Middleware\LineWebhookMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -14,11 +16,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
 
         $middleware->append([
-            \App\Http\Middleware\CompressResponse::class,
+            CompressResponse::class,
         ]);
 
         $middleware->alias([
-            'line.webhook' => \App\Http\Middleware\LineWebhookMiddleware::class,
+            'line.webhook' => LineWebhookMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -15,9 +15,9 @@ class TaskTest extends TestCase
 
     public function test_completed_cast_to_boolean()
     {
-        $model = \App\Models\Task::factory()->make(['completed' => 1]);
+        $model = Task::factory()->make(['completed' => 1]);
         $this->assertTrue($model->completed);
-        $model = \App\Models\Task::factory()->make(['completed' => 0]);
+        $model = Task::factory()->make(['completed' => 0]);
         $this->assertFalse($model->completed);
     }
 }

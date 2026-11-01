@@ -15,7 +15,7 @@ class CustomerTest extends TestCase
 
     public function test_fillable()
     {
-        $model = new \App\Models\Customer([
+        $model = new Customer([
             'name' => 'test',
             'email' => 'test@example.com',
             'password' => 'secret',
@@ -30,13 +30,13 @@ class CustomerTest extends TestCase
 
     public function test_jwt_identifier()
     {
-        $model = new \App\Models\Customer;
+        $model = new Customer;
         $this->assertNull($model->getJWTIdentifier());
     }
 
     public function test_jwt_custom_claims()
     {
-        $model = new \App\Models\Customer([
+        $model = new Customer([
             'name' => 'test',
             'email' => 'test@example.com',
         ]);

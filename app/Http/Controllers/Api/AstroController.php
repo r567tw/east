@@ -22,7 +22,7 @@ class AstroController extends Controller
         $data = Cache::get("astro_{$astroIndex}");
 
         if (! $data) {
-            $helper = new AstroClient();
+            $helper = new AstroClient;
             $data = $helper->get($astroIndex);
             Cache::put("astro_{$astroIndex}", $data, now()->addHours(24));
         }

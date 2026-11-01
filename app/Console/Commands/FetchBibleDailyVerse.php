@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
@@ -27,7 +28,7 @@ class FetchBibleDailyVerse extends Command
      */
     public function handle()
     {
-        /** @var \Illuminate\Http\Client\Response $response */
+        /** @var Response $response */
         $response = Http::retry(3, 5000)->get('https://taiwanbible.com/blog/dailyverse.jsp');
         if ($response->successful()) {
             $result = trim(str_replace(["\r", "\n", "\t"], '', $response->body()));
