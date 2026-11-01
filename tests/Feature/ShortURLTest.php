@@ -3,10 +3,13 @@
 namespace Tests\Feature;
 
 use App\Models\ShortUrl;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ShortURLTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_shorturl_index_returns_a_successful_response(): void
     {
         $this->withoutMiddleware();

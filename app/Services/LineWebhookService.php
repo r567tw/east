@@ -2,145 +2,56 @@
 
 namespace App\Services;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
+use App\Events\Line\CommandEvent;
+use App\Events\Line\MessageEvent;
+use InvalidArgumentException;
 
 class LineWebhookService
 {
-    public function bind($inviteCode, $lineUserId)
+    /**
+     * @param  array<int, array<string, mixed>>  $events
+     */
+    public function handle(array $events): void
     {
-        $inviteCode = DB::table('invite_codes')
-            ->where('code', $inviteCode)
-            ->where('expires_at', '>', now())
-            ->first();
+        foreach ($events as $event) {
+            $lineEvent = match ($event['type'] ?? null) {
+                'message' => $this->processMessage($event),
+                default => null,
+            };
 
-        if (! $inviteCode) {
-            return '無效的邀請碼。';
+            if ($lineEvent !== null) {
+                event($lineEvent);
+            }
         }
-        $userId = $inviteCode->user_id;
-        User::where('id', $userId)->update(['line_user_id' => $lineUserId]);
-
-        return '成功綁定 LINE 帳號！';
     }
 
-    public function process($message, $user = null)
+    /**
+     * @param  array<string, mixed>  $event
+     */
+    private function processMessage(array $event): CommandEvent|MessageEvent|null
     {
-        $message = trim($message); // 去除前後空白
-        $message = mb_strtolower($message);
-        $message = str_replace('／', '/', $message); // 將全形斜線轉為半形斜線
-
-        // 第一個字元是 '/'，表示這是一個指令 例如 '/黃金' 或 '/天氣'
-        if (mb_substr($message, 0, 1) === '/') {
-            $message = mb_substr($message, 1); // 去除 '/' 符號
-            $message = trim($message); // 去除前後空白
-
-            return $this->processCommand($message, $user);
+        $message = $event['message'] ?? [];
+        if (! is_array($message) || ($message['type'] ?? null) !== 'text' || ! is_string($message['text'] ?? null)) {
+            return null;
         }
 
-        if ($user !== null) {
-            return (new \App\Clients\GeminiAiClient)->prompt($message);
+        $replyToken = $event['replyToken'] ?? null;
+        if (! is_string($replyToken) || $replyToken === '') {
+            throw new InvalidArgumentException('A reply token is required for LINE text messages.');
         }
 
-        return "你說的是：「{$message}」";
-    }
+        $text = $message['text'];
+        $userId = $event['source']['userId'] ?? null;
+        $normalizedText = trim(str_replace('／', '/', $text));
 
-    public function processCommand($command, $user = null)
-    {
-        if ($command === '天氣') {
-            if ($user == null) {
-                return '請先綁定 LINE 帳號。';
-            }
-
-            if (empty($user->location)) {
-                return '請先設定你的位置。';
-            }
-
-            return (new \App\Clients\WeatherClient)->getWeather($user->location);
+        if (! is_string($userId) || $userId === '') {
+            throw new InvalidArgumentException('A user ID is required for LINE text messages.');
         }
 
-        if ($command === '空氣' || $command === '空汙' || $command === '空氣品質' || $command === 'air') {
-            if ($user == null) {
-                return '請先綁定 LINE 帳號。';
-            }
-
-            if (empty($user->location)) {
-                return '請先設定你的位置。';
-            }
-
-            return (new \App\Clients\AirQualityClient)->getAirQuality($user->lat, $user->lng);
+        if (mb_substr($normalizedText, 0, 1) === '/') {
+            return new CommandEvent($replyToken, $userId, $text);
         }
 
-        if ($command === '位置') {
-            if ($user == null) {
-                return '請先綁定 LINE 帳號。';
-            }
-
-            if (empty($user->location)) {
-                return '請先設定你的位置。';
-            }
-
-            return "你的經緯度: {$user->lat},{$user->lng}\n城市：{$user->location}";
-        }
-
-
-        if (strpos($command, '運勢') === 0) {
-            // 例如 '運勢,射手座' 表示查詢射手座
-            $astroName = str_replace('運勢:', '', $command);
-            $astroName = str_replace('運勢', '', $astroName);
-            $astroName = trim($astroName);
-
-            if (empty($astroName)) {
-                $astroName = '射手座'; // 預設為射手座
-            }
-
-            $astroMap = config('astro.chinese');
-            $astroIndex = $astroMap[$astroName] ?? null;
-
-            if ($astroIndex === null) {
-                return "未知的星座名稱：{$astroName}。目前尚未支援";
-            }
-
-            if (Cache::has("astro_{$astroIndex}")) {
-                return Cache::get("astro_{$astroIndex}");
-            } else {
-                $astroHelper = new \App\Clients\AstroClient;
-                $result = $astroHelper->get($astroIndex);
-
-                return $result;
-            }
-        }
-
-        if (strpos($command, '精簡') === 0) {
-            $text = str_replace('精簡', '', $command);
-            $helper = new \App\Clients\GeminiAiClient;
-            $result = $helper->summarizeText($text);
-            if ($result == '') {
-                return '無法精簡該段文字。';
-            }
-
-            return $result;
-        }
-
-        if (strpos($command, '翻譯') === 0) {
-            $text = str_replace('翻譯', '', $command);
-            $helper = new \App\Clients\GeminiAiClient;
-            $result = $helper->translate($text);
-            if ($result == '') {
-                return '無法翻譯該段文字。';
-            }
-
-            return $result;
-        }
-
-        if ($command === 'version') {
-            return 'Laravel Version: '.app()->version()."\nPHP Version: ".PHP_VERSION."\nReference: https://php.watch/versions";
-        }
-
-        if ($command === 'help') {
-            return "可用指令：\n/天氣 - 查詢天氣\n/空氣 - 查詢空汙\n/位置 - 查詢你綁定帳號後的經緯度和城市\n綁定 LINE 帳號請使用 /綁定:<邀請碼>\n例如：/綁定:123456";
-        }
-
-        return "未知指令：{$command}，請使用 /help 查看可用指令。";
+        return new MessageEvent($replyToken, $userId, $text);
     }
 }

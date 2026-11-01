@@ -2,27 +2,77 @@
 
 namespace Tests\Unit\Services;
 
+use App\Events\Line\CommandEvent;
+use App\Events\Line\MessageEvent;
+use App\Listeners\Line\ReplyToLineCommand;
+use App\Models\User;
 use App\Services\LineWebhookService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Http;
+use InvalidArgumentException;
 use Tests\TestCase;
 
 class LineWebhookServiceTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_handle_dispatches_text_messages_and_commands(): void
+    {
+        Event::fake([
+            CommandEvent::class,
+            MessageEvent::class,
+        ]);
+
+        $service = app(LineWebhookService::class);
+        $service->handle([
+            [
+                'type' => 'message',
+                'replyToken' => 'message-reply-token',
+                'source' => ['userId' => 'U123'],
+                'message' => ['type' => 'text', 'text' => 'hello'],
+            ],
+            [
+                'type' => 'message',
+                'replyToken' => 'command-reply-token',
+                'source' => ['userId' => 'U123'],
+                'message' => ['type' => 'text', 'text' => '/help'],
+            ],
+            [
+                'type' => 'message',
+                'replyToken' => 'ignored-reply-token',
+                'source' => ['userId' => 'U123'],
+                'message' => ['type' => 'image'],
+            ],
+        ]);
+
+        Event::assertDispatched(MessageEvent::class, fn (MessageEvent $event) => $event->message === 'hello'
+            && $event->replyToken === 'message-reply-token'
+            && $event->userId === 'U123');
+        Event::assertDispatched(CommandEvent::class, fn (CommandEvent $event) => $event->command === '/help'
+            && $event->replyToken === 'command-reply-token');
+        Event::assertDispatchedTimes(MessageEvent::class, 1);
+        Event::assertDispatchedTimes(CommandEvent::class, 1);
+    }
+
+    public function test_handle_rejects_text_events_without_a_reply_token(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        app(LineWebhookService::class)->handle([[
+            'type' => 'message',
+            'message' => ['type' => 'text', 'text' => 'hello'],
+        ]]);
+    }
+
     public function test_process_returns_expected_string()
     {
-        $service = new LineWebhookService;
-        $result = $service->process('hello');
-        $this->assertStringContainsString('你說的是', $result);
+        $this->assertStringContainsString('請先綁定 LINE 帳號', $this->commandReply('天氣'));
     }
 
     public function test_process_returns_command_string()
     {
-        $service = new LineWebhookService;
-        $result = $service->process('/hello');
-        $this->assertStringNotContainsString('你說的是', $result);
+        $this->assertStringContainsString('未知指令', $this->commandReply('hello'));
     }
 
     public function test_process_command_astro()
@@ -30,96 +80,79 @@ class LineWebhookServiceTest extends TestCase
         Http::fake([
             '*' => Http::response(file_get_contents(__DIR__.'/../../Stubs/astro_response.html'), 200),
         ]);
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('運勢');
+        $result = $this->commandReply('運勢');
         $this->assertStringContainsString('射手座', $result);
     }
 
     public function test_process_command_weather_no_user()
     {
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('天氣');
+        $result = $this->commandReply('天氣');
         $this->assertStringContainsString('請先綁定 LINE 帳號', $result);
     }
 
     public function test_process_command_weather_no_location()
     {
-        $user = (object) ['location' => null];
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('天氣', $user);
+        $result = $this->commandReply('天氣', ['location' => null]);
         $this->assertStringContainsString('請先設定你的位置', $result);
     }
 
     public function test_process_command_air_no_user()
     {
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('空氣');
+        $result = $this->commandReply('空氣');
         $this->assertStringContainsString('請先綁定 LINE 帳號', $result);
     }
 
     public function test_process_command_air_no_location()
     {
-        $user = (object) ['location' => null];
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('空氣', $user);
+        $result = $this->commandReply('空氣', ['location' => null]);
         $this->assertStringContainsString('請先設定你的位置', $result);
     }
 
     public function test_process_command_unknown()
     {
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('not-a-command');
+        $result = $this->commandReply('not-a-command');
         $this->assertStringContainsString('未知指令', $result);
     }
 
     public function test_process_command_help()
     {
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('help');
+        $result = $this->commandReply('help');
         $this->assertStringContainsString('可用指令', $result);
     }
 
     public function test_process_command_version()
     {
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('version');
+        $result = $this->commandReply('version');
         $this->assertStringContainsString('Laravel Version', $result);
     }
 
     public function test_process_command_location_no_user()
     {
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('位置');
+        $result = $this->commandReply('位置');
         $this->assertStringContainsString('請先綁定 LINE 帳號', $result);
     }
 
     public function test_process_command_location_no_location()
     {
-        $user = (object) ['location' => null];
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('位置', $user);
+        $result = $this->commandReply('位置', ['location' => null]);
         $this->assertStringContainsString('請先設定你的位置', $result);
     }
 
     public function test_process_command_location_with_location()
     {
-        $user = (object) ['lat' => 123, 'lng' => 456, 'location' => '台北市'];
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('位置', $user);
+        $result = $this->commandReply('位置', ['lat' => 123, 'lng' => 456, 'location' => '台北市']);
         $this->assertStringContainsString('城市：台北市', $result);
     }
 
     public function test_process_command_simple()
     {
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('精簡');
+        $result = $this->commandReply('精簡');
         $this->assertIsString($result);
     }
 
     public function test_process_command_translate()
     {
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('翻譯');
+        $result = $this->commandReply('翻譯');
         $this->assertIsString($result);
     }
 
@@ -153,10 +186,57 @@ class LineWebhookServiceTest extends TestCase
                 ],
             ], 200),
         ]);
-        $user = (object) ['location' => '高雄市'];
-
-        $service = new \App\Services\LineWebhookService;
-        $result = $service->processCommand('天氣', $user);
+        $result = $this->commandReply('天氣', ['location' => '高雄市']);
         $this->assertStringContainsString('天氣查詢結果', $result);
+    }
+
+    /**
+     * @param  array<string, mixed>|null  $userAttributes
+     */
+    private function commandReply(string $command, ?array $userAttributes = null): string
+    {
+        Http::fake(function ($request) {
+            if ($request->url() === 'https://api.line.me/v2/bot/message/reply') {
+                return Http::response([], 200);
+            }
+
+            if (str_contains($request->url(), 'astro.click108.com.tw')) {
+                return Http::response(file_get_contents(__DIR__.'/../../Stubs/astro_response.html'), 200);
+            }
+
+            if (str_contains($request->url(), 'opendata.cwa.gov.tw')) {
+                return Http::response([
+                    'records' => [
+                        'location' => [[
+                            'weatherElement' => [
+                                ['elementName' => 'Wx', 'time' => [['parameter' => ['parameterName' => '晴']]]],
+                                ['elementName' => 'PoP', 'time' => [['parameter' => ['parameterName' => '10']]]],
+                                ['elementName' => 'CI', 'time' => [['parameter' => ['parameterName' => '舒適']]]],
+                            ],
+                        ]],
+                    ],
+                ], 200);
+            }
+
+            return Http::response([
+                'candidates' => [['content' => ['parts' => [['text' => 'processed']]]]],
+            ], 200);
+        });
+        config(['line.line_access_token' => 'test-access-token']);
+
+        $userId = null;
+        if ($userAttributes !== null) {
+            $user = User::factory()->make();
+            $user->forceFill($userAttributes + ['line_user_id' => 'U_COMMAND_TEST'])->save();
+            $userId = $user->line_user_id;
+        }
+
+        app(ReplyToLineCommand::class)->handle(new CommandEvent('test-reply-token', $userId, '/'.$command));
+
+        $request = Http::recorded(
+            fn ($request) => $request->url() === 'https://api.line.me/v2/bot/message/reply'
+        )->last()[0];
+
+        return $request->data()['messages'][0]['text'];
     }
 }
