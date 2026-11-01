@@ -3,7 +3,7 @@
 namespace Tests\Unit\Services;
 
 use App\Events\Line\CommandEvent;
-use App\Events\Line\InValidEvent;
+use App\Events\Line\InvalidEvent;
 use App\Events\Line\MessageEvent;
 use App\Listeners\Line\ReplyToLineCommand;
 use App\Models\User;
@@ -21,7 +21,7 @@ class LineWebhookServiceTest extends TestCase
     {
         Event::fake([
             CommandEvent::class,
-            InValidEvent::class,
+            InvalidEvent::class,
             MessageEvent::class,
         ]);
 
@@ -70,11 +70,11 @@ class LineWebhookServiceTest extends TestCase
             && $event->replyToken === 'command-reply-token');
         Event::assertDispatchedTimes(MessageEvent::class, 1);
         Event::assertDispatchedTimes(CommandEvent::class, 1);
-        Event::assertDispatchedTimes(InValidEvent::class, 4);
-        Event::assertDispatched(InValidEvent::class, fn (InValidEvent $event) => $event->replyToken === 'ignored-reply-token');
-        Event::assertDispatched(InValidEvent::class, fn (InValidEvent $event) => $event->replyToken === 'missing-text-reply-token');
-        Event::assertDispatched(InValidEvent::class, fn (InValidEvent $event) => $event->replyToken === 'missing-user-reply-token');
-        Event::assertDispatched(InValidEvent::class, fn (InValidEvent $event) => $event->replyToken === 'unsupported-event-reply-token');
+        Event::assertDispatchedTimes(InvalidEvent::class, 4);
+        Event::assertDispatched(InvalidEvent::class, fn (InvalidEvent $event) => $event->replyToken === 'ignored-reply-token');
+        Event::assertDispatched(InvalidEvent::class, fn (InvalidEvent $event) => $event->replyToken === 'missing-text-reply-token');
+        Event::assertDispatched(InvalidEvent::class, fn (InvalidEvent $event) => $event->replyToken === 'missing-user-reply-token');
+        Event::assertDispatched(InvalidEvent::class, fn (InvalidEvent $event) => $event->replyToken === 'unsupported-event-reply-token');
     }
 
     public function test_process_returns_expected_string()

@@ -2,9 +2,9 @@
 
 namespace App\Events\Line;
 
-class InValidEvent
+class InvalidEvent
 {
     public function __construct(
-        public readonly string $replyToken
+        public readonly string $replyToken,
     ) {}
 }
